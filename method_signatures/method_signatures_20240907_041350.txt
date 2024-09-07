@@ -1,4 +1,4 @@
-Processing file: ../kafka/clients/src/main/java/org/apache/kafka/server/policy/AlterConfigPolicy.java
+`Processing file: ../kafka/clients/src/main/java/org/apache/kafka/server/policy/AlterConfigPolicy.java
 Methods in AlterConfigPolicy.java:
   public RequestMetadata(ConfigResource resource, Map<String, String> configs) {
   public Map<String, String> configs() {
@@ -12,8 +12,8 @@ Constructors in AlterConfigPolicy.java:
 Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/GroupRebalanceConfig.java
 Methods in GroupRebalanceConfig.java:
   public String toString() {
-  public GroupRebalanceConfig(AbstractConfig config, ProtocolType protocolType) {
-  public GroupRebalanceConfig(final int sessionTimeoutMs,
+1  public GroupRebalanceConfig(AbstractConfig config, ProtocolType protocolType) {
+1  public GroupRebalanceConfig(final int sessionTimeoutMs,
                                 final int rebalanceTimeoutMs,
                                 final int heartbeatIntervalMs,
                                 String groupId,
@@ -30,7 +30,7 @@ Constructors in GroupRebalanceConfig.java:
                                 long retryBackoffMs,
                                 boolean leaveGroupOnClose) {
 
-Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/CommonClientConfigs.java
+`Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/CommonClientConfigs.java
 Methods in CommonClientConfigs.java:
   public static Map<String, Object> postProcessReconnectBackoffConfigs(AbstractConfig config,
                                                     Map<String, Object> parsedValues) {
@@ -66,8 +66,8 @@ Constructors in DescribeConfigsResult.java:
 
 Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/ConfigEntry.java
 Methods in ConfigEntry.java:
-  public ConfigEntry(String name, String value) {
-  public ConfigEntry(String name,
+1  public ConfigEntry(String name, String value) {
+1  public ConfigEntry(String name,
             String value,
             ConfigSource source,
             boolean isSensitive,
@@ -75,21 +75,21 @@ Methods in ConfigEntry.java:
             List<ConfigSynonym> synonyms,
             ConfigType type,
             String documentation) {
-  public String name() {
-  public String value() {
-  public ConfigSource source() {
-  public boolean isDefault() {
-  public boolean isSensitive() {
-  public boolean isReadOnly() {
-  public List<ConfigSynonym> synonyms() {
-  public ConfigType type() {
-  public String documentation() {
+2  public String name() {
+2  public String value() {
+2  public ConfigSource source() {
+2  public boolean isDefault() {
+2  public boolean isSensitive() {
+2  public boolean isReadOnly() {
+2  public List<ConfigSynonym> synonyms() {
+2  public ConfigType type() {
+2  public String documentation() {
   public boolean equals(Object o) {
   public int hashCode() {
   public String toString() {
-  public String name() {
-  public String value() {
-  public ConfigSource source() {
+`  public String name() {
+`  public String value() {
+`  public ConfigSource source() {
   public boolean equals(Object o) {
   public int hashCode() {
   public String toString() {
@@ -107,9 +107,9 @@ Constructors in ConfigEntry.java:
 
 Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/Config.java
 Methods in Config.java:
-  public Config(Collection<ConfigEntry> entries) {
-  public Collection<ConfigEntry> entries() {
-  public ConfigEntry get(String name) {
+1  public Config(Collection<ConfigEntry> entries) {
+`  public Collection<ConfigEntry> entries() {
+2  public ConfigEntry get(String name) {
   public boolean equals(Object o) {
   public int hashCode() {
   public String toString() {
