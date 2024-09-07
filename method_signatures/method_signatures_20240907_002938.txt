@@ -1,0 +1,286 @@
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/master/RegionsRecoveryConfigManager.java
+Methods in RegionsRecoveryConfigManager.java:
+3  public void onConfigurationChange(Configuration conf) {
+2  private int getMaxStoreFileRefCount(Configuration configuration) {
+2  private int getRegionsRecoveryChoreInterval(Configuration configuration) {
+2  RegionsRecoveryChore getChore() {
+Constructors in RegionsRecoveryConfigManager.java:
+1  RegionsRecoveryConfigManager(final HMaster hMaster) {
+  synchronized (this) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/master/http/api_v1/ResourceConfigFactory.java
+Methods in ResourceConfigFactory.java:
+1  private ResourceConfigFactory() {
+1  public static ResourceConfig createResourceConfig(Configuration conf, HMaster master) {
+Constructors in ResourceConfigFactory.java:
+  private ResourceConfigFactory() {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/master/replication/UpdatePeerConfigProcedure.java
+Methods in UpdatePeerConfigProcedure.java:
+1  public UpdatePeerConfigProcedure() {
+1  public UpdatePeerConfigProcedure(String peerId, ReplicationPeerConfig peerConfig) {
+2  public PeerOperationType getPeerOperationType() {
+  private void addToList(List<String> encodedRegionNames, String encodedRegionName,
+    ReplicationQueueStorage queueStorage) throws ReplicationException {
+  protected PeerModificationState nextStateAfterRefresh() {
+  protected void updateLastPushedSequenceIdForSerialPeer(MasterProcedureEnv env)
+    throws IOException, ReplicationException {
+2  protected boolean enablePeerBeforeFinish() {
+2  protected ReplicationPeerConfig getOldPeerConfig() {
+2  protected ReplicationPeerConfig getNewPeerConfig() {
+3  protected void prePeerModification(MasterProcedureEnv env) throws IOException {
+3  protected void updatePeerStorage(MasterProcedureEnv env) throws ReplicationException {
+  protected void postPeerModification(MasterProcedureEnv env)
+    throws IOException, ReplicationException {
+2  protected void serializeStateData(ProcedureStateSerializer serializer) throws IOException {
+3  protected void deserializeStateData(ProcedureStateSerializer serializer) throws IOException {
+Constructors in UpdatePeerConfigProcedure.java:
+  public UpdatePeerConfigProcedure() {
+  public UpdatePeerConfigProcedure(String peerId, ReplicationPeerConfig peerConfig) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/replication/master/ReplicationPeerConfigUpgrader.java
+Methods in ReplicationPeerConfigUpgrader.java:
+  public ReplicationPeerConfigUpgrader(ZKWatcher zookeeper, Configuration conf) {
+  public void upgrade() throws Exception {
+  public void copyTableCFs() throws ReplicationException {
+  protected String getTableCFsNode(String peerId) {
+  public boolean copyTableCFs(String peerId) throws ReplicationException {
+  private static void printUsageAndExit() {
+  public static void main(String[] args) throws Exception {
+Constructors in ReplicationPeerConfigUpgrader.java:
+  public ReplicationPeerConfigUpgrader(ZKWatcher zookeeper, Configuration conf) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/replication/regionserver/SourceFSConfigurationProvider.java
+No methods found in SourceFSConfigurationProvider.java.
+No constructors found in SourceFSConfigurationProvider.java.
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/replication/regionserver/DefaultSourceFSConfigurationProvider.java
+Methods in DefaultSourceFSConfigurationProvider.java:
+1  public Configuration getConf(Configuration sinkConf, String replicationClusterId)
+    throws IOException {
+Constructors in DefaultSourceFSConfigurationProvider.java:
+  synchronized (this.sourceClustersConfs) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/wal/NettyAsyncFSWALConfigHelper.java
+Methods in NettyAsyncFSWALConfigHelper.java:
+3  public static void setEventLoopConfig(Configuration conf, EventLoopGroup group,
+    Class<? extends Channel> channelClass) {
+  static Pair<EventLoopGroup, Class<? extends Channel>> getEventLoopConfig(Configuration conf) {
+  private NettyAsyncFSWALConfigHelper() {
+Constructors in NettyAsyncFSWALConfigHelper.java:
+  private NettyAsyncFSWALConfigHelper() {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/util/HBaseConfTool.java
+Methods in HBaseConfTool.java:
+  public static void main(String args[]) {
+No constructors found in HBaseConfTool.java.
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/util/NettyEventLoopGroupConfig.java
+Methods in NettyEventLoopGroupConfig.java:
+2  private static boolean useEpoll(Configuration conf) {
+1  public NettyEventLoopGroupConfig(Configuration conf, String threadPoolName) {
+  public EventLoopGroup group() {
+  public Class<? extends ServerChannel> serverChannelClass() {
+  public Class<? extends Channel> clientChannelClass() {
+Constructors in NettyEventLoopGroupConfig.java:
+  public NettyEventLoopGroupConfig(Configuration conf, String threadPoolName) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/util/CoprocessorConfigurationUtil.java
+Methods in CoprocessorConfigurationUtil.java:
+  private CoprocessorConfigurationUtil() {
+2  public static boolean checkConfigurationChange(Configuration oldConfig, Configuration newConfig,
+    String... configurationKey) {
+Constructors in CoprocessorConfigurationUtil.java:
+  private CoprocessorConfigurationUtil() {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/util/ConfigurationUtil.java
+Methods in ConfigurationUtil.java:
+  private ConfigurationUtil() {
+3  public static void setKeyValues(Configuration conf, String key,
+    Collection<Map.Entry<String, String>> keyValues) {
+3  public static void setKeyValues(Configuration conf, String key,
+    Collection<Map.Entry<String, String>> keyValues, char delimiter) {
+Constructors in ConfigurationUtil.java:
+  private ConfigurationUtil() {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/coprocessor/ReadOnlyConfiguration.java
+Methods in ReadOnlyConfiguration.java:
+1  public ReadOnlyConfiguration(final Configuration conf) {
+3  public void setDeprecatedProperties() {
+3  public void addResource(String name) {
+3  public void addResource(URL url) {
+3  public void addResource(Path file) {
+3  public void addResource(InputStream in) {
+3  public void addResource(InputStream in, String name) {
+3  public void addResource(Configuration conf) {
+  public synchronized void reloadConfiguration() {
+2  public String get(String name) {
+3  public void setAllowNullValueProperties(boolean val) {
+2  public String getTrimmed(String name) {
+2  public String getTrimmed(String name, String defaultValue) {
+2  public String getRaw(String name) {
+3  public void set(String name, String value) {
+3  public void set(String name, String value, String source) {
+  public synchronized void unset(String name) {
+  public synchronized void setIfUnset(String name, String value) {
+2  public String get(String name, String defaultValue) {
+2  public int getInt(String name, int defaultValue) {
+2  public int[] getInts(String name) {
+3  public void setInt(String name, int value) {
+2  public long getLong(String name, long defaultValue) {
+2  public long getLongBytes(String name, long defaultValue) {
+3  public void setLong(String name, long value) {
+2  public float getFloat(String name, float defaultValue) {
+3  public void setFloat(String name, float value) {
+2  public double getDouble(String name, double defaultValue) {
+3  public void setDouble(String name, double value) {
+2  public boolean getBoolean(String name, boolean defaultValue) {
+3  public void setBoolean(String name, boolean value) {
+3  public void setBooleanIfUnset(String name, boolean value) {
+  public <T extends Enum<T>> void setEnum(String name, T value) {
+  public <T extends Enum<T>> T getEnum(String name, T defaultValue) {
+3  public void setTimeDuration(String name, long value, TimeUnit unit) {
+2  public long getTimeDuration(String name, long defaultValue, TimeUnit unit) {
+2  public Pattern getPattern(String name, Pattern defaultValue) {
+3  public void setPattern(String name, Pattern pattern) {
+  public synchronized String[] getPropertySources(String name) {
+2  public Collection<String> getStringCollection(String name) {
+2  public String[] getStrings(String name) {
+2  public String[] getStrings(String name, String... defaultValue) {
+2  public Collection<String> getTrimmedStringCollection(String name) {
+2  public String[] getTrimmedStrings(String name) {
+2  public String[] getTrimmedStrings(String name, String... defaultValue) {
+3  public void setStrings(String name, String... values) {
+2  public char[] getPassword(String name) throws IOException {
+2  public InetSocketAddress getSocketAddr(String hostProperty, String addressProperty,
+    String defaultAddressValue, int defaultPort) {
+2  public InetSocketAddress getSocketAddr(String name, String defaultAddress, int defaultPort) {
+3  public void setSocketAddr(String name, InetSocketAddress addr) {
+3  public InetSocketAddress updateConnectAddr(String hostProperty, String addressProperty,
+    String defaultAddressValue, InetSocketAddress addr) {
+3  public InetSocketAddress updateConnectAddr(String name, InetSocketAddress addr) {
+  public Class<?> getClassByName(String name) throws ClassNotFoundException {
+  public Class<?> getClassByNameOrNull(String name) {
+  public Class<?>[] getClasses(String name, Class<?>... defaultValue) {
+  public Class<?> getClass(String name, Class<?> defaultValue) {
+  public <U> Class<? extends U> getClass(String name, Class<? extends U> defaultValue,
+    Class<U> xface) {
+  public <U> List<U> getInstances(String name, Class<U> xface) {
+3  public void setClass(String name, Class<?> theClass, Class<?> xface) {
+2  public Path getLocalPath(String dirsProp, String path) throws IOException {
+2  public File getFile(String dirsProp, String path) throws IOException {
+2  public URL getResource(String name) {
+2  public InputStream getConfResourceAsInputStream(String name) {
+2  public Reader getConfResourceAsReader(String name) {
+2  public Set<String> getFinalParameters() {
+  public int size() {
+  public void clear() {
+  public void writeXml(OutputStream out) throws IOException {
+  public void writeXml(Writer out) throws IOException {
+2  public ClassLoader getClassLoader() {
+3  public void setClassLoader(ClassLoader classLoader) {
+  public String toString() {
+  public synchronized void setQuietMode(boolean quietmode) {
+  public void readFields(DataInput in) throws IOException {
+  public void write(DataOutput out) throws IOException {
+  public Map<String, String> getValByRegex(String regex) {
+Constructors in ReadOnlyConfiguration.java:
+  public ReadOnlyConfiguration(final Configuration conf) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/io/hfile/CacheConfig.java
+Methods in CacheConfig.java:
+1  public CacheConfig(Configuration conf) {
+1  public CacheConfig(Configuration conf, BlockCache blockCache) {
+1  public CacheConfig(Configuration conf, ColumnFamilyDescriptor family, BlockCache blockCache,
+    ByteBuffAllocator byteBuffAllocator) {
+1  public CacheConfig(CacheConfig cacheConf) {
+1  private CacheConfig() {
+2  public boolean shouldCacheDataOnRead() {
+2  public boolean shouldDropBehindCompaction() {
+2  public boolean shouldCacheBlockOnRead(BlockCategory category) {
+2  public boolean isInMemory() {
+2  public boolean shouldCacheDataOnWrite() {
+3  public void setCacheDataOnWrite(boolean cacheDataOnWrite) {
+3  public void enableCacheOnWrite() {
+2  public boolean shouldCacheIndexesOnWrite() {
+2  public boolean shouldCacheBloomsOnWrite() {
+2  public boolean shouldEvictOnClose() {
+3  public void setEvictOnClose(boolean evictOnClose) {
+2  public boolean shouldCacheDataCompressed() {
+2  public boolean shouldCacheCompressed(BlockCategory category) {
+2  public boolean shouldPrefetchOnOpen() {
+2  public boolean shouldCacheCompactedBlocksOnWrite() {
+2  public long getCacheCompactedBlocksOnWriteThreshold() {
+2  public boolean shouldReadBlockFromCache(BlockType blockType) {
+2  public boolean shouldLockOnCacheMiss(BlockType blockType) {
+2  public Optional<BlockCache> getBlockCache() {
+2  public boolean isCombinedBlockCache() {
+2  public ByteBuffAllocator getByteBuffAllocator() {
+2  private long getCacheCompactedBlocksOnWriteThreshold(Configuration conf) {
+  public String toString() {
+Constructors in CacheConfig.java:
+  public CacheConfig(Configuration conf) {
+  public CacheConfig(Configuration conf, BlockCache blockCache) {
+  public CacheConfig(Configuration conf, ColumnFamilyDescriptor family, BlockCache blockCache,
+    ByteBuffAllocator byteBuffAllocator) {
+  public CacheConfig(CacheConfig cacheConf) {
+  private CacheConfig() {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/regionserver/StoreConfigInformation.java
+No methods found in StoreConfigInformation.java.
+No constructors found in StoreConfigInformation.java.
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/regionserver/StripeStoreConfig.java
+Methods in StripeStoreConfig.java:
+1  public StripeStoreConfig(Configuration config, StoreConfigInformation sci) {
+2  private static float getFloat(Configuration config, String key, float defaultValue,
+    boolean moreThanOne) {
+2  public float getMaxSplitImbalance() {
+2  public int getLevel0MinFiles() {
+2  public int getStripeCompactMinFiles() {
+2  public int getStripeCompactMaxFiles() {
+2  public boolean isUsingL0Flush() {
+2  public long getSplitSize() {
+2  public int getInitialCount() {
+2  public float getSplitCount() {
+2  public long getSplitPartSize() {
+Constructors in StripeStoreConfig.java:
+  public StripeStoreConfig(Configuration config, StoreConfigInformation sci) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/regionserver/compactions/CompactionConfiguration.java
+Methods in CompactionConfiguration.java:
+  public String toString() {
+2  public long getMinCompactSize() {
+2  public long getMaxCompactSize() {
+2  public int getMinFilesToCompact() {
+3  public void setMinFilesToCompact(int threshold) {
+2  public int getMaxFilesToCompact() {
+2  public double getCompactionRatio() {
+2  public double getCompactionRatioOffPeak() {
+2  public long getThrottlePoint() {
+2  public long getMajorCompactionPeriod() {
+2  public float getMajorCompactionJitter() {
+2  public float getMinLocalityToForceCompact() {
+2  public long getOffPeakMaxCompactSize() {
+2  public long getMaxCompactSize(boolean mayUseOffpeak) {
+2  public long getDateTieredMaxStoreFileAgeMillis() {
+2  public int getDateTieredIncomingWindowMin() {
+2  public String getCompactionPolicyForDateTieredWindow() {
+2  public boolean useDateTieredSingleOutputForMinorCompaction() {
+2  public String getDateTieredCompactionWindowFactory() {
+2  public boolean isDateTieredStoragePolicyEnable() {
+2  public long getHotWindowAgeMillis() {
+2  public long getWarmWindowAgeMillis() {
+2  public String getHotWindowStoragePolicy() {
+2  public String getWarmWindowStoragePolicy() {
+2  public String getColdWindowStoragePolicy() {
+Constructors in CompactionConfiguration.java:
+1  CompactionConfiguration(Configuration conf, StoreConfigInformation storeConfigInfo) {
+
+Processing file: ../hbase/hbase-server/src/main/java/org/apache/hadoop/hbase/util/GetJavaProperty.java
+Methods in GetJavaProperty.java:
+2  public static void main(String args[]) {
+  private GetJavaProperty() {
+Constructors in GetJavaProperty.java:
+  private GetJavaProperty() {
+

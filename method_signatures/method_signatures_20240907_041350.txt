@@ -1,0 +1,817 @@
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/server/policy/AlterConfigPolicy.java
+Methods in AlterConfigPolicy.java:
+  public RequestMetadata(ConfigResource resource, Map<String, String> configs) {
+  public Map<String, String> configs() {
+  public ConfigResource resource() {
+  public int hashCode() {
+  public boolean equals(Object o) {
+  public String toString() {
+Constructors in AlterConfigPolicy.java:
+  public RequestMetadata(ConfigResource resource, Map<String, String> configs) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/GroupRebalanceConfig.java
+Methods in GroupRebalanceConfig.java:
+  public String toString() {
+  public GroupRebalanceConfig(AbstractConfig config, ProtocolType protocolType) {
+  public GroupRebalanceConfig(final int sessionTimeoutMs,
+                                final int rebalanceTimeoutMs,
+                                final int heartbeatIntervalMs,
+                                String groupId,
+                                Optional<String> groupInstanceId,
+                                long retryBackoffMs,
+                                boolean leaveGroupOnClose) {
+Constructors in GroupRebalanceConfig.java:
+  public GroupRebalanceConfig(AbstractConfig config, ProtocolType protocolType) {
+  public GroupRebalanceConfig(final int sessionTimeoutMs,
+                                final int rebalanceTimeoutMs,
+                                final int heartbeatIntervalMs,
+                                String groupId,
+                                Optional<String> groupInstanceId,
+                                long retryBackoffMs,
+                                boolean leaveGroupOnClose) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/CommonClientConfigs.java
+Methods in CommonClientConfigs.java:
+  public static Map<String, Object> postProcessReconnectBackoffConfigs(AbstractConfig config,
+                                                    Map<String, Object> parsedValues) {
+  public static void postValidateSaslMechanismConfig(AbstractConfig config) {
+  public static List<MetricsReporter> metricsReporters(AbstractConfig config) {
+  public static List<MetricsReporter> metricsReporters(String clientId, AbstractConfig config) {
+  public static List<MetricsReporter> metricsReporters(Map<String, Object> clientIdOverride, AbstractConfig config) {
+No constructors found in CommonClientConfigs.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/AlterConfigsResult.java
+Methods in AlterConfigsResult.java:
+  public Map<ConfigResource, KafkaFuture<Void>> values() {
+  public KafkaFuture<Void> all() {
+Constructors in AlterConfigsResult.java:
+  AlterConfigsResult(Map<ConfigResource, KafkaFuture<Void>> futures) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/AlterConfigsOptions.java
+Methods in AlterConfigsOptions.java:
+  public AlterConfigsOptions timeoutMs(Integer timeoutMs) {
+  public boolean shouldValidateOnly() {
+  public AlterConfigsOptions validateOnly(boolean validateOnly) {
+No constructors found in AlterConfigsOptions.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/DescribeConfigsResult.java
+Methods in DescribeConfigsResult.java:
+  protected DescribeConfigsResult(Map<ConfigResource, KafkaFuture<Config>> futures) {
+  public Map<ConfigResource, KafkaFuture<Config>> values() {
+  public KafkaFuture<Map<ConfigResource, Config>> all() {
+  public Map<ConfigResource, Config> apply(Void v) {
+Constructors in DescribeConfigsResult.java:
+  protected DescribeConfigsResult(Map<ConfigResource, KafkaFuture<Config>> futures) {
+  thenApply(new KafkaFuture.BaseFunction<Void, Map<ConfigResource, Config>>() {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/ConfigEntry.java
+Methods in ConfigEntry.java:
+  public ConfigEntry(String name, String value) {
+  public ConfigEntry(String name,
+            String value,
+            ConfigSource source,
+            boolean isSensitive,
+            boolean isReadOnly,
+            List<ConfigSynonym> synonyms,
+            ConfigType type,
+            String documentation) {
+  public String name() {
+  public String value() {
+  public ConfigSource source() {
+  public boolean isDefault() {
+  public boolean isSensitive() {
+  public boolean isReadOnly() {
+  public List<ConfigSynonym> synonyms() {
+  public ConfigType type() {
+  public String documentation() {
+  public boolean equals(Object o) {
+  public int hashCode() {
+  public String toString() {
+  public String name() {
+  public String value() {
+  public ConfigSource source() {
+  public boolean equals(Object o) {
+  public int hashCode() {
+  public String toString() {
+Constructors in ConfigEntry.java:
+  public ConfigEntry(String name, String value) {
+  public ConfigEntry(String name,
+            String value,
+            ConfigSource source,
+            boolean isSensitive,
+            boolean isReadOnly,
+            List<ConfigSynonym> synonyms,
+            ConfigType type,
+            String documentation) {
+  ConfigSynonym(String name, String value, ConfigSource source) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/Config.java
+Methods in Config.java:
+  public Config(Collection<ConfigEntry> entries) {
+  public Collection<ConfigEntry> entries() {
+  public ConfigEntry get(String name) {
+  public boolean equals(Object o) {
+  public int hashCode() {
+  public String toString() {
+Constructors in Config.java:
+  public Config(Collection<ConfigEntry> entries) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/AlterConfigOp.java
+Methods in AlterConfigOp.java:
+  public byte id() {
+  public static OpType forId(final byte id) {
+  public AlterConfigOp(ConfigEntry configEntry, OpType operationType) {
+  public ConfigEntry configEntry() {
+  public OpType opType() {
+  public boolean equals(final Object o) {
+  public int hashCode() {
+  public String toString() {
+Constructors in AlterConfigOp.java:
+  OpType(final byte id) {
+  public AlterConfigOp(ConfigEntry configEntry, OpType operationType) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/AdminClientConfig.java
+Methods in AdminClientConfig.java:
+  protected Map<String, Object> postProcessParsedConfig(final Map<String, Object> parsedValues) {
+  public AdminClientConfig(Map<?, ?> props) {
+  protected AdminClientConfig(Map<?, ?> props, boolean doLog) {
+  public static Set<String> configNames() {
+  public static ConfigDef configDef() {
+  public static void main(String[] args) {
+Constructors in AdminClientConfig.java:
+  public AdminClientConfig(Map<?, ?> props) {
+  protected AdminClientConfig(Map<?, ?> props, boolean doLog) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/admin/DescribeConfigsOptions.java
+Methods in DescribeConfigsOptions.java:
+  public DescribeConfigsOptions timeoutMs(Integer timeoutMs) {
+  public boolean includeSynonyms() {
+  public boolean includeDocumentation() {
+  public DescribeConfigsOptions includeSynonyms(boolean includeSynonyms) {
+  public DescribeConfigsOptions includeDocumentation(boolean includeDocumentation) {
+No constructors found in DescribeConfigsOptions.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/consumer/ConsumerConfig.java
+Methods in ConsumerConfig.java:
+  protected Map<String, Object> postProcessParsedConfig(final Map<String, Object> parsedValues) {
+  private void maybeOverrideClientId(Map<String, Object> configs) {
+  protected static Map<String, Object> appendDeserializerToConfig(Map<String, Object> configs,
+                                                                    Deserializer<?> keyDeserializer,
+                                                                    Deserializer<?> valueDeserializer) {
+  boolean maybeOverrideEnableAutoCommit() {
+  public ConsumerConfig(Properties props) {
+  public ConsumerConfig(Map<String, Object> props) {
+  protected ConsumerConfig(Map<?, ?> props, boolean doLog) {
+  public static Set<String> configNames() {
+  public static ConfigDef configDef() {
+  public static void main(String[] args) {
+Constructors in ConsumerConfig.java:
+  public ConsumerConfig(Properties props) {
+  public ConsumerConfig(Map<String, Object> props) {
+  protected ConsumerConfig(Map<?, ?> props, boolean doLog) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/consumer/internals/FetchConfig.java
+Methods in FetchConfig.java:
+  public FetchConfig(int minBytes,
+                       int maxBytes,
+                       int maxWaitMs,
+                       int fetchSize,
+                       int maxPollRecords,
+                       boolean checkCrcs,
+                       String clientRackId,
+                       Deserializer<K> keyDeserializer,
+                       Deserializer<V> valueDeserializer,
+                       IsolationLevel isolationLevel) {
+  public FetchConfig(ConsumerConfig config,
+                       Deserializer<K> keyDeserializer,
+                       Deserializer<V> valueDeserializer,
+                       IsolationLevel isolationLevel) {
+  public String toString() {
+Constructors in FetchConfig.java:
+  public FetchConfig(int minBytes,
+                       int maxBytes,
+                       int maxWaitMs,
+                       int fetchSize,
+                       int maxPollRecords,
+                       boolean checkCrcs,
+                       String clientRackId,
+                       Deserializer<K> keyDeserializer,
+                       Deserializer<V> valueDeserializer,
+                       IsolationLevel isolationLevel) {
+  public FetchConfig(ConsumerConfig config,
+                       Deserializer<K> keyDeserializer,
+                       Deserializer<V> valueDeserializer,
+                       IsolationLevel isolationLevel) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/clients/producer/ProducerConfig.java
+Methods in ProducerConfig.java:
+  protected Map<String, Object> postProcessParsedConfig(final Map<String, Object> parsedValues) {
+  private void maybeOverrideClientId(final Map<String, Object> configs) {
+  private void postProcessAndValidateIdempotenceConfigs(final Map<String, Object> configs) {
+  private static String parseAcks(String acksString) {
+  static Map<String, Object> appendSerializerToConfig(Map<String, Object> configs,
+            Serializer<?> keySerializer,
+            Serializer<?> valueSerializer) {
+  public ProducerConfig(Properties props) {
+  public ProducerConfig(Map<String, Object> props) {
+  public static Set<String> configNames() {
+  public static ConfigDef configDef() {
+  public static void main(String[] args) {
+Constructors in ProducerConfig.java:
+  public ProducerConfig(Properties props) {
+  public ProducerConfig(Map<String, Object> props) {
+  ProducerConfig(Map<?, ?> props, boolean doLog) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/Configurable.java
+No methods found in Configurable.java.
+No constructors found in Configurable.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/Reconfigurable.java
+No methods found in Reconfigurable.java.
+No constructors found in Reconfigurable.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/errors/InvalidConfigurationException.java
+Methods in InvalidConfigurationException.java:
+  public InvalidConfigurationException(String message) {
+  public InvalidConfigurationException(String message, Throwable cause) {
+Constructors in InvalidConfigurationException.java:
+  public InvalidConfigurationException(String message) {
+  public InvalidConfigurationException(String message, Throwable cause) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/SslConfigs.java
+Methods in SslConfigs.java:
+  public static void addClientSslSupport(ConfigDef config) {
+No constructors found in SslConfigs.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigValue.java
+Methods in ConfigValue.java:
+  public ConfigValue(String name) {
+  public ConfigValue(String name, Object value, List<Object> recommendedValues, List<String> errorMessages) {
+  public String name() {
+  public Object value() {
+  public List<Object> recommendedValues() {
+  public List<String> errorMessages() {
+  public boolean visible() {
+  public void value(Object value) {
+  public void recommendedValues(List<Object> recommendedValues) {
+  public void addErrorMessage(String errorMessage) {
+  public void visible(boolean visible) {
+  public boolean equals(Object o) {
+  public int hashCode() {
+  public String toString() {
+Constructors in ConfigValue.java:
+  public ConfigValue(String name) {
+  public ConfigValue(String name, Object value, List<Object> recommendedValues, List<String> errorMessages) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/SecurityConfig.java
+No methods found in SecurityConfig.java.
+No constructors found in SecurityConfig.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/TopicConfig.java
+No methods found in TopicConfig.java.
+No constructors found in TopicConfig.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigException.java
+Methods in ConfigException.java:
+  public ConfigException(String message) {
+  public ConfigException(String name, Object value) {
+  public ConfigException(String name, Object value, String message) {
+Constructors in ConfigException.java:
+  public ConfigException(String message) {
+  public ConfigException(String name, Object value) {
+  public ConfigException(String name, Object value, String message) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigChangeCallback.java
+No methods found in ConfigChangeCallback.java.
+No constructors found in ConfigChangeCallback.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/AbstractConfig.java
+Methods in AbstractConfig.java:
+  public AbstractConfig(ConfigDef definition, Map<?, ?> originals, Map<String, ?> configProviderProps, boolean doLog) {
+  public AbstractConfig(ConfigDef definition, Map<?, ?> originals) {
+  public AbstractConfig(ConfigDef definition, Map<?, ?> originals, boolean doLog) {
+  protected Map<String, Object> postProcessParsedConfig(Map<String, Object> parsedValues) {
+  protected Object get(String key) {
+  public void ignore(String key) {
+  public Short getShort(String key) {
+  public Integer getInt(String key) {
+  public Long getLong(String key) {
+  public Double getDouble(String key) {
+  public List<String> getList(String key) {
+  public Boolean getBoolean(String key) {
+  public String getString(String key) {
+  public String documentationOf(String key) {
+  public Password getPassword(String key) {
+  public Class<?> getClass(String key) {
+  public Set<String> unused() {
+  public Map<String, Object> originals() {
+  public Map<String, Object> originals(Map<String, Object> configOverrides) {
+  public Map<String, String> originalsStrings() {
+  public Map<String, Object> originalsWithPrefix(String prefix) {
+  public Map<String, Object> originalsWithPrefix(String prefix, boolean strip) {
+  public Map<String, Object> valuesWithPrefixOverride(String prefix) {
+  public Map<String, Object> valuesWithPrefixAllOrNothing(String prefix) {
+  public Map<String, ?> values() {
+  public Map<String, ?> nonInternalValues() {
+  private void logAll() {
+  public void logUnused() {
+  private <T> T getConfiguredInstance(Object klass, Class<T> t, Map<String, Object> configPairs) {
+  public <T> T getConfiguredInstance(String key, Class<T> t) {
+  public <T> T getConfiguredInstance(String key, Class<T> t, Map<String, Object> configOverrides) {
+  public <T> List<T> getConfiguredInstances(String key, Class<T> t) {
+  public <T> List<T> getConfiguredInstances(String key, Class<T> t, Map<String, Object> configOverrides) {
+  public <T> List<T> getConfiguredInstances(List<String> classNames, Class<T> t, Map<String, Object> configOverrides) {
+  private static void maybeClose(Object object, String name) {
+  private Map<String, String> extractPotentialVariables(Map<?, ?> configMap) {
+  private Map<String, ?> resolveConfigVariables(Map<String, ?> configProviderProps, Map<String, Object> originals) {
+  private Map<String, Object> configProviderProperties(String configProviderPrefix, Map<String, ?> providerConfigProperties) {
+  private Map<String, ConfigProvider> instantiateConfigProviders(Map<String, String> indirectConfigs, Map<String, ?> providerConfigProperties) {
+  private static String providerClassProperty(String providerName) {
+  public boolean equals(Object o) {
+  public int hashCode() {
+  public V get(Object key) {
+  public V get(Object key) {
+Constructors in AbstractConfig.java:
+  public AbstractConfig(ConfigDef definition, Map<?, ?> originals, Map<String, ?> configProviderProps, boolean doLog) {
+  public AbstractConfig(ConfigDef definition, Map<?, ?> originals) {
+  public AbstractConfig(ConfigDef definition, Map<?, ?> originals, boolean doLog) {
+  RecordingMap() {
+  RecordingMap(String prefix, boolean withIgnoreFallback) {
+  RecordingMap(Map<String, ? extends V> m) {
+  RecordingMap(Map<String, ? extends V> m, String prefix, boolean withIgnoreFallback) {
+  ResolvingMap(Map<String, ? extends V> resolved, Map<String, ?> originals) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigResource.java
+Methods in ConfigResource.java:
+  public byte id() {
+  public static Type forId(final byte id) {
+  public ConfigResource(Type type, String name) {
+  public Type type() {
+  public String name() {
+  public boolean isDefault() {
+  public boolean equals(Object o) {
+  public int hashCode() {
+  public String toString() {
+Constructors in ConfigResource.java:
+  Type(final byte id) {
+  public ConfigResource(Type type, String name) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/SaslConfigs.java
+Methods in SaslConfigs.java:
+  public static void addClientSaslSupport(ConfigDef config) {
+No constructors found in SaslConfigs.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/Config.java
+Methods in Config.java:
+  public Config(List<ConfigValue> configValues) {
+  public List<ConfigValue> configValues() {
+Constructors in Config.java:
+  public Config(List<ConfigValue> configValues) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigTransformerResult.java
+Methods in ConfigTransformerResult.java:
+  public ConfigTransformerResult(Map<String, String> data, Map<String, Long> ttls) {
+  public Map<String, String> data() {
+  public Map<String, Long> ttls() {
+Constructors in ConfigTransformerResult.java:
+  public ConfigTransformerResult(Map<String, String> data, Map<String, Long> ttls) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/LogLevelConfig.java
+No methods found in LogLevelConfig.java.
+No constructors found in LogLevelConfig.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigTransformer.java
+Methods in ConfigTransformer.java:
+  public ConfigTransformer(Map<String, ConfigProvider> configProviders) {
+  public ConfigTransformerResult transform(Map<String, String> configs) {
+  private static List<ConfigVariable> getVars(String value, Pattern pattern) {
+  private static String replace(Map<String, Map<String, Map<String, String>>> lookupsByProvider,
+                                  String value,
+                                  Pattern pattern) {
+  public String toString() {
+Constructors in ConfigTransformer.java:
+  public ConfigTransformer(Map<String, ConfigProvider> configProviders) {
+  ConfigVariable(Matcher matcher) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigData.java
+Methods in ConfigData.java:
+  public ConfigData(Map<String, String> data, Long ttl) {
+  public ConfigData(Map<String, String> data) {
+  public Map<String, String> data() {
+  public Long ttl() {
+Constructors in ConfigData.java:
+  public ConfigData(Map<String, String> data, Long ttl) {
+  public ConfigData(Map<String, String> data) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/ConfigDef.java
+Methods in ConfigDef.java:
+  public ConfigDef() {
+  public ConfigDef(ConfigDef base) {
+  public Set<String> names() {
+  public Map<String, Object> defaultValues() {
+  public ConfigDef define(ConfigKey key) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Validator validator, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName, List<String> dependents, Recommender recommender) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Validator validator, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName, List<String> dependents) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Validator validator, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName, Recommender recommender) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Validator validator, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName, List<String> dependents, Recommender recommender) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName, List<String> dependents) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName, Recommender recommender) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Importance importance, String documentation,
+                            String group, int orderInGroup, Width width, String displayName) {
+  public ConfigDef define(String name, Type type, Importance importance, String documentation, String group, int orderInGroup,
+                            Width width, String displayName, List<String> dependents, Recommender recommender) {
+  public ConfigDef define(String name, Type type, Importance importance, String documentation, String group, int orderInGroup,
+                            Width width, String displayName, List<String> dependents) {
+  public ConfigDef define(String name, Type type, Importance importance, String documentation, String group, int orderInGroup,
+                            Width width, String displayName, Recommender recommender) {
+  public ConfigDef define(String name, Type type, Importance importance, String documentation, String group, int orderInGroup,
+                            Width width, String displayName) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Validator validator, Importance importance, String documentation) {
+  public ConfigDef define(String name, Type type, Object defaultValue, Importance importance, String documentation) {
+  public ConfigDef define(String name, Type type, Importance importance, String documentation) {
+  public ConfigDef defineInternal(final String name, final Type type, final Object defaultValue, final Importance importance) {
+  public ConfigDef defineInternal(final String name, final Type type, final Object defaultValue, final Validator validator, final Importance importance, final String documentation) {
+  public Map<String, ConfigKey> configKeys() {
+  public List<String> groups() {
+  public ConfigDef withClientSslSupport() {
+  public ConfigDef withClientSaslSupport() {
+  public Map<String, Object> parse(Map<?, ?> props) {
+  Object parseValue(ConfigKey key, Object value, boolean isSet) {
+  public List<ConfigValue> validate(Map<String, String> props) {
+  public Map<String, ConfigValue> validateAll(Map<String, String> props) {
+  Map<String, Object> parseForValidate(Map<String, String> props, Map<String, ConfigValue> configValues) {
+  private Map<String, ConfigValue> validate(Map<String, Object> parsed, Map<String, ConfigValue> configValues) {
+  private List<String> undefinedDependentConfigs() {
+  Set<String> getConfigsWithNoParent() {
+  private void parseForValidate(String name, Map<String, String> props, Map<String, Object> parsed, Map<String, ConfigValue> configs) {
+  private void validate(String name, Map<String, Object> parsed, Map<String, ConfigValue> configs) {
+  public static Object parseType(String name, Object value, Type type) {
+  public static String convertToString(Object parsedValue, Type type) {
+  public static  Map<String, String> convertToStringMapWithPasswordValues(Map<String, ?> configs) {
+  public boolean isSensitive() {
+  private Range(Number min, Number max) {
+  public static Range atLeast(Number min) {
+  public static Range between(Number min, Number max) {
+  public void ensureValid(String name, Object o) {
+  public String toString() {
+  private ValidList(List<String> validStrings) {
+  public static ValidList in(String... validStrings) {
+  public void ensureValid(final String name, final Object value) {
+  public String toString() {
+  private ValidString(List<String> validStrings) {
+  public static ValidString in(String... validStrings) {
+  public void ensureValid(String name, Object o) {
+  public String toString() {
+  private CaseInsensitiveValidString(List<String> validStrings) {
+  public static CaseInsensitiveValidString in(String... validStrings) {
+  public void ensureValid(String name, Object o) {
+  public String toString() {
+  public void ensureValid(String name, Object value) {
+  public String toString() {
+  private LambdaValidator(BiConsumer<String, Object> ensureValid,
+                                Supplier<String> toStringFunction) {
+  public static LambdaValidator with(BiConsumer<String, Object> ensureValid,
+                                           Supplier<String> toStringFunction) {
+  public void ensureValid(String name, Object value) {
+  public String toString() {
+  private CompositeValidator(List<Validator> validators) {
+  public static CompositeValidator of(Validator... validators) {
+  public void ensureValid(String name, Object value) {
+  public String toString() {
+  public void ensureValid(String name, Object o) {
+  public String toString() {
+  public static NonEmptyStringWithoutControlChars nonEmptyStringWithoutControlChars() {
+  public void ensureValid(String name, Object value) {
+  public String toString() {
+  private ListSize(final int maxSize) {
+  public static ListSize atMostOfSize(final int maxSize) {
+  public void ensureValid(final String name, final Object value) {
+  public String toString() {
+  public ConfigKey(String name, Type type, Object defaultValue, Validator validator,
+                         Importance importance, String documentation, String group,
+                         int orderInGroup, Width width, String displayName,
+                         List<String> dependents, Recommender recommender,
+                         boolean internalConfig) {
+  public boolean hasDefault() {
+  public Type type() {
+  protected List<String> headers() {
+  protected String getConfigValue(ConfigKey key, String headerName) {
+  static String niceMemoryUnits(long bytes) {
+  static String niceTimeUnits(long millis) {
+  public String toHtmlTable() {
+  private void addHeader(StringBuilder builder, String headerName) {
+  private void addColumnValue(StringBuilder builder, String value) {
+  public String toHtmlTable(Map<String, String> dynamicUpdateModes) {
+  public String toRst() {
+  public String toEnrichedRst() {
+  private void getConfigKeyRst(ConfigKey key, StringBuilder b) {
+  private List<ConfigKey> sortedConfigs() {
+  private int compare(ConfigKey k1, ConfigKey k2, Map<String, Integer> groupOrd) {
+  public void embed(final String keyPrefix, final String groupPrefix, final int startingOrd, final ConfigDef child) {
+  private static Validator embeddedValidator(final String keyPrefix, final Validator base) {
+  return new Validator() {
+  public void ensureValid(String name, Object value) {
+  public String toString() {
+  private static List<String> embeddedDependents(final String keyPrefix, final List<String> dependents) {
+  private static Recommender embeddedRecommender(final String keyPrefix, final Recommender base) {
+  return new Recommender() {
+  private String unprefixed(String k) {
+  private Map<String, Object> unprefixed(Map<String, Object> parsedConfig) {
+  public List<Object> validValues(String name, Map<String, Object> parsedConfig) {
+  public boolean visible(String name, Map<String, Object> parsedConfig) {
+  public String toHtml() {
+  public String toHtml(int headerDepth, Function<String, String> idGenerator) {
+  public String toHtml(Map<String, String> dynamicUpdateModes) {
+  public String toHtml(int headerDepth, Function<String, String> idGenerator,
+                         Map<String, String> dynamicUpdateModes) {
+  private static void addConfigDetail(StringBuilder builder, String name, String value) {
+Constructors in ConfigDef.java:
+  public ConfigDef() {
+  public ConfigDef(ConfigDef base) {
+  private Range(Number min, Number max) {
+  private ValidList(List<String> validStrings) {
+  private ValidString(List<String> validStrings) {
+  private CaseInsensitiveValidString(List<String> validStrings) {
+  private LambdaValidator(BiConsumer<String, Object> ensureValid,
+                                Supplier<String> toStringFunction) {
+  private CompositeValidator(List<Validator> validators) {
+  private ListSize(final int maxSize) {
+  public ConfigKey(String name, Type type, Object defaultValue, Validator validator,
+                         Importance importance, String documentation, String group,
+                         int orderInGroup, Width width, String displayName,
+                         List<String> dependents, Recommender recommender,
+                         boolean internalConfig) {
+  while (value != 0 && i < 4) {
+  while (value != 0 && i < 4) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/internals/BrokerSecurityConfigs.java
+No methods found in BrokerSecurityConfigs.java.
+No constructors found in BrokerSecurityConfigs.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/internals/QuotaConfigs.java
+Methods in QuotaConfigs.java:
+  private static void buildUserClientQuotaConfigDef(ConfigDef configDef) {
+  public static boolean isClientOrUserConfig(String name) {
+  public static ConfigDef userAndClientQuotaConfigs() {
+  public static ConfigDef scramMechanismsPlusUserAndClientQuotaConfigs() {
+  public static ConfigDef ipConfigs() {
+No constructors found in QuotaConfigs.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/provider/ConfigProvider.java
+Methods in ConfigProvider.java:
+  default void subscribe(String path, Set<String> keys, ConfigChangeCallback callback) {
+  default void unsubscribe(String path, Set<String> keys, ConfigChangeCallback callback) {
+  default void unsubscribeAll() {
+No constructors found in ConfigProvider.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/provider/EnvVarConfigProvider.java
+Methods in EnvVarConfigProvider.java:
+  public EnvVarConfigProvider() {
+  public EnvVarConfigProvider(Map<String, String> envVarsAsArgument) {
+  public void configure(Map<String, ?> configs) {
+  public void close() throws IOException {
+  public ConfigData get(String path) {
+  public ConfigData get(String path, Set<String> keys) {
+  private Map<String, String> getEnvVars() {
+Constructors in EnvVarConfigProvider.java:
+  public EnvVarConfigProvider() {
+  public EnvVarConfigProvider(Map<String, String> envVarsAsArgument) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/provider/FileConfigProvider.java
+Methods in FileConfigProvider.java:
+  public void configure(Map<String, ?> configs) {
+  public ConfigData get(String path) {
+  public ConfigData get(String path, Set<String> keys) {
+  protected Reader reader(String path) throws IOException {
+  public void close() {
+No constructors found in FileConfigProvider.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/config/provider/DirectoryConfigProvider.java
+Methods in DirectoryConfigProvider.java:
+  public void configure(Map<String, ?> configs) {
+  public void close() throws IOException {
+  public ConfigData get(String path) {
+  public ConfigData get(String path, Set<String> keys) {
+  private static ConfigData get(String path, Predicate<Path> fileFilter) {
+  private static String read(Path path) {
+No constructors found in DirectoryConfigProvider.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/metrics/MetricConfig.java
+Methods in MetricConfig.java:
+  public MetricConfig() {
+  public Quota quota() {
+  public MetricConfig quota(Quota quota) {
+  public long eventWindow() {
+  public MetricConfig eventWindow(long window) {
+  public long timeWindowMs() {
+  public MetricConfig timeWindow(long window, TimeUnit unit) {
+  public Map<String, String> tags() {
+  public MetricConfig tags(Map<String, String> tags) {
+  public int samples() {
+  public MetricConfig samples(int samples) {
+  public MetricConfig recordLevel(Sensor.RecordingLevel recordingLevel) {
+Constructors in MetricConfig.java:
+  public MetricConfig() {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/utils/ConfigUtils.java
+Methods in ConfigUtils.java:
+  public static <T> Map<String, T> translateDeprecatedConfigs(Map<String, T> configs, String[][] aliasGroups) {
+  public static <T> Map<String, T> translateDeprecatedConfigs(Map<String, T> configs,
+                                                                Map<String, List<String>> aliasGroups) {
+  public static String configMapToRedactedString(Map<String, Object> map, ConfigDef configDef) {
+No constructors found in ConfigUtils.java.
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/security/JaasConfig.java
+Methods in JaasConfig.java:
+  public JaasConfig(String loginContextName, String jaasConfigParams) {
+  public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
+  private LoginModuleControlFlag loginModuleControlFlag(String flag) {
+  private AppConfigurationEntry parseAppConfigurationEntry(StreamTokenizer tokenizer) throws IOException {
+Constructors in JaasConfig.java:
+  public JaasConfig(String loginContextName, String jaasConfigParams) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/security/oauthbearer/internals/unsecured/OAuthBearerConfigException.java
+Methods in OAuthBearerConfigException.java:
+  public OAuthBearerConfigException(String s) {
+  public OAuthBearerConfigException(String message, Throwable cause) {
+Constructors in OAuthBearerConfigException.java:
+  public OAuthBearerConfigException(String s) {
+  public OAuthBearerConfigException(String message, Throwable cause) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/security/oauthbearer/internals/expiring/ExpiringCredentialRefreshConfig.java
+Methods in ExpiringCredentialRefreshConfig.java:
+  public ExpiringCredentialRefreshConfig(Map<String, ?> configs, boolean clientReloginAllowedBeforeLogout) {
+  public double loginRefreshWindowFactor() {
+  public double loginRefreshWindowJitter() {
+  public short loginRefreshMinPeriodSeconds() {
+  public short loginRefreshBufferSeconds() {
+  public boolean loginRefreshReloginAllowedBeforeLogout() {
+Constructors in ExpiringCredentialRefreshConfig.java:
+  public ExpiringCredentialRefreshConfig(Map<String, ?> configs, boolean clientReloginAllowedBeforeLogout) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/security/oauthbearer/internals/secured/ConfigurationUtils.java
+Methods in ConfigurationUtils.java:
+  public ConfigurationUtils(Map<String, ?> configs) {
+  public ConfigurationUtils(Map<String, ?> configs, String saslMechanism) {
+  public Path validateFile(String name) {
+  public Integer validateInteger(String name, boolean isRequired) {
+  public Long validateLong(String name) {
+  public Long validateLong(String name, boolean isRequired) {
+  public Long validateLong(String name, boolean isRequired, Long min) {
+  public URL validateUrl(String name) {
+  public String validateString(String name) throws ValidateException {
+  public String validateString(String name, boolean isRequired) throws ValidateException {
+  public <T> T get(String name) {
+Constructors in ConfigurationUtils.java:
+  public ConfigurationUtils(Map<String, ?> configs) {
+  public ConfigurationUtils(Map<String, ?> configs, String saslMechanism) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/security/authenticator/SaslInternalConfigs.java
+Methods in SaslInternalConfigs.java:
+  private SaslInternalConfigs() {
+Constructors in SaslInternalConfigs.java:
+  private SaslInternalConfigs() {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/requests/IncrementalAlterConfigsRequest.java
+Methods in IncrementalAlterConfigsRequest.java:
+  public Builder(IncrementalAlterConfigsRequestData data) {
+  public Builder(final Collection<ConfigResource> resources,
+                       final Map<ConfigResource, Collection<AlterConfigOp>> configs,
+                       final boolean validateOnly) {
+  public Builder(final Map<ConfigResource, Collection<AlterConfigOp>> configs,
+                       final boolean validateOnly) {
+  public IncrementalAlterConfigsRequest build(short version) {
+  public String toString() {
+  public IncrementalAlterConfigsRequest(IncrementalAlterConfigsRequestData data, short version) {
+  public static IncrementalAlterConfigsRequest parse(ByteBuffer buffer, short version) {
+  public IncrementalAlterConfigsRequestData data() {
+  public AbstractResponse getErrorResponse(final int throttleTimeMs, final Throwable e) {
+Constructors in IncrementalAlterConfigsRequest.java:
+  public Builder(IncrementalAlterConfigsRequestData data) {
+  public Builder(final Collection<ConfigResource> resources,
+                       final Map<ConfigResource, Collection<AlterConfigOp>> configs,
+                       final boolean validateOnly) {
+  public Builder(final Map<ConfigResource, Collection<AlterConfigOp>> configs,
+                       final boolean validateOnly) {
+  public IncrementalAlterConfigsRequest(IncrementalAlterConfigsRequestData data, short version) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/requests/DescribeConfigsRequest.java
+Methods in DescribeConfigsRequest.java:
+  public Builder(DescribeConfigsRequestData data) {
+  public DescribeConfigsRequest build(short version) {
+  public DescribeConfigsRequest(DescribeConfigsRequestData data, short version) {
+  public DescribeConfigsRequestData data() {
+  public DescribeConfigsResponse getErrorResponse(int throttleTimeMs, Throwable e) {
+  public static DescribeConfigsRequest parse(ByteBuffer buffer, short version) {
+Constructors in DescribeConfigsRequest.java:
+  public Builder(DescribeConfigsRequestData data) {
+  public DescribeConfigsRequest(DescribeConfigsRequestData data, short version) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/requests/AlterConfigsRequest.java
+Methods in AlterConfigsRequest.java:
+  public Config(Collection<ConfigEntry> entries) {
+  public Collection<ConfigEntry> entries() {
+  public ConfigEntry(String name, String value) {
+  public String name() {
+  public String value() {
+  public Builder(Map<ConfigResource, Config> configs, boolean validateOnly) {
+  public AlterConfigsRequest build(short version) {
+  public AlterConfigsRequest(AlterConfigsRequestData data, short version) {
+  public Map<ConfigResource, Config> configs() {
+  public boolean validateOnly() {
+  public AlterConfigsRequestData data() {
+  public AbstractResponse getErrorResponse(int throttleTimeMs, Throwable e) {
+  public static AlterConfigsRequest parse(ByteBuffer buffer, short version) {
+Constructors in AlterConfigsRequest.java:
+  public Config(Collection<ConfigEntry> entries) {
+  public ConfigEntry(String name, String value) {
+  public Builder(Map<ConfigResource, Config> configs, boolean validateOnly) {
+  public AlterConfigsRequest(AlterConfigsRequestData data, short version) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/requests/DescribeConfigsResponse.java
+Methods in DescribeConfigsResponse.java:
+  public Config(ApiError error, Collection<ConfigEntry> entries) {
+  public ApiError error() {
+  public Collection<ConfigEntry> entries() {
+  public ConfigEntry(String name, String value, ConfigSource source, boolean isSensitive, boolean readOnly,
+            Collection<ConfigSynonym> synonyms) {
+  public ConfigEntry(String name, String value, ConfigSource source, boolean isSensitive, boolean readOnly,
+                           Collection<ConfigSynonym> synonyms, ConfigType type, String documentation) {
+  public String name() {
+  public String value() {
+  public boolean isSensitive() {
+  public ConfigSource source() {
+  public boolean isReadOnly() {
+  public Collection<ConfigSynonym> synonyms() {
+  public ConfigType type() {
+  public String documentation() {
+  public byte id() {
+  public static ConfigSource forId(byte id) {
+  public byte id() {
+  public static ConfigType forId(byte id) {
+  public ConfigSynonym(String name, String value, ConfigSource source) {
+  public String name() {
+  public String value() {
+  public ConfigSource source() {
+  public DescribeConfigsResponse(DescribeConfigsResponseData data) {
+  private DescribeConfigsResponse(DescribeConfigsResponseData data, short version) {
+  public DescribeConfigsResponseData data() {
+  public int throttleTimeMs() {
+  public void maybeSetThrottleTimeMs(int throttleTimeMs) {
+  public Map<Errors, Integer> errorCounts() {
+  public static DescribeConfigsResponse parse(ByteBuffer buffer, short version) {
+  public boolean shouldClientThrottle(short version) {
+Constructors in DescribeConfigsResponse.java:
+  public Config(ApiError error, Collection<ConfigEntry> entries) {
+  public ConfigEntry(String name, String value, ConfigSource source, boolean isSensitive, boolean readOnly,
+            Collection<ConfigSynonym> synonyms) {
+  public ConfigEntry(String name, String value, ConfigSource source, boolean isSensitive, boolean readOnly,
+                           Collection<ConfigSynonym> synonyms, ConfigType type, String documentation) {
+  ConfigSource(byte id, org.apache.kafka.clients.admin.ConfigEntry.ConfigSource source) {
+  ConfigType(byte id, org.apache.kafka.clients.admin.ConfigEntry.ConfigType type) {
+  public ConfigSynonym(String name, String value, ConfigSource source) {
+  public DescribeConfigsResponse(DescribeConfigsResponseData data) {
+  private DescribeConfigsResponse(DescribeConfigsResponseData data, short version) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/requests/IncrementalAlterConfigsResponse.java
+Methods in IncrementalAlterConfigsResponse.java:
+  public IncrementalAlterConfigsResponse(final int requestThrottleMs,
+                                           final Map<ConfigResource, ApiError> results) {
+  public static Map<ConfigResource, ApiError> fromResponseData(final IncrementalAlterConfigsResponseData data) {
+  public IncrementalAlterConfigsResponse(IncrementalAlterConfigsResponseData data) {
+  public IncrementalAlterConfigsResponseData data() {
+  public Map<Errors, Integer> errorCounts() {
+  public boolean shouldClientThrottle(short version) {
+  public int throttleTimeMs() {
+  public void maybeSetThrottleTimeMs(int throttleTimeMs) {
+  public static IncrementalAlterConfigsResponse parse(ByteBuffer buffer, short version) {
+Constructors in IncrementalAlterConfigsResponse.java:
+  public IncrementalAlterConfigsResponse(final int requestThrottleMs,
+                                           final Map<ConfigResource, ApiError> results) {
+  public IncrementalAlterConfigsResponse(IncrementalAlterConfigsResponseData data) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/requests/AlterConfigsResponse.java
+Methods in AlterConfigsResponse.java:
+  public AlterConfigsResponse(AlterConfigsResponseData data) {
+  public Map<ConfigResource, ApiError> errors() {
+  public Map<Errors, Integer> errorCounts() {
+  public int throttleTimeMs() {
+  public void maybeSetThrottleTimeMs(int throttleTimeMs) {
+  public AlterConfigsResponseData data() {
+  public static AlterConfigsResponse parse(ByteBuffer buffer, short version) {
+  public boolean shouldClientThrottle(short version) {
+Constructors in AlterConfigsResponse.java:
+  public AlterConfigsResponse(AlterConfigsResponseData data) {
+
+Processing file: ../kafka/clients/src/main/java/org/apache/kafka/common/network/ListenerReconfigurable.java
+No methods found in ListenerReconfigurable.java.
+No constructors found in ListenerReconfigurable.java.
+

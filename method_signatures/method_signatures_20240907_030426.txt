@@ -1,0 +1,282 @@
+Processing file: ../hive/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java
+Methods in HiveConf.java:
+2  public boolean getSparkConfigUpdated() {
+3  public void setSparkConfigUpdated(boolean isSparkConfigUpdated) {
+  public String encode(String key) {
+  public String decode(String value) {
+  private static URL findConfigFile(ClassLoader classLoader, String name, boolean doLog) {
+  private static URL checkConfigFile(File f) {
+  private static void populateLlapDaemonVarsSet(Set<String> llapDaemonVarsSetLocal) {
+2  public static final Set<String> getLlapDaemonConfVars() {
+2  public boolean isType(String value) {
+2  public Validator getValidator() {
+  public String validate(String value) {
+  public String validatorDescription() {
+  public String typeString() {
+2  public String getRawDescription() {
+2  public String getDescription() {
+2  public boolean isExcluded() {
+2  public boolean isCaseSensitive() {
+  public String toString() {
+  private static String findHadoopBinary() {
+  private static String findYarnBinary() {
+  private static String findMapRedBinary() {
+  private static String findHadoopHome() {
+2  public String getDefaultValue() {
+2  public String getDefaultExpr() {
+2  private Set<String> getValidStringValues() {
+  void checkType(String value) throws Exception {
+  String defaultValueString(ConfVars confVar) {
+  void checkType(String value) throws Exception {
+  void checkType(String value) throws Exception {
+  void checkType(String value) throws Exception {
+  void checkType(String value) throws Exception {
+2  boolean isType(String value) {
+  String typeString() {
+  String defaultValueString(ConfVars confVar) {
+  private static synchronized InputStream getConfVarInputStream() {
+3  public void verifyAndSet(String name, String value) throws IllegalArgumentException {
+2  public boolean isHiddenConfig(String name) {
+2  public static boolean isEncodedPar(String name) {
+2  private boolean isSparkRelatedConfig(String name) {
+2  public static int getIntVar(Configuration conf, ConfVars var) {
+3  public static void setIntVar(Configuration conf, ConfVars var, int val) {
+2  public int getIntVar(ConfVars var) {
+3  public void setIntVar(ConfVars var, int val) {
+2  public static long getTimeVar(Configuration conf, ConfVars var, TimeUnit outUnit) {
+3  public static void setTimeVar(Configuration conf, ConfVars var, long time, TimeUnit timeunit) {
+2  public long getTimeVar(ConfVars var, TimeUnit outUnit) {
+3  public void setTimeVar(ConfVars var, long time, TimeUnit outUnit) {
+2  public static long getSizeVar(Configuration conf, ConfVars var) {
+2  public long getSizeVar(ConfVars var) {
+2  public static TimeUnit getDefaultTimeUnit(ConfVars var) {
+  public static long toTime(String value, TimeUnit inputUnit, TimeUnit outUnit) {
+  public static long toSizeBytes(String value) {
+  private static String[] parseNumberFollowedByUnit(String value) {
+  public static TimeUnit unitFor(String unit, TimeUnit defaultUnit) {
+  public static long multiplierFor(String unit) {
+  public static String stringFor(TimeUnit timeunit) {
+2  public static long getLongVar(Configuration conf, ConfVars var) {
+2  public static long getLongVar(Configuration conf, ConfVars var, long defaultVal) {
+3  public static void setLongVar(Configuration conf, ConfVars var, long val) {
+2  public long getLongVar(ConfVars var) {
+3  public void setLongVar(ConfVars var, long val) {
+2  public static float getFloatVar(Configuration conf, ConfVars var) {
+2  public static float getFloatVar(Configuration conf, ConfVars var, float defaultVal) {
+3  public static void setFloatVar(Configuration conf, ConfVars var, float val) {
+2  public float getFloatVar(ConfVars var) {
+3  public void setFloatVar(ConfVars var, float val) {
+2  public static boolean getBoolVar(Configuration conf, ConfVars var) {
+2  public static boolean getBoolVar(Configuration conf, ConfVars var, boolean defaultVal) {
+3  public static void setBoolVar(Configuration conf, ConfVars var, boolean val) {
+2  public static boolean isSparkDPPAny(Configuration conf) {
+2  public boolean getBoolVar(ConfVars var) {
+3  public void setBoolVar(ConfVars var, boolean val) {
+2  public static String getVar(Configuration conf, ConfVars var) {
+2  public static String getVarWithoutType(Configuration conf, ConfVars var) {
+2  public static String getTrimmedVar(Configuration conf, ConfVars var) {
+2  public static String[] getTrimmedStringsVar(Configuration conf, ConfVars var) {
+2  public static String getVar(Configuration conf, ConfVars var, String defaultVal) {
+2  public static String getVar(Configuration conf, ConfVars var, EncoderDecoder<String, String> encoderDecoder) {
+2  public String getLogIdVar(String defaultValue) {
+3  public static void setVar(Configuration conf, ConfVars var, String val) {
+3  public static void setVar(Configuration conf, ConfVars var, String val,
+    EncoderDecoder<String, String> encoderDecoder) {
+2  public static ConfVars getConfVars(String name) {
+2  public static ConfVars getMetaConf(String name) {
+2  public String getVar(ConfVars var) {
+3  public void setVar(ConfVars var, String val) {
+2  public String getQueryString() {
+2  public static String getQueryString(Configuration conf) {
+3  public void setQueryString(String query) {
+3  public static void setQueryString(Configuration conf, String query) {
+  public void logVars(PrintStream ps) {
+1  public HiveConf() {
+1  public HiveConf(Class<?> cls) {
+1  public HiveConf(Configuration other, Class<?> cls) {
+1  public HiveConf(HiveConf other) {
+2  public Properties getAllProperties() {
+2  public static Properties getProperties(Configuration conf) {
+  private void initialize(Class<?> cls) {
+  private void setupSQLStdAuthWhiteList() {
+2  private static String getSQLStdAuthDefaultWhiteListPattern() {
+2  public ZoneId getLocalTimeZone() {
+  private static String[] convertVarsToRegex(String[] paramList) {
+  private void applySystemProperties() {
+2  public static Map<String, String> getConfSystemProperties() {
+3  private static void applyDefaultNonNullConfVars(Configuration conf) {
+2  public Properties getChangedProperties() {
+2  public String getJar() {
+2  public String getAuxJars() {
+3  public void setAuxJars(String auxJars) {
+2  public URL getHiveDefaultLocation() {
+3  public static void setHiveSiteLocation(URL location) {
+3  public static void setHivemetastoreSiteUrl(URL location) {
+2  public static URL getHiveSiteLocation() {
+2  public static URL getMetastoreSiteLocation() {
+2  public static URL getHiveServer2SiteLocation() {
+2  public String getUser() throws IOException {
+2  public static String getColumnInternalName(int pos) {
+2  public static int getPositionFromInternalName(String internalName) {
+  public void addToRestrictList(String restrictListStr) {
+3  public void setModifiableWhiteListRegex(String paramNameRegex) {
+  private void setupRestrictList() {
+  private void setupRSCList() {
+`  public void stripHiddenConfigurations(Configuration conf) {
+2  public boolean isWebUiEnabled() {
+2  public boolean isWebUiQueryInfoCacheEnabled() {
+2  public boolean isSparkDPPAny() {
+2  public boolean isSparkDPPOnlyMapjoin() {
+2  public static boolean isLoadMetastoreConfig() {
+3  public static void setLoadMetastoreConfig(boolean loadMetastoreConfig) {
+2  public static boolean isLoadHiveServer2Config() {
+3  public static void setLoadHiveServer2Config(boolean loadHiveServer2Config) {
+  private static String makeMessage(String what, ConfVars setting) {
+  public static String checkNoLimit(Configuration conf) {
+  public static String checkNoPartitionFilter(Configuration conf) {
+  public static String checkTypeSafety(Configuration conf) {
+  public static String checkCartesian(Configuration conf) {
+  public static String checkBucketing(Configuration conf) {
+  private static boolean isAllowed(Configuration conf, ConfVars setting) {
+  public static String getNonMrEngines() {
+  public static String generateMrDeprecationWarning() {
+`  public static HashMap<String, ConfVars> getOrCreateReverseMap() {
+  public void verifyAndSetAll(Map<String, String> overlay) {
+  public Map<String, String> subtree(String string) {
+Constructors in HiveConf.java:
+1  ConfVars(String varname, Object defaultVal, String description) {
+1  ConfVars(String varname, Object defaultVal, String description, String altName) {
+1  ConfVars(String varname, Object defaultVal, Validator validator, String description,
+        String altName) {
+1  ConfVars(String varname, Object defaultVal, String description, boolean excluded) {
+1  ConfVars(String varname, String defaultVal, boolean caseSensitive, String description) {
+1  ConfVars(String varname, Object defaultVal, Validator validator, String description) {
+1  ConfVars(String varname, Object defaultVal, Validator validator, String description, boolean excluded) {
+1  ConfVars(String varname, Object defaultVal, Validator validator, String description,
+        boolean caseSensitive, boolean excluded, String altName) {
+  public HiveConf() {
+  public HiveConf(Class<?> cls) {
+  public HiveConf(Configuration other, Class<?> cls) {
+  public HiveConf(HiveConf other) {
+  synchronized (reverseMapLock) {
+  synchronized (reverseMapLock) {
+
+Processing file: ../hive/common/src/java/org/apache/hadoop/hive/conf/HiveConfUtil.java
+Methods in HiveConfUtil.java:
+2  public static boolean isEmbeddedMetaStore(String msUri) {
+`  public static StringBuilder dumpConfig(HiveConf conf) {
+2  public static Set<String> getHiddenSet(Configuration configuration) {
+`  public static void stripConfigurations(Configuration conf, Set<String> hiddenSet) {
+`  public static void stripConfigurations(Configuration conf) {
+`  public static void dumpConfig(Configuration originalConf, StringBuilder sb) {
+  public int compare(Map.Entry<String, String> ent, Map.Entry<String, String> ent2) {
+3  public static void updateJobCredentialProviders(Configuration jobConf) {
+2  public static String getJobCredentialProviderPassword(Configuration conf) {
+3  private static void addKeyValuePair(Configuration jobConf, String property, String keyName,
+      String newKeyValue) {
+No constructors found in HiveConfUtil.java.
+
+Processing file: ../hive/common/src/java/org/apache/hive/http/ConfServlet.java
+Methods in ConfServlet.java:
+2  private Configuration getConfFromContext() {
+`  public void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+`  static void writeResponse(Configuration conf, Writer out, String format)
+      throws IOException, BadFormatException {
+  public BadFormatException(String msg) {
+Constructors in ConfServlet.java:
+  public BadFormatException(String msg) {
+
+Processing file: ../hive/common/src/java/org/apache/hive/http/Log4j2ConfiguratorServlet.java
+Methods in Log4j2ConfiguratorServlet.java:
+  public ConfLoggers() {
+  public List<ConfLogger> getLoggers() {
+  public void setLoggers(final List<ConfLogger> loggers) {
+  public ConfLogger() {
+  public ConfLogger(String logger, String level) {
+  public String getLogger() {
+  public void setLogger(final String logger) {
+2  public String getLevel() {
+3  public void setLevel(final String level) {
+`  public void init() throws ServletException {
+`  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+3  private void setResponseHeader(final HttpServletResponse response) {
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
+    throws ServletException, IOException {
+  private void configureLogger(final ConfLoggers confLoggers) {
+  private void listLoggers(final HttpServletResponse response) throws IOException {
+Constructors in Log4j2ConfiguratorServlet.java:
+  public ConfLoggers() {
+  public ConfLogger() {
+  public ConfLogger(String logger, String level) {
+
+Processing file: ../hive/common/src/java/org/apache/hive/common/util/ACLConfigurationParser.java
+Methods in ACLConfigurationParser.java:
+  public ACLConfigurationParser(Configuration conf, String confPropertyName) {
+  private boolean isWildCard(String aclStr) {
+  private void parse(Configuration conf, String configProperty) {
+`2  public Set<String> getAllowedUsers() {
+2  public Set<String> getAllowedGroups() {
+3  public void addAllowedUser(String user) {
+3  public void addAllowedGroup(String group) {
+  public String toAclString() {
+  public String toString() {
+  private String constructCsv(Set<String> inSet) {
+Constructors in ACLConfigurationParser.java:
+  public ACLConfigurationParser(Configuration conf, String confPropertyName) {
+
+Processing file: ../hive/common/src/java/org/apache/hadoop/hive/common/CopyOnFirstWriteProperties.java
+Methods in CopyOnFirstWriteProperties.java:
+  public CopyOnFirstWriteProperties(Properties p) {
+2  public String getProperty(String key) {
+2  public String getProperty(String key, String defaultValue) {
+  public void list(PrintStream out) {
+  public void list(PrintWriter out) {
+1  public synchronized void load(InputStream inStream) throws IOException {
+1  public synchronized void load(Reader reader) throws IOException {
+1  public synchronized void loadFromXML(InputStream inStream) throws IOException {
+  public Enumeration<?> propertyNames() {
+3  public synchronized Object setProperty(String key, String value) {
+  public void store(OutputStream out, String comments) throws IOException {
+  public void storeToXML(OutputStream os, String comment) throws IOException {
+  public void storeToXML(OutputStream os, String comment, String encoding)
+      throws IOException {
+2  public Set<String> stringPropertyNames() {
+  public synchronized void clear() {
+  public synchronized Object clone() {
+  public synchronized Object compute(Object key, BiFunction remappingFunction) {
+  public synchronized Object computeIfAbsent(Object key, Function mappingFunction) {
+  public synchronized Object computeIfPresent(Object key, BiFunction remappingFunction) {
+  public synchronized boolean contains(Object value) {
+  public synchronized boolean containsKey(Object key) {
+  public synchronized boolean containsValue(Object value) {
+  public synchronized Enumeration<Object> elements() {
+  public synchronized boolean equals(Object o) {
+  public synchronized void forEach(BiConsumer action) {
+2  public synchronized Object get(Object key) {
+2  public synchronized Object getOrDefault(Object key, Object defaultValue) {
+  public synchronized int hashCode() {
+  public synchronized boolean isEmpty() {
+  public synchronized Enumeration<Object> keys() {
+  public Set<Object> keySet() {
+3  public synchronized Object merge(Object key, Object value, BiFunction remappingFunction) {
+3  public synchronized Object put(Object key, Object value) {
+3  public synchronized void putAll(Map<? extends Object, ? extends Object> t) {
+3  public synchronized Object putIfAbsent(Object key, Object value) {
+  public synchronized Object remove(Object key) {
+  public synchronized boolean remove(Object key, Object value) {
+3  public synchronized Object replace(Object key, Object value) {
+3  public synchronized boolean replace(Object key, Object oldValue, Object newValue) {
+3  public synchronized void replaceAll(BiFunction function) {
+  public synchronized int size() {
+  public synchronized String toString() {
+  public Collection<Object> values() {
+  private void copyFromInternedToThis() {
+3  public void setInterned(Properties p) {
+  public CopyOnFirstWriteProperties() {
+2  public Properties getInterned() {
+Constructors in CopyOnFirstWriteProperties.java:
+  public CopyOnFirstWriteProperties(Properties p) {
+  public CopyOnFirstWriteProperties() {
+

@@ -1,0 +1,1069 @@
+Processing file: ../druid/processing/src/main/java/org/apache/druid/data/input/impl/HttpInputSourceConfig.java
+Methods in HttpInputSourceConfig.java:
+2  public Set<String> getAllowedProtocols()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+No constructors found in HttpInputSourceConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/segment/DefaultColumnFormatConfig.java
+Methods in DefaultColumnFormatConfig.java:
+  public static void validateNestedFormatVersion(@Nullable Integer formatVersion)
+  {
+2  public Integer getNestedColumnFormatVersion()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+No constructors found in DefaultColumnFormatConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/segment/join/filter/rewrite/JoinFilterRewriteConfig.java
+Methods in JoinFilterRewriteConfig.java:
+1  public JoinFilterRewriteConfig(
+      boolean enableFilterPushDown,
+      boolean enableFilterRewrite,
+      boolean enableRewriteValueColumnFilters,
+      boolean enableRewriteJoinToFilter,
+      long filterRewriteMaxSize
+  )
+  {
+  public static JoinFilterRewriteConfig forQuery(final Query<?> query)
+  {
+2  public boolean isEnableFilterPushDown()
+  {
+2  public boolean isEnableFilterRewrite()
+  {
+2  public boolean isEnableRewriteValueColumnFilters()
+  {
+2  public boolean isEnableRewriteJoinToFilter()
+  {
+2  public long getFilterRewriteMaxSize()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+Constructors in JoinFilterRewriteConfig.java:
+  public JoinFilterRewriteConfig(
+      boolean enableFilterPushDown,
+      boolean enableFilterRewrite,
+      boolean enableRewriteValueColumnFilters,
+      boolean enableRewriteJoinToFilter,
+      long filterRewriteMaxSize
+  )
+  {
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/segment/column/ColumnConfig.java
+Methods in ColumnConfig.java:
+  public double skipValueRangeIndexScale()
+    {
+  public double skipValuePredicateIndexScale()
+    {
+  default double skipValueRangeIndexScale()
+  {
+  default double skipValuePredicateIndexScale()
+  {
+No constructors found in ColumnConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/DruidProcessingBufferConfig.java
+Methods in DruidProcessingBufferConfig.java:
+1  public DruidProcessingBufferConfig()
+  {
+2  public HumanReadableBytes getBufferSize()
+  {
+2  public int getPoolCacheMaxCount()
+  {
+2  public int getPoolCacheInitialCount()
+  {
+Constructors in DruidProcessingBufferConfig.java:
+  public DruidProcessingBufferConfig()
+  {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/DefaultQueryConfig.java
+Methods in DefaultQueryConfig.java:
+1  public Map<String, Object> getContext()
+  {
+No constructors found in DefaultQueryConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/DruidProcessingIndexesConfig.java
+Methods in DruidProcessingIndexesConfig.java:
+1  public DruidProcessingIndexesConfig()
+  {
+2  public double getSkipValueRangeIndexScale()
+  {
+2  public double getSkipValuePredicateIndexScale()
+  {
+Constructors in DruidProcessingIndexesConfig.java:
+  public DruidProcessingIndexesConfig()
+  {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/DruidProcessingConfig.java
+Methods in DruidProcessingConfig.java:
+1  public DruidProcessingConfig()
+  {
+  private void initializeBufferSize()
+  {
+2  public String getFormatString()
+  {
+2  public int getNumThreads()
+  {
+2  public int getNumMergeBuffers()
+  {
+2  public boolean isFifo()
+  {
+2  public String getTmpDir()
+  {
+`  public int intermediateComputeSizeBytes()
+  {
+`  public int poolCacheMaxCount()
+  {
+2  public int getNumInitalBuffersForIntermediatePool()
+  {
+`  public double skipValueRangeIndexScale()
+  {
+`  public double skipValuePredicateIndexScale()
+  {
+2  public boolean isNumThreadsConfigured()
+  {
+2  public boolean isNumMergeBuffersConfigured()
+  {
+Constructors in DruidProcessingConfig.java:
+  public DruidProcessingConfig()
+  {
+  catch (UnsupportedOperationException e) {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/scan/ScanQueryConfig.java
+Methods in ScanQueryConfig.java:
+2  public boolean isLegacy()
+  {
+3  public ScanQueryConfig setLegacy(final boolean legacy)
+  {
+2  public int getMaxRowsQueuedForOrdering()
+  {
+2  public int getMaxSegmentPartitionsOrderedInMemory()
+  {
+  public boolean equals(final Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+No constructors found in ScanQueryConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/operator/join/JoinConfig.java
+Methods in JoinConfig.java:
+1  public JoinConfig(
+      int releaseSize
+  )
+  {
+2  public int getReleaseSize()
+  {
+2  public int getBufferSize()
+  {
+Constructors in JoinConfig.java:
+  public JoinConfig(
+      int releaseSize
+  )
+  {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/groupby/GroupByQueryConfig.java
+Methods in GroupByQueryConfig.java:
+2  public boolean isSingleThreaded()
+  {
+3  public void setSingleThreaded(boolean singleThreaded)
+  {
+2  public int getBufferGrouperMaxSize()
+  {
+2  public float getBufferGrouperMaxLoadFactor()
+  {
+2  public int getBufferGrouperInitialBuckets()
+  {
+2  long getConfiguredMaxSelectorDictionarySize()
+  {
+2  long getActualMaxSelectorDictionarySize(final long maxHeapSize, final int numConcurrentQueries)
+  {
+2  public long getActualMaxSelectorDictionarySize(final DruidProcessingConfig processingConfig)
+  {
+2  long getConfiguredMaxMergingDictionarySize()
+  {
+2  public long getActualMaxMergingDictionarySize(final long maxHeapSize, final int numConcurrentQueries)
+  {
+2  public long getActualMaxMergingDictionarySize(final DruidProcessingConfig processingConfig)
+  {
+2  public HumanReadableBytes getMaxOnDiskStorage()
+  {
+2  public HumanReadableBytes getDefaultOnDiskStorage()
+  {
+2  public boolean isForcePushDownLimit()
+  {
+2  public boolean isApplyLimitPushDownToSegment()
+  {
+2  public boolean isForceHashAggregation()
+  {
+2  public int getIntermediateCombineDegree()
+  {
+2  public int getNumParallelCombineThreads()
+  {
+2  public boolean isMergeThreadLocal()
+  {
+2  public boolean isVectorize()
+  {
+2  public boolean isIntermediateResultAsMapCompat()
+  {
+2  public boolean isForcePushDownNestedQuery()
+  {
+2  public boolean isMultiValueUnnestingEnabled()
+  {
+  public GroupByQueryConfig withOverrides(final GroupByQuery query)
+  {
+  public String toString()
+  {
+No constructors found in GroupByQueryConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/metadata/SegmentMetadataQueryConfig.java
+Methods in SegmentMetadataQueryConfig.java:
+1  public SegmentMetadataQueryConfig(String period)
+  {
+1  public SegmentMetadataQueryConfig()
+  {
+2  public Period getDefaultHistory()
+  {
+3  public void setDefaultAnalysisTypes(EnumSet<SegmentMetadataQuery.AnalysisType> defaultAnalysisTypes)
+  {
+Constructors in SegmentMetadataQueryConfig.java:
+  public SegmentMetadataQueryConfig(String period)
+  {
+  public SegmentMetadataQueryConfig()
+  {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/lookup/LookupConfig.java
+Methods in LookupConfig.java:
+2  public String getSnapshotWorkingDir()
+  {
+2  public int getNumLookupLoadingThreads()
+  {
+2  public boolean getEnableLookupSyncOnStartup()
+  {
+2  public int getCoordinatorFetchRetries()
+  {
+2  public int getLookupStartRetries()
+  {
+2  public int getCoordinatorRetryDelay()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+No constructors found in LookupConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/search/SearchQueryConfig.java
+Methods in SearchQueryConfig.java:
+2  public int getMaxSearchLimit()
+  {
+2  public String getSearchStrategy()
+  {
+3  public void setSearchStrategy(final String strategy)
+  {
+  public SearchQueryConfig withOverrides(final SearchQuery query)
+  {
+No constructors found in SearchQueryConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/query/topn/TopNQueryConfig.java
+Methods in TopNQueryConfig.java:
+2  public int getMinTopNThreshold()
+  {
+No constructors found in TopNQueryConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/http/client/HttpClientConfig.java
+Methods in HttpClientConfig.java:
+2  public String getEncodingString()
+      {
+2  public String getEncodingString()
+      {
+2  public String getEncodingString()
+      {
+  public static Builder builder()
+  {
+1  private HttpClientConfig(
+      int numConnections,
+      boolean eagerInitialization,
+      SSLContext sslContext,
+      HttpClientProxyConfig proxyConfig,
+      Duration readTimeout,
+      Duration sslHandshakeTimeout,
+      int bossPoolSize,
+      int workerPoolSize,
+      CompressionCodec compressionCodec,
+      Duration unusedConnectionTimeoutDuration
+  )
+  {
+2  public int getNumConnections()
+  {
+2  public boolean isEagerInitialization()
+  {
+2  public SSLContext getSslContext()
+  {
+2  public HttpClientProxyConfig getProxyConfig()
+  {
+2  public Duration getReadTimeout()
+  {
+2  public Duration getSslHandshakeTimeout()
+  {
+2  public int getBossPoolSize()
+  {
+2  public int getWorkerPoolSize()
+  {
+2  public CompressionCodec getCompressionCodec()
+  {
+2  public Duration getUnusedConnectionTimeoutDuration()
+  {
+  private Builder()
+    {
+`  public Builder withNumConnections(int numConnections)
+    {
+`  public Builder withEagerInitialization(boolean eagerInitialization)
+    {
+`  public Builder withSslContext(SSLContext sslContext)
+    {
+`  public Builder withHttpProxyConfig(HttpClientProxyConfig config)
+    {
+`  public Builder withReadTimeout(Duration readTimeout)
+    {
+`  public Builder withSslHandshakeTimeout(Duration sslHandshakeTimeout)
+    {
+`  public Builder withWorkerCount(int workerCount)
+    {
+`  public Builder withCompressionCodec(CompressionCodec compressionCodec)
+    {
+`  public Builder withUnusedConnectionTimeoutDuration(Duration unusedConnectionTimeoutDuration)
+    {
+  public HttpClientConfig build()
+    {
+Constructors in HttpClientConfig.java:
+  private HttpClientConfig(
+      int numConnections,
+      boolean eagerInitialization,
+      SSLContext sslContext,
+      HttpClientProxyConfig proxyConfig,
+      Duration readTimeout,
+      Duration sslHandshakeTimeout,
+      int bossPoolSize,
+      int workerPoolSize,
+      CompressionCodec compressionCodec,
+      Duration unusedConnectionTimeoutDuration
+  )
+  {
+  private Builder()
+    {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/http/client/HttpClientProxyConfig.java
+Methods in HttpClientProxyConfig.java:
+1  public HttpClientProxyConfig()
+  {
+1  public HttpClientProxyConfig(String host, int port, String user, String password)
+  {
+2  public String getHost()
+  {
+2  public int getPort()
+  {
+2  public String getUser()
+  {
+2  public String getPassword()
+  {
+  public String toString()
+  {
+Constructors in HttpClientProxyConfig.java:
+  public HttpClientProxyConfig()
+  {
+  public HttpClientProxyConfig(String host, int port, String user, String password)
+  {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/http/client/pool/ResourcePoolConfig.java
+Methods in ResourcePoolConfig.java:
+1  public ResourcePoolConfig(
+      int maxPerKey,
+      long unusedConnectionTimeoutMillis
+  )
+  {
+1  public ResourcePoolConfig(
+      int maxPerKey,
+      boolean cleanIdle,
+      long unusedConnectionTimeoutMillis
+  )
+  {
+2  public int getMaxPerKey()
+  {
+2  public long getUnusedConnectionTimeoutMillis()
+  {
+Constructors in ResourcePoolConfig.java:
+  public ResourcePoolConfig(
+      int maxPerKey,
+      long unusedConnectionTimeoutMillis
+  )
+  {
+  public ResourcePoolConfig(
+      int maxPerKey,
+      boolean cleanIdle,
+      long unusedConnectionTimeoutMillis
+  )
+  {
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/metrics/DruidMonitorSchedulerConfig.java
+Methods in DruidMonitorSchedulerConfig.java:
+2  public String getSchedulerClassName()
+  {
+2  public Duration getEmissionDuration()
+  {
+No constructors found in DruidMonitorSchedulerConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/emitter/core/ParametrizedUriEmitterConfig.java
+Methods in ParametrizedUriEmitterConfig.java:
+2  public String getRecipientBaseUrlPattern()
+  {
+`  public HttpEmitterConfig buildHttpEmitterConfig(String baseUri)
+  {
+  public String toString()
+  {
+No constructors found in ParametrizedUriEmitterConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/emitter/core/BaseHttpEmittingConfig.java
+Methods in BaseHttpEmittingConfig.java:
+2  public static Pair<Integer, Integer> getDefaultBatchSizeAndLimit(long maxMemory)
+  {
+2  public long getFlushMillis()
+  {
+2  public int getFlushCount()
+  {
+2  public long getFlushTimeOut()
+  {
+2  public PasswordProvider getBasicAuthentication()
+  {
+2  public BatchingStrategy getBatchingStrategy()
+  {
+2  public int getMaxBatchSize()
+  {
+2  public ContentEncoding getContentEncoding()
+  {
+2  public int getBatchQueueSizeLimit()
+  {
+2  public float getHttpTimeoutAllowanceFactor()
+  {
+2  public int getMinHttpTimeoutMillis()
+  {
+  public String toString()
+  {
+  protected String toStringBase()
+  {
+No constructors found in BaseHttpEmittingConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/emitter/core/LoggingEmitterConfig.java
+Methods in LoggingEmitterConfig.java:
+2  public String getLoggerClass()
+  {
+2  public String getLogLevel()
+  {
+  public String toString()
+  {
+No constructors found in LoggingEmitterConfig.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/emitter/core/HttpEmitterConfig.java
+Methods in HttpEmitterConfig.java:
+1  public HttpEmitterConfig()
+  {
+1  public HttpEmitterConfig(BaseHttpEmittingConfig base, String recipientBaseUrl)
+  {
+2  public String getRecipientBaseUrl()
+  {
+  public String toString()
+  {
+  public Builder(String recipientBaseUrl)
+    {
+3  public Builder setFlushMillis(long flushMillis)
+    {
+3  public Builder setFlushTimeout(long flushTimeout)
+    {
+3  public Builder setFlushCount(int flushCount)
+    {
+3  public Builder setBasicAuthentication(PasswordProvider basicAuthentication)
+    {
+3  public Builder setBatchingStrategy(BatchingStrategy batchingStrategy)
+    {
+3  public Builder setMaxBatchSize(int maxBatchSize)
+    {
+3  public Builder setContentEncoding(ContentEncoding contentEncoding)
+    {
+3  public Builder setBatchQueueSizeLimit(int batchQueueSizeLimit)
+    {
+3  public Builder setHttpTimeoutAllowanceFactor(float httpTimeoutAllowanceFactor)
+    {
+3  public Builder setMinHttpTimeoutMillis(int minHttpTimeoutMillis)
+    {
+  public HttpEmitterConfig build()
+    {
+Constructors in HttpEmitterConfig.java:
+  public HttpEmitterConfig()
+  {
+  public HttpEmitterConfig(BaseHttpEmittingConfig base, String recipientBaseUrl)
+  {
+  public Builder(String recipientBaseUrl)
+    {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/common/config/Config.java
+Methods in Config.java:
+1  public static ConfigurationObjectFactory createFactory(Properties props)
+  {
+No constructors found in Config.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/utils/DynamicConfigProviderUtils.java
+Methods in DynamicConfigProviderUtils.java:
+  public static Map<String, String> extraConfigAndSetStringMap(Map<String, Object> config, String dynamicConfigProviderKey, ObjectMapper mapper)
+  {
+  public static Map<String, Object> extraConfigAndSetObjectMap(Map<String, Object> config, String dynamicConfigProviderKey, ObjectMapper mapper)
+  {
+  private static Map<String, String> extraConfigFromProvider(Object dynamicConfigProviderJson, ObjectMapper mapper)
+  {
+No constructors found in DynamicConfigProviderUtils.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/Configs.java
+Methods in Configs.java:
+  public static long valueOrDefault(Long value, long defaultValue)
+  {
+  public static int valueOrDefault(Integer value, int defaultValue)
+  {
+  public static boolean valueOrDefault(Boolean value, boolean defaultValue)
+  {
+  public static <T> T valueOrDefault(T value, T defaultValue)
+  {
+No constructors found in Configs.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/JacksonConfigManager.java
+Methods in JacksonConfigManager.java:
+1  public JacksonConfigManager(
+      ConfigManager configManager,
+      @Json ObjectMapper jsonMapper,
+      @JsonNonNull ObjectMapper jsonMapperOnlyNonNullValue,
+      AuditManager auditManager
+  )
+  {
+2  public <T> AtomicReference<T> watch(String key, Class<? extends T> clazz)
+  {
+2  public <T> AtomicReference<T> watch(String key, Class<? extends T> clazz, T defaultVal)
+  {
+2  public <T> AtomicReference<T> watch(String key, TypeReference<T> clazz, T defaultVal)
+  {
+3  public <T> T convertByteToConfig(byte[] configInByte, Class<? extends T> clazz, T defaultVal)
+  {
+3  public <T> SetResult set(String key, T val, AuditInfo auditInfo)
+  {
+3  public <T> SetResult set(
+      String key,
+      @Nullable byte[] oldValue,
+      T newValue,
+      AuditInfo auditInfo
+  )
+  {
+`  public byte[] serialize(T obj)
+      {
+`  public String serializeToString(T obj, boolean skipNull)
+      {
+`  public T deserialize(byte[] bytes)
+      {
+`  public byte[] serialize(T obj)
+      {
+`  public String serializeToString(T obj, boolean skipNull)
+      {
+`  public T deserialize(byte[] bytes)
+      {
+Constructors in JacksonConfigManager.java:
+  public JacksonConfigManager(
+      ConfigManager configManager,
+      @Json ObjectMapper jsonMapper,
+      @JsonNonNull ObjectMapper jsonMapperOnlyNonNullValue,
+      AuditManager auditManager
+  )
+  {
+  catch (JsonProcessingException e) {
+  catch (JsonProcessingException e) {
+  catch (JsonProcessingException e) {
+  catch (JsonProcessingException e) {
+  catch (IOException e) {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/NullValueHandlingConfig.java
+Methods in NullValueHandlingConfig.java:
+2  public boolean isIgnoreNullsForStringCardinality()
+  {
+2  public boolean isUseDefaultValuesForNull()
+  {
+2  public boolean isUseThreeValueLogicForNativeFilters()
+  {
+No constructors found in NullValueHandlingConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigManagerConfig.java
+Methods in ConfigManagerConfig.java:
+2  public Period getPollDuration()
+  {
+2  public boolean isEnableCompareAndSwap()
+  {
+No constructors found in ConfigManagerConfig.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigManager.java
+Methods in ConfigManager.java:
+  public ConfigManager(MetadataStorageConnector dbConnector, Supplier<MetadataStorageTablesConfig> dbTables, Supplier<ConfigManagerConfig> config)
+  {
+  public void start()
+  {
+  public void stop()
+  {
+  private void poll()
+  {
+  public <T> AtomicReference<T> watchConfig(final String key, final ConfigSerde<T> serde)
+  {
+  public ConfigHolder<T> call()
+              {
+  public <T> SetResult set(final String key, final ConfigSerde<T> serde, final T obj)
+  {
+  public <T> SetResult set(final String key, final ConfigSerde<T> serde, @Nullable final byte[] oldValue, final T newObject)
+  {
+  private MetadataCASUpdate createMetadataCASUpdate(
+      String keyValue,
+      byte[] oldValue,
+      byte[] newValue
+  )
+  {
+  public static SetResult ok()
+    {
+  public static SetResult failure(Exception e)
+    {
+  public static SetResult retryableFailure(Exception e)
+    {
+  private SetResult(@Nullable Exception exception, boolean retryableException)
+    {
+  public boolean isOk()
+    {
+  public boolean isRetryable()
+    {
+  public Exception getException()
+    {
+  public AtomicReference<T> getReference()
+    {
+  public boolean swapIfNew(byte[] newBytes)
+    {
+  void stop()
+    {
+Constructors in ConfigManager.java:
+  public ConfigManager(MetadataStorageConnector dbConnector, Supplier<MetadataStorageTablesConfig> dbTables, Supplier<ConfigManagerConfig> config)
+  {
+  synchronized (lock) {
+  synchronized (lock) {
+  catch (Exception e) {
+  catch (Exception e) {
+  catch (InterruptedException e) {
+  catch (ExecutionException e) {
+  catch (Exception e) {
+  private SetResult(@Nullable Exception exception, boolean retryableException)
+    {
+  ConfigHolder(
+        byte[] rawBytes,
+        ConfigSerde<T> serde
+    )
+    {
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigSerde.java
+No methods found in ConfigSerde.java.
+No constructors found in ConfigSerde.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/js/JavaScriptConfig.java
+Methods in JavaScriptConfig.java:
+2  public boolean isEnabled()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+2  public static JavaScriptConfig getEnabledInstance()
+  {
+No constructors found in JavaScriptConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/metadata/MetadataStorageConnectorConfig.java
+Methods in MetadataStorageConnectorConfig.java:
+1  public static MetadataStorageConnectorConfig create(
+      String connectUri,
+      String user,
+      String password,
+      Map<String, String> properties
+  )
+  {
+2  public boolean isCreateTables()
+  {
+2  public String getHost()
+  {
+2  public int getPort()
+  {
+2  public String getConnectURI()
+  {
+2  public String getUser()
+  {
+2  public String getPassword()
+  {
+2  public Properties getDbcpProperties()
+  {
+  public String toString()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+No constructors found in MetadataStorageConnectorConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/metadata/MetadataStorageTablesConfig.java
+Methods in MetadataStorageTablesConfig.java:
+1  public static MetadataStorageTablesConfig fromBase(String base)
+  {
+3  private String makeTableName(String explicitTableName, String defaultSuffix)
+  {
+2  public String getBase()
+  {
+2  public String getDataSourceTable()
+  {
+2  public String getPendingSegmentsTable()
+  {
+2  public String getSegmentsTable()
+  {
+2  public String getUpgradeSegmentsTable()
+  {
+2  public String getRulesTable()
+  {
+2  public String getConfigTable()
+  {
+2  public String getEntryTable(final String entryType)
+  {
+2  public String getLogTable(final String entryType)
+  {
+2  public String getLockTable(final String entryType)
+  {
+2  public String getTaskEntryType()
+  {
+2  public String getAuditTable()
+  {
+2  public String getSupervisorTable()
+  {
+2  public String getTasksTable()
+  {
+2  public String getTaskLogTable()
+  {
+2  public String getTaskLockTable()
+  {
+No constructors found in MetadataStorageTablesConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/metadata/EnvironmentVariableDynamicConfigProvider.java
+Methods in EnvironmentVariableDynamicConfigProvider.java:
+2  public Map<String, String> getVariables()
+  {
+2  public Map<String, String> getConfig()
+  {
+2  protected String getEnv(String var)
+  {
+  public String toString()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+No constructors found in EnvironmentVariableDynamicConfigProvider.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/metadata/MapStringDynamicConfigProvider.java
+Methods in MapStringDynamicConfigProvider.java:
+`1  public Map<String, String> getConfig()
+  {
+No constructors found in MapStringDynamicConfigProvider.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/metadata/DynamicConfigProvider.java
+No methods found in DynamicConfigProvider.java.
+No constructors found in DynamicConfigProvider.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/math/expr/ExpressionProcessingConfig.java
+Methods in ExpressionProcessingConfig.java:
+2  public boolean isUseStrictBooleans()
+  {
+  public boolean processArraysAsMultiValueStrings()
+  {
+2  public boolean isHomogenizeNullMultiValueStringArrays()
+  {
+2  private static boolean getWithPropertyFallbackFalse(@Nullable Boolean value, String property)
+  {
+2  private static boolean getWithPropertyFallback(@Nullable Boolean value, String property, String fallback)
+  {
+No constructors found in ExpressionProcessingConfig.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ExtensionsConfig.java
+Methods in ExtensionsConfig.java:
+`2  public boolean searchCurrentClassloader()
+  {
+2  public String getDirectory()
+  {
+2  public boolean isUseExtensionClassloaderFirst()
+  {
+2  public String getHadoopDependenciesDir()
+  {
+2  public String getHadoopContainerDruidClasspath()
+  {
+2  public boolean getAddExtensionsToHadoopContainer()
+  {
+2  public LinkedHashSet<String> getLoadList()
+  {
+  public String toString()
+  {
+No constructors found in ExtensionsConfig.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JsonConfigProvider.java
+Methods in JsonConfigProvider.java:
+  public static <T> void bind(Binder binder, String propertyBase, Class<T> classToProvide)
+  {
+  public static <T> void bindWithDefault(
+      Binder binder,
+      String propertyBase,
+      Class<T> classToProvide,
+      Class<? extends T> defaultClass
+  )
+  {
+  public static <T> void bind(Binder binder, String propertyBase, Class<T> classToProvide, Annotation annotation)
+  {
+  public static <T> void bind(
+      Binder binder,
+      String propertyBase,
+      Class<T> classToProvide,
+      Class<? extends Annotation> annotation
+  )
+  {
+  public static <T> void bind(
+      Binder binder,
+      String propertyBase,
+      Class<T> clazz,
+      Key<T> instanceKey,
+      Key<Supplier<T>> supplierKey
+  )
+  {
+  public static <T> void bind(
+      Binder binder,
+      String propertyBase,
+      Class<T> clazz,
+      Class<? extends T> defaultClass,
+      Key<T> instanceKey,
+      Key<Supplier<T>> supplierKey
+  )
+  {
+  public static <T> void bindInstance(
+      Binder binder,
+      Key<T> bindKey,
+      T instance
+  )
+  {
+  public static <T> JsonConfigProvider<T> of(String propertyBase, Class<T> classToProvide)
+  {
+  public static <T> JsonConfigProvider<T> of(
+      String propertyBase,
+      Class<T> classToProvide,
+      Class<? extends T> defaultClass
+  )
+  {
+  public JsonConfigProvider(
+      String propertyBase,
+      Class<T> classToProvide,
+      @Nullable Class<? extends T> defaultClass
+  )
+  {
+  public void inject(
+      Properties props,
+      JsonConfigurator configurator
+  )
+  {
+  public T get()
+  {
+Constructors in JsonConfigProvider.java:
+  public JsonConfigProvider(
+      String propertyBase,
+      Class<T> classToProvide,
+      @Nullable Class<? extends T> defaultClass
+  )
+  {
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ConfigProvider.java
+Methods in ConfigProvider.java:
+  public static <T> void bind(Binder binder, Class<T> clazz)
+  {
+  public static <T> Provider<T> of(Class<T> clazz)
+  {
+  public static <T> Provider<T> of(Class<T> clazz, Map<String, String> replacements)
+  {
+  public ConfigProvider(
+      Class<T> clazz,
+      Map<String, String> replacements
+  )
+  {
+  public void inject(ConfigurationObjectFactory factory)
+  {
+  public T get()
+  {
+Constructors in ConfigProvider.java:
+  public ConfigProvider(
+      Class<T> clazz,
+      Map<String, String> replacements
+  )
+  {
+  catch (IllegalArgumentException e) {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ModulesConfig.java
+Methods in ModulesConfig.java:
+2  public List<String> getExcludeList()
+  {
+  public String toString()
+  {
+No constructors found in ModulesConfig.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JacksonConfigManagerModule.java
+Methods in JacksonConfigManagerModule.java:
+  public void configure(Binder binder)
+  {
+  public ConfigManager getConfigManager(
+      final MetadataStorageConnector dbConnector,
+      final Supplier<MetadataStorageTablesConfig> dbTables,
+      final Supplier<ConfigManagerConfig> config,
+      final Lifecycle lifecycle
+  )
+  {
+  public void start()
+          {
+  public void stop()
+          {
+No constructors found in JacksonConfigManagerModule.java.
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JacksonConfigProvider.java
+Methods in JacksonConfigProvider.java:
+  public static <T> void bind(Binder binder, String key, Class<T> clazz, T defaultVal)
+  {
+  public static <T> JacksonConfigProvider<T> of(String key, Class<T> clazz, T defaultVal)
+  {
+  public void configure(JacksonConfigManager configManager)
+  {
+  public Supplier<T> get()
+  {
+Constructors in JacksonConfigProvider.java:
+  JacksonConfigProvider(String key, Class<T> clazz, TypeReference<T> typeRef, T defaultVal)
+  {
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JsonConfigurator.java
+Methods in JsonConfigurator.java:
+  public JsonConfigurator(
+      ObjectMapper jsonMapper,
+      Validator validator
+  )
+  {
+  public <T> T configurate(Properties props, String propertyPrefix, Class<T> clazz) throws ProvisionException
+  {
+  public <T> T configurate(
+      Properties props,
+      String propertyPrefix,
+      Class<T> clazz,
+      @Nullable Class<? extends T> defaultClass
+  ) throws ProvisionException
+  {
+  throw new ProvisionException(
+          Iterables.transform(
+              messages,
+              new Function<String, Message>()
+              {
+  public Message apply(String input)
+                {
+  private static void hieraricalPutValue(
+      String propertyPrefix,
+      String originalProperty,
+      String property,
+      Object value,
+      Map<String, Object> targetMap
+  )
+  {
+  public static <T> void verifyClazzIsConfigurable(
+      ObjectMapper mapper,
+      Class<T> clazz,
+      @Nullable Class<? extends T> defaultClass
+  )
+  {
+Constructors in JsonConfigurator.java:
+  public JsonConfigurator(
+      ObjectMapper jsonMapper,
+      Validator validator
+  )
+  {
+  catch (IOException e) {
+  catch (IllegalArgumentException e) {
+  catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+  catch (NoSuchFieldException e) {
+  catch (NoSuchMethodException e) {
+
+`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ConfigModule.java
+Methods in ConfigModule.java:
+  public void configure(Binder binder)
+  {
+  public ConfigurationObjectFactory makeFactory(Properties props)
+  {
+No constructors found in ConfigModule.java.
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/indexer/Property.java
+Methods in Property.java:
+1  public Property(String name, @Nullable T value)
+  {
+2  public String getName()
+  {
+2  public T getValue()
+  {
+`  public boolean isValueNullOrEmptyCollection()
+  {
+  public boolean equals(Object o)
+  {
+  public int hashCode()
+  {
+  public String toString()
+  {
+Constructors in Property.java:
+  public Property(String name, @Nullable T value)
+  {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/common/utils/PropUtils.java
+Methods in PropUtils.java:
+2  public static String getProperty(Properties props, String property)
+  {
+2  public static int getPropertyAsInt(Properties props, String property)
+  {
+2  public static int getPropertyAsInt(Properties props, String property, Integer defaultValue)
+  {
+Constructors in PropUtils.java:
+  catch (NumberFormatException e) {
+
+Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/PropertiesModule.java
+Methods in PropertiesModule.java:
+1  public PropertiesModule(List<String> propertiesFiles)
+  {
+`  public void configure(Binder binder)
+  {
+  private static InputStream openPropertiesFile(final String propertiesFile, final Properties systemProps)
+      throws IOException
+  {
+Constructors in PropertiesModule.java:
+  public PropertiesModule(List<String> propertiesFiles)
+  {
+  catch (IOException e) {
+  catch (IOException e) {
+
