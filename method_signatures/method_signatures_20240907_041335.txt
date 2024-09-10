@@ -62,15 +62,15 @@ Constructors in JoinFilterRewriteConfig.java:
   )
   {
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/segment/column/ColumnConfig.java
+Processing file: ../druid/processing/src/main/java/org/apache/druid/segment/column/ColumnConfig.java
 Methods in ColumnConfig.java:
-  public double skipValueRangeIndexScale()
+-  public double skipValueRangeIndexScale()
     {
-  public double skipValuePredicateIndexScale()
+-  public double skipValuePredicateIndexScale()
     {
-  default double skipValueRangeIndexScale()
+2  default double skipValueRangeIndexScale()
   {
-  default double skipValuePredicateIndexScale()
+2  default double skipValuePredicateIndexScale()
   {
 No constructors found in ColumnConfig.java.
 
@@ -122,15 +122,15 @@ Methods in DruidProcessingConfig.java:
   {
 2  public String getTmpDir()
   {
-`  public int intermediateComputeSizeBytes()
+2  public int intermediateComputeSizeBytes()
   {
-`  public int poolCacheMaxCount()
+2  public int poolCacheMaxCount()
   {
 2  public int getNumInitalBuffersForIntermediatePool()
   {
-`  public double skipValueRangeIndexScale()
+2  public double skipValueRangeIndexScale()
   {
-`  public double skipValuePredicateIndexScale()
+2  public double skipValuePredicateIndexScale()
   {
 2  public boolean isNumThreadsConfigured()
   {
@@ -330,23 +330,23 @@ Methods in HttpClientConfig.java:
   {
   private Builder()
     {
-`  public Builder withNumConnections(int numConnections)
+3  public Builder withNumConnections(int numConnections)
     {
-`  public Builder withEagerInitialization(boolean eagerInitialization)
+3  public Builder withEagerInitialization(boolean eagerInitialization)
     {
-`  public Builder withSslContext(SSLContext sslContext)
+3  public Builder withSslContext(SSLContext sslContext)
     {
-`  public Builder withHttpProxyConfig(HttpClientProxyConfig config)
+3  public Builder withHttpProxyConfig(HttpClientProxyConfig config)
     {
-`  public Builder withReadTimeout(Duration readTimeout)
+3  public Builder withReadTimeout(Duration readTimeout)
     {
-`  public Builder withSslHandshakeTimeout(Duration sslHandshakeTimeout)
+3  public Builder withSslHandshakeTimeout(Duration sslHandshakeTimeout)
     {
-`  public Builder withWorkerCount(int workerCount)
+3  public Builder withWorkerCount(int workerCount)
     {
-`  public Builder withCompressionCodec(CompressionCodec compressionCodec)
+3  public Builder withCompressionCodec(CompressionCodec compressionCodec)
     {
-`  public Builder withUnusedConnectionTimeoutDuration(Duration unusedConnectionTimeoutDuration)
+3  public Builder withUnusedConnectionTimeoutDuration(Duration unusedConnectionTimeoutDuration)
     {
   public HttpClientConfig build()
     {
@@ -419,7 +419,7 @@ Constructors in ResourcePoolConfig.java:
   )
   {
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/metrics/DruidMonitorSchedulerConfig.java
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/metrics/DruidMonitorSchedulerConfig.java
 Methods in DruidMonitorSchedulerConfig.java:
 2  public String getSchedulerClassName()
   {
@@ -431,7 +431,7 @@ Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/em
 Methods in ParametrizedUriEmitterConfig.java:
 2  public String getRecipientBaseUrlPattern()
   {
-`  public HttpEmitterConfig buildHttpEmitterConfig(String baseUri)
+3  public HttpEmitterConfig buildHttpEmitterConfig(String baseUri)
   {
   public String toString()
   {
@@ -477,7 +477,7 @@ Methods in LoggingEmitterConfig.java:
   {
 No constructors found in LoggingEmitterConfig.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/emitter/core/HttpEmitterConfig.java
+Processing file: ../druid/processing/src/main/java/org/apache/druid/java/util/emitter/core/HttpEmitterConfig.java
 Methods in HttpEmitterConfig.java:
 1  public HttpEmitterConfig()
   {
@@ -487,7 +487,7 @@ Methods in HttpEmitterConfig.java:
   {
   public String toString()
   {
-  public Builder(String recipientBaseUrl)
+3  public Builder(String recipientBaseUrl)
     {
 3  public Builder setFlushMillis(long flushMillis)
     {
@@ -525,31 +525,31 @@ Methods in Config.java:
   {
 No constructors found in Config.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/utils/DynamicConfigProviderUtils.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/utils/DynamicConfigProviderUtils.java
 Methods in DynamicConfigProviderUtils.java:
   public static Map<String, String> extraConfigAndSetStringMap(Map<String, Object> config, String dynamicConfigProviderKey, ObjectMapper mapper)
   {
   public static Map<String, Object> extraConfigAndSetObjectMap(Map<String, Object> config, String dynamicConfigProviderKey, ObjectMapper mapper)
   {
-  private static Map<String, String> extraConfigFromProvider(Object dynamicConfigProviderJson, ObjectMapper mapper)
+2  private static Map<String, String> extraConfigFromProvider(Object dynamicConfigProviderJson, ObjectMapper mapper)
   {
 No constructors found in DynamicConfigProviderUtils.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/Configs.java
+Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/Configs.java
 Methods in Configs.java:
-  public static long valueOrDefault(Long value, long defaultValue)
+2  public static long valueOrDefault(Long value, long defaultValue)
   {
-  public static int valueOrDefault(Integer value, int defaultValue)
+2  public static int valueOrDefault(Integer value, int defaultValue)
   {
-  public static boolean valueOrDefault(Boolean value, boolean defaultValue)
+2  public static boolean valueOrDefault(Boolean value, boolean defaultValue)
   {
-  public static <T> T valueOrDefault(T value, T defaultValue)
+2  public static <T> T valueOrDefault(T value, T defaultValue)
   {
 No constructors found in Configs.java.
 
-Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/JacksonConfigManager.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/JacksonConfigManager.java
 Methods in JacksonConfigManager.java:
-1  public JacksonConfigManager(
+-  public JacksonConfigManager(
       ConfigManager configManager,
       @Json ObjectMapper jsonMapper,
       @JsonNonNull ObjectMapper jsonMapperOnlyNonNullValue,
@@ -573,17 +573,17 @@ Methods in JacksonConfigManager.java:
       AuditInfo auditInfo
   )
   {
-`  public byte[] serialize(T obj)
+-  public byte[] serialize(T obj)
       {
-`  public String serializeToString(T obj, boolean skipNull)
+-  public String serializeToString(T obj, boolean skipNull)
       {
-`  public T deserialize(byte[] bytes)
+-  public T deserialize(byte[] bytes)
       {
-`  public byte[] serialize(T obj)
+-  public byte[] serialize(T obj)
       {
-`  public String serializeToString(T obj, boolean skipNull)
+-  public String serializeToString(T obj, boolean skipNull)
       {
-`  public T deserialize(byte[] bytes)
+-  public T deserialize(byte[] bytes)
       {
 Constructors in JacksonConfigManager.java:
   public JacksonConfigManager(
@@ -617,9 +617,9 @@ Methods in ConfigManagerConfig.java:
   {
 No constructors found in ConfigManagerConfig.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigManager.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigManager.java
 Methods in ConfigManager.java:
-  public ConfigManager(MetadataStorageConnector dbConnector, Supplier<MetadataStorageTablesConfig> dbTables, Supplier<ConfigManagerConfig> config)
+1  public ConfigManager(MetadataStorageConnector dbConnector, Supplier<MetadataStorageTablesConfig> dbTables, Supplier<ConfigManagerConfig> config)
   {
   public void start()
   {
@@ -627,13 +627,13 @@ Methods in ConfigManager.java:
   {
   private void poll()
   {
-  public <T> AtomicReference<T> watchConfig(final String key, final ConfigSerde<T> serde)
+2  public <T> AtomicReference<T> watchConfig(final String key, final ConfigSerde<T> serde)
   {
   public ConfigHolder<T> call()
               {
-  public <T> SetResult set(final String key, final ConfigSerde<T> serde, final T obj)
+3  public <T> SetResult set(final String key, final ConfigSerde<T> serde, final T obj)
   {
-  public <T> SetResult set(final String key, final ConfigSerde<T> serde, @Nullable final byte[] oldValue, final T newObject)
+3  public <T> SetResult set(final String key, final ConfigSerde<T> serde, @Nullable final byte[] oldValue, final T newObject)
   {
   private MetadataCASUpdate createMetadataCASUpdate(
       String keyValue,
@@ -679,7 +679,7 @@ Constructors in ConfigManager.java:
     )
     {
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigSerde.java
+Processing file: ../druid/processing/src/main/java/org/apache/druid/common/config/ConfigSerde.java
 No methods found in ConfigSerde.java.
 No constructors found in ConfigSerde.java.
 
@@ -786,7 +786,7 @@ No constructors found in EnvironmentVariableDynamicConfigProvider.java.
 
 Processing file: ../druid/processing/src/main/java/org/apache/druid/metadata/MapStringDynamicConfigProvider.java
 Methods in MapStringDynamicConfigProvider.java:
-`1  public Map<String, String> getConfig()
+12  public Map<String, String> getConfig()
   {
 No constructors found in MapStringDynamicConfigProvider.java.
 
@@ -810,7 +810,7 @@ No constructors found in ExpressionProcessingConfig.java.
 
 Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ExtensionsConfig.java
 Methods in ExtensionsConfig.java:
-`2  public boolean searchCurrentClassloader()
+2  public boolean searchCurrentClassloader()
   {
 2  public String getDirectory()
   {
@@ -828,7 +828,7 @@ Methods in ExtensionsConfig.java:
   {
 No constructors found in ExtensionsConfig.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JsonConfigProvider.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JsonConfigProvider.java
 Methods in JsonConfigProvider.java:
   public static <T> void bind(Binder binder, String propertyBase, Class<T> classToProvide)
   {
@@ -879,18 +879,18 @@ Methods in JsonConfigProvider.java:
       Class<? extends T> defaultClass
   )
   {
-  public JsonConfigProvider(
+1  public JsonConfigProvider(
       String propertyBase,
       Class<T> classToProvide,
       @Nullable Class<? extends T> defaultClass
   )
   {
-  public void inject(
+1  public void inject(
       Properties props,
       JsonConfigurator configurator
   )
   {
-  public T get()
+2  public T get()
   {
 Constructors in JsonConfigProvider.java:
   public JsonConfigProvider(
@@ -900,7 +900,7 @@ Constructors in JsonConfigProvider.java:
   )
   {
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ConfigProvider.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ConfigProvider.java
 Methods in ConfigProvider.java:
   public static <T> void bind(Binder binder, Class<T> clazz)
   {
@@ -908,14 +908,14 @@ Methods in ConfigProvider.java:
   {
   public static <T> Provider<T> of(Class<T> clazz, Map<String, String> replacements)
   {
-  public ConfigProvider(
+1  public ConfigProvider(
       Class<T> clazz,
       Map<String, String> replacements
   )
   {
-  public void inject(ConfigurationObjectFactory factory)
+1  public void inject(ConfigurationObjectFactory factory)
   {
-  public T get()
+2  public T get()
   {
 Constructors in ConfigProvider.java:
   public ConfigProvider(
@@ -933,7 +933,7 @@ Methods in ModulesConfig.java:
   {
 No constructors found in ModulesConfig.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JacksonConfigManagerModule.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JacksonConfigManagerModule.java
 Methods in JacksonConfigManagerModule.java:
   public void configure(Binder binder)
   {
@@ -950,30 +950,30 @@ Methods in JacksonConfigManagerModule.java:
           {
 No constructors found in JacksonConfigManagerModule.java.
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JacksonConfigProvider.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JacksonConfigProvider.java
 Methods in JacksonConfigProvider.java:
   public static <T> void bind(Binder binder, String key, Class<T> clazz, T defaultVal)
   {
   public static <T> JacksonConfigProvider<T> of(String key, Class<T> clazz, T defaultVal)
   {
-  public void configure(JacksonConfigManager configManager)
+1  public void configure(JacksonConfigManager configManager)
   {
-  public Supplier<T> get()
+2  public Supplier<T> get()
   {
 Constructors in JacksonConfigProvider.java:
-  JacksonConfigProvider(String key, Class<T> clazz, TypeReference<T> typeRef, T defaultVal)
+1  JacksonConfigProvider(String key, Class<T> clazz, TypeReference<T> typeRef, T defaultVal)
   {
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JsonConfigurator.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/JsonConfigurator.java
 Methods in JsonConfigurator.java:
   public JsonConfigurator(
       ObjectMapper jsonMapper,
       Validator validator
   )
   {
-  public <T> T configurate(Properties props, String propertyPrefix, Class<T> clazz) throws ProvisionException
+2  public <T> T configurate(Properties props, String propertyPrefix, Class<T> clazz) throws ProvisionException
   {
-  public <T> T configurate(
+2  public <T> T configurate(
       Properties props,
       String propertyPrefix,
       Class<T> clazz,
@@ -1013,7 +1013,7 @@ Constructors in JsonConfigurator.java:
   catch (NoSuchFieldException e) {
   catch (NoSuchMethodException e) {
 
-`Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ConfigModule.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/ConfigModule.java
 Methods in ConfigModule.java:
   public void configure(Binder binder)
   {
@@ -1029,7 +1029,7 @@ Methods in Property.java:
   {
 2  public T getValue()
   {
-`  public boolean isValueNullOrEmptyCollection()
+-  public boolean isValueNullOrEmptyCollection()
   {
   public boolean equals(Object o)
   {
@@ -1052,11 +1052,11 @@ Methods in PropUtils.java:
 Constructors in PropUtils.java:
   catch (NumberFormatException e) {
 
-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/PropertiesModule.java
+-Processing file: ../druid/processing/src/main/java/org/apache/druid/guice/PropertiesModule.java
 Methods in PropertiesModule.java:
-1  public PropertiesModule(List<String> propertiesFiles)
+  public PropertiesModule(List<String> propertiesFiles)
   {
-`  public void configure(Binder binder)
+2  public void configure(Binder binder)
   {
   private static InputStream openPropertiesFile(final String propertiesFile, final Properties systemProps)
       throws IOException

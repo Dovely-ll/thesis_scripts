@@ -122,7 +122,7 @@ Methods in HiveConf.java:
 3  public void setModifiableWhiteListRegex(String paramNameRegex) {
   private void setupRestrictList() {
   private void setupRSCList() {
-`  public void stripHiddenConfigurations(Configuration conf) {
+  public void stripHiddenConfigurations(Configuration conf) {
 2  public boolean isWebUiEnabled() {
 2  public boolean isWebUiQueryInfoCacheEnabled() {
 2  public boolean isSparkDPPAny() {
@@ -140,7 +140,7 @@ Methods in HiveConf.java:
   private static boolean isAllowed(Configuration conf, ConfVars setting) {
   public static String getNonMrEngines() {
   public static String generateMrDeprecationWarning() {
-`  public static HashMap<String, ConfVars> getOrCreateReverseMap() {
+2  public static HashMap<String, ConfVars> getOrCreateReverseMap() {
   public void verifyAndSetAll(Map<String, String> overlay) {
   public Map<String, String> subtree(String string) {
 Constructors in HiveConf.java:
@@ -164,11 +164,11 @@ Constructors in HiveConf.java:
 Processing file: ../hive/common/src/java/org/apache/hadoop/hive/conf/HiveConfUtil.java
 Methods in HiveConfUtil.java:
 2  public static boolean isEmbeddedMetaStore(String msUri) {
-`  public static StringBuilder dumpConfig(HiveConf conf) {
+2  public static StringBuilder dumpConfig(HiveConf conf) {
 2  public static Set<String> getHiddenSet(Configuration configuration) {
-`  public static void stripConfigurations(Configuration conf, Set<String> hiddenSet) {
-`  public static void stripConfigurations(Configuration conf) {
-`  public static void dumpConfig(Configuration originalConf, StringBuilder sb) {
+3  public static void stripConfigurations(Configuration conf, Set<String> hiddenSet) {
+  public static void stripConfigurations(Configuration conf) {
+  public static void dumpConfig(Configuration originalConf, StringBuilder sb) {
   public int compare(Map.Entry<String, String> ent, Map.Entry<String, String> ent2) {
 3  public static void updateJobCredentialProviders(Configuration jobConf) {
 2  public static String getJobCredentialProviderPassword(Configuration conf) {
@@ -176,36 +176,36 @@ Methods in HiveConfUtil.java:
       String newKeyValue) {
 No constructors found in HiveConfUtil.java.
 
-Processing file: ../hive/common/src/java/org/apache/hive/http/ConfServlet.java
+-Processing file: ../hive/common/src/java/org/apache/hive/http/ConfServlet.java
 Methods in ConfServlet.java:
 2  private Configuration getConfFromContext() {
-`  public void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-`  static void writeResponse(Configuration conf, Writer out, String format)
+  static void writeResponse(Configuration conf, Writer out, String format)
       throws IOException, BadFormatException {
   public BadFormatException(String msg) {
 Constructors in ConfServlet.java:
   public BadFormatException(String msg) {
 
-Processing file: ../hive/common/src/java/org/apache/hive/http/Log4j2ConfiguratorServlet.java
+-Processing file: ../hive/common/src/java/org/apache/hive/http/Log4j2ConfiguratorServlet.java
 Methods in Log4j2ConfiguratorServlet.java:
   public ConfLoggers() {
   public List<ConfLogger> getLoggers() {
   public void setLoggers(final List<ConfLogger> loggers) {
-  public ConfLogger() {
-  public ConfLogger(String logger, String level) {
-  public String getLogger() {
-  public void setLogger(final String logger) {
+1  public ConfLogger() {
+1  public ConfLogger(String logger, String level) {
+2  public String getLogger() {
+3  public void setLogger(final String logger) {
 2  public String getLevel() {
 3  public void setLevel(final String level) {
-`  public void init() throws ServletException {
-`  public void doGet(HttpServletRequest request, HttpServletResponse response)
+1  public void init() throws ServletException {
+3  public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 3  private void setResponseHeader(final HttpServletResponse response) {
-  protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
+23  protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
     throws ServletException, IOException {
-  private void configureLogger(final ConfLoggers confLoggers) {
-  private void listLoggers(final HttpServletResponse response) throws IOException {
+23  private void configureLogger(final ConfLoggers confLoggers) {
+13  private void listLoggers(final HttpServletResponse response) throws IOException {
 Constructors in Log4j2ConfiguratorServlet.java:
   public ConfLoggers() {
   public ConfLogger() {
@@ -215,8 +215,8 @@ Processing file: ../hive/common/src/java/org/apache/hive/common/util/ACLConfigur
 Methods in ACLConfigurationParser.java:
   public ACLConfigurationParser(Configuration conf, String confPropertyName) {
   private boolean isWildCard(String aclStr) {
-  private void parse(Configuration conf, String configProperty) {
-`2  public Set<String> getAllowedUsers() {
+1  private void parse(Configuration conf, String configProperty) {
+2  public Set<String> getAllowedUsers() {
 2  public Set<String> getAllowedGroups() {
 3  public void addAllowedUser(String user) {
 3  public void addAllowedGroup(String group) {

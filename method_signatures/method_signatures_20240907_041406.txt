@@ -6,8 +6,8 @@ Methods in TopicConfig.java:
 1  public TopicConfig(String topicName, int readQueueNums, int writeQueueNums, int perm) {
 1  public TopicConfig(String topicName, int readQueueNums, int writeQueueNums, int perm, int topicSysFlag) {
 1  public TopicConfig(TopicConfig other) {
-`  public String encode() {
-`  public boolean decode(final String in) {
+2 public String encode() {
+3 public boolean decode(final String in) {
 2  public String getTopicName() {
 3  public void setTopicName(String topicName) {
 2  public int getReadQueueNums() {
@@ -46,13 +46,13 @@ Methods in AclConfig.java:
   public String toString() {
 No constructors found in AclConfig.java.
 
-`Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/BrokerConfigSingleton.java
+Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/BrokerConfigSingleton.java
 Methods in BrokerConfigSingleton.java:
-2  public static BrokerConfig getBrokerConfig() {
-3  public static void setBrokerConfig(BrokerConfig brokerConfig) {
+  public static BrokerConfig getBrokerConfig() {
+  public static void setBrokerConfig(BrokerConfig brokerConfig) {
 No constructors found in BrokerConfigSingleton.java.
 
-`Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/ConfigManager.java
+Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/ConfigManager.java
 Methods in ConfigManager.java:
   public boolean load() {
   private boolean loadBak() {
@@ -93,7 +93,7 @@ Methods in ControllerConfig.java:
 3  public void setNotifyBrokerRoleChanged(boolean notifyBrokerRoleChanged) {
 2  public long getScanInactiveMasterInterval() {
 3  public void setScanInactiveMasterInterval(long scanInactiveMasterInterval) {
-`2  public String getDLedgerAddress() {
+2  public String getDLedgerAddress() {
 2  public MetricsExporterType getMetricsExporterType() {
 3  public void setMetricsExporterType(MetricsExporterType metricsExporterType) {
 2  public String getMetricsGrpcExporterTarget() {
@@ -479,13 +479,13 @@ Methods in PlainAccessConfig.java:
   public String toString() {
 No constructors found in PlainAccessConfig.java.
 
-`Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/logging/JoranConfiguratorExt.java
+-Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/logging/JoranConfiguratorExt.java
 Methods in JoranConfiguratorExt.java:
   private InputStream transformXml(InputStream in) throws IOException {
   public final void doConfigure0(URL url) throws JoranException {
 No constructors found in JoranConfiguratorExt.java.
 
-`Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/logging/DefaultJoranConfiguratorExt.java
+-Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/logging/DefaultJoranConfiguratorExt.java
 Methods in DefaultJoranConfiguratorExt.java:
   public DefaultJoranConfiguratorExt() {
   public ExecutionStatus configure(LoggerContext loggerContext) {
@@ -498,7 +498,7 @@ Methods in DefaultJoranConfiguratorExt.java:
 Constructors in DefaultJoranConfiguratorExt.java:
   public DefaultJoranConfiguratorExt() {
 
-`Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/config/RocksDBConfigManager.java
+-Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/config/RocksDBConfigManager.java
 Methods in RocksDBConfigManager.java:
   public RocksDBConfigManager(long memTableFlushInterval) {
   public boolean load(String configFilePath, BiConsumer<byte[], byte[]> biConsumer) {
@@ -511,16 +511,16 @@ Methods in RocksDBConfigManager.java:
 Constructors in RocksDBConfigManager.java:
   public RocksDBConfigManager(long memTableFlushInterval) {
 
-`Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/config/ConfigRocksDBStorage.java
+-Processing file: ../rocketmq/common/src/main/java/org/apache/rocketmq/common/config/ConfigRocksDBStorage.java
 Methods in ConfigRocksDBStorage.java:
   public ConfigRocksDBStorage(final String dbPath) {
   public ConfigRocksDBStorage(final String dbPath, boolean readOnly) {
   private void initOptions() {
   protected boolean postLoad() {
   protected void preShutdown() {
-  private ColumnFamilyOptions createConfigOptions() {
-  private DBOptions createConfigDBOptions() {
-  private static String getDBLogDir() {
+1  private ColumnFamilyOptions createConfigOptions() {
+1  private DBOptions createConfigDBOptions() {
+2  private static String getDBLogDir() {
   public void put(final byte[] keyBytes, final int keyLen, final byte[] valueBytes) throws Exception {
   public void put(final ByteBuffer keyBB, final ByteBuffer valueBB) throws Exception {
   public byte[] get(final byte[] keyBytes) throws Exception {
