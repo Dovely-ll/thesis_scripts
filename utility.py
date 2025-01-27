@@ -4,6 +4,8 @@ import sys
 import time
 from collections import defaultdict
 
+# python3 auto_annotate.py hadoop-hdfs junit4 ../app/hadoop/hadoop-hdfs-project/hadoop-hdfs . ctest/saved_mapping 
+# mvn surefire:test -Dmode=default -Dctest.mapping.dir=ctest/saved_mapping -Dctest.config.save=false
 # Paths to projects' modules
 PROJECT_PATHS = ["../hbase/hbase-server",
                  "../alluxio/core/common",
