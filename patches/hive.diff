@@ -1,0 +1,123 @@
+diff --git a/common/pom.xml b/common/pom.xml
+index bc372c3d5d2d..802591b8e3ca 100644
+--- a/common/pom.xml
++++ b/common/pom.xml
+@@ -262,6 +262,12 @@
+       <artifactId>javolution</artifactId>
+       <version>${javolution.version}</version>
+     </dependency>
++    <dependency>
++      <groupId>edu.illinois</groupId>
++      <artifactId>ctest-runner-junit4</artifactId>
++      <version>1.0-SNAPSHOT</version>
++      <scope>compile</scope>
++    </dependency>
+   </dependencies>
+ 
+   <profiles>
+diff --git a/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java b/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java
+index 0517dc0bbcdb..4a012d189a7e 100644
+--- a/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java
++++ b/common/src/java/org/apache/hadoop/hive/conf/HiveConf.java
+@@ -70,6 +70,8 @@
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
++import edu.illinois.ConfigTracker;
++
+ /**
+  * Hive Configuration.
+  */
+@@ -5126,6 +5128,32 @@ public HiveConf(HiveConf other) {
+     modWhiteListPattern = other.modWhiteListPattern;
+   }
+ 
++  @Override
++  public void set(String name, String value) {
++    super.set(name, value, null);
++    System.out.println("setProperty: " + name + " = " + value);
++  }
++
++  @Override
++  public void set(String name, String value, String source) {
++    super.set(name, value, source);
++    ConfigTracker.markParamAsSet(name);
++  }
++
++  @Override
++  public String get(String name) {
++    String value = super.get(name);
++    ConfigTracker.markParamAsUsed(name);
++    return value;
++  }
++
++  @Override
++  public String get(String name, String defaultValue) {
++    String value = super.get(name, defaultValue);
++    ConfigTracker.markParamAsUsed(name);
++    return value;
++  }
++ 
+   public Properties getAllProperties() {
+     return getProperties(this);
+   }
+@@ -5238,6 +5266,8 @@ private void initialize(Class<?> cls) {
+     hiddenSet.clear();
+     hiddenSet.addAll(HiveConfUtil.getHiddenSet(this));
+     setupRSCList();
++
++    ConfigTracker.injectConfig((arg1, arg2) -> set(arg1, (String) arg2));
+   }
+ 
+   /**
+diff --git a/common/src/test/org/apache/hadoop/hive/conf/TestHiveConf.java b/common/src/test/org/apache/hadoop/hive/conf/TestHiveConf.java
+index 780a708dab99..f2f6cbfe407b 100644
+--- a/common/src/test/org/apache/hadoop/hive/conf/TestHiveConf.java
++++ b/common/src/test/org/apache/hadoop/hive/conf/TestHiveConf.java
+@@ -17,6 +17,9 @@
+  */
+ package org.apache.hadoop.hive.conf;
+ 
++import edu.illinois.CTestClass;
++import edu.illinois.CTestJUnit4Runner;
++
+ import com.google.common.collect.Lists;
+ import org.apache.hadoop.mapred.JobConf;
+ import org.apache.hadoop.conf.Configuration;
+@@ -25,6 +28,7 @@
+ import org.apache.hive.common.util.HiveTestUtils;
+ import org.junit.Assert;
+ import org.junit.Test;
++import org.junit.runner.RunWith;
+ 
+ import java.io.UnsupportedEncodingException;
+ import java.net.URLEncoder;
+@@ -38,6 +42,8 @@
+  * Test cases for HiveConf. Loads configuration files located
+  * in common/src/test/resources.
+  */
++@RunWith(CTestJUnit4Runner.class)
++@CTestClass
+ public class TestHiveConf {
+   @Test
+   public void testHiveSitePath() throws Exception {
+diff --git a/common/test_injection.sh b/common/test_injection.sh
+new file mode 100644
+index 000000000000..5b227989efac
+--- /dev/null
++++ b/common/test_injection.sh
+@@ -0,0 +1 @@
++mvn surefire:test -Dtest=TestHiveConf -Dconfig.inject.cli="cool.other.name=Cheese2"
+diff --git a/pom.xml b/pom.xml
+index cb54806ef5ca..6115d272ace9 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -1183,7 +1183,7 @@
+                   <onlyWhenRelease>true</onlyWhenRelease>
+                 </requireReleaseDeps>
+               </rules>
+-              <fail>true</fail>
++              <fail>false</fail>
+             </configuration>
+           </execution>
+           <execution>

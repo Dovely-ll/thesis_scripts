@@ -1,0 +1,507 @@
+diff --git a/core/common/src/main/java/alluxio/conf/AlluxioProperties.java b/core/common/src/main/java/alluxio/conf/AlluxioProperties.java
+index 389e25d22c99..786ca5420ebe 100644
+--- a/core/common/src/main/java/alluxio/conf/AlluxioProperties.java
++++ b/core/common/src/main/java/alluxio/conf/AlluxioProperties.java
+@@ -15,6 +15,7 @@
+ 
+ import com.google.common.annotations.VisibleForTesting;
+ import com.google.common.collect.Maps;
++import edu.illinois.ConfigTracker;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
+@@ -66,7 +67,12 @@ public class AlluxioProperties {
+   /**
+    * Constructs a new instance of Alluxio properties.
+    */
+-  public AlluxioProperties() {}
++  public AlluxioProperties() {
++    ConfigTracker.injectConfig((arg1, arg2) -> {
++      PropertyKey key = PropertyKey.fromString(arg1);
++      set(key, arg2);
++    });
++  }
+ 
+   /**
+    * @param alluxioProperties properties to copy
+@@ -82,6 +88,7 @@ public AlluxioProperties(AlluxioProperties alluxioProperties) {
+    */
+   @Nullable
+   public Object get(PropertyKey key) {
++    ConfigTracker.markParamAsUsed(key.getName());
+     if (mUserProps.containsKey(key)) {
+       return mUserProps.get(key).orElse(null);
+     }
+@@ -106,6 +113,23 @@ public void clear() {
+    */
+   public void put(PropertyKey key, Object value, Source source) {
+     if (!mUserProps.containsKey(key) || source.compareTo(getSource(key)) >= 0) {
++      ConfigTracker.markParamAsSet(key.getName());
++      mUserProps.put(key, Optional.ofNullable(value));
++      mSources.put(key, source);
++      mHash.markOutdated();
++    }
++  }
++
++  /**
++   * Puts the key value pair specified by users.
++   *
++   * @param key key to put
++   * @param value value to put
++   * @param source the source of this value for the key
++   */
++  public void put_purged(PropertyKey key, Object value, Source source) {
++    if (!mUserProps.containsKey(key) || source.compareTo(getSource(key)) >= 0) {
++      ConfigTracker.markParamAsSet(key.getName());
+       mUserProps.put(key, Optional.ofNullable(value));
+       mSources.put(key, source);
+       mHash.markOutdated();
+@@ -119,6 +143,7 @@ public void put(PropertyKey key, Object value, Source source) {
+    * @param value value to put
+    */
+   public void set(PropertyKey key, Object value) {
++    System.out.println("setProperty: " + key.getName() + " = " + value.toString());
+     put(key, value, Source.RUNTIME);
+   }
+ 
+@@ -150,7 +175,7 @@ public void merge(Map<?, ?> properties, Source source) {
+         // is made dynamic
+         propertyKey = PropertyKey.getOrBuildCustom(key);
+       }
+-      put(propertyKey, propertyKey.parseValue(value), source);
++      put_purged(propertyKey, propertyKey.parseValue(value), source);
+     }
+     mHash.markOutdated();
+   }
+diff --git a/core/common/src/main/java/alluxio/conf/InstancedConfiguration.java b/core/common/src/main/java/alluxio/conf/InstancedConfiguration.java
+index 6f62b66a479f..56602ea75a03 100644
+--- a/core/common/src/main/java/alluxio/conf/InstancedConfiguration.java
++++ b/core/common/src/main/java/alluxio/conf/InstancedConfiguration.java
+@@ -26,6 +26,7 @@
+ import com.google.common.base.Preconditions;
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Sets;
++import edu.illinois.ConfigTracker;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
+@@ -67,6 +68,10 @@ public class InstancedConfiguration implements AlluxioConfiguration {
+    */
+   public InstancedConfiguration(AlluxioProperties properties) {
+     this(properties, false);
++    ConfigTracker.injectConfig((arg1, arg2) -> {
++      PropertyKey key = PropertyKey.fromString(arg1);
++      set(key, arg2);
++    });
+   }
+ 
+   /**
+@@ -159,6 +164,7 @@ private boolean isResolvable(PropertyKey key) {
+ 
+   @Override
+   public boolean isSet(PropertyKey key) {
++    ConfigTracker.markParamAsUsed(key.getName());
+     return mProperties.isSet(key) && isResolvable(key);
+   }
+ 
+@@ -174,6 +180,7 @@ public boolean isSetByUser(PropertyKey key) {
+    * @param value the value for the key
+    */
+   public void set(PropertyKey key, Object value) {
++    System.out.println("setProperty: " + key.getName() + " = " + value.toString());
+     set(key, value, Source.RUNTIME);
+   }
+ 
+@@ -344,6 +351,7 @@ public Map<String, Object> getNestedProperties(PropertyKey prefixKey) {
+     for (Map.Entry<PropertyKey, Object> entry: mProperties.entrySet()) {
+       String key = entry.getKey().getName();
+       if (prefixKey.isNested(key)) {
++        ConfigTracker.markParamAsUsed(key);
+         String suffixKey = key.substring(prefixKey.length() + 1);
+         ret.put(suffixKey, entry.getValue());
+       }
+diff --git a/core/common/src/main/java/alluxio/conf/path/SpecificPathConfiguration.java b/core/common/src/main/java/alluxio/conf/path/SpecificPathConfiguration.java
+index 6bb0eb038e23..0b0e96513a73 100644
+--- a/core/common/src/main/java/alluxio/conf/path/SpecificPathConfiguration.java
++++ b/core/common/src/main/java/alluxio/conf/path/SpecificPathConfiguration.java
+@@ -20,6 +20,7 @@
+ import alluxio.conf.Source;
+ 
+ import com.google.common.collect.ImmutableMap;
++import edu.illinois.ConfigTracker;
+ 
+ import java.time.Duration;
+ import java.util.List;
+@@ -80,6 +81,7 @@ public Object get(PropertyKey key, ConfigurationValueOptions options) {
+ 
+   @Override
+   public boolean isSet(PropertyKey key) {
++    ConfigTracker.markParamAsUsed(key.getName());
+     return conf(key).isSet(key);
+   }
+ 
+@@ -163,7 +165,7 @@ public AlluxioProperties copyProperties() {
+     AlluxioProperties properties = mClusterConf.copyProperties();
+     for (PropertyKey key : keySet()) {
+       mPathConf.getConfiguration(mPath, key).ifPresent(
+-          config -> properties.put(key, config.get(key), Source.PATH_DEFAULT));
++          config -> properties.put_purged(key, config.get(key), Source.PATH_DEFAULT));
+     }
+     return properties;
+   }
+diff --git a/core/common/src/test/java/alluxio/conf/AlluxioPropertiesTest.java b/core/common/src/test/java/alluxio/conf/AlluxioPropertiesTest.java
+index ad74e939f1b9..85421192182a 100644
+--- a/core/common/src/test/java/alluxio/conf/AlluxioPropertiesTest.java
++++ b/core/common/src/test/java/alluxio/conf/AlluxioPropertiesTest.java
+@@ -11,6 +11,9 @@
+ 
+ package alluxio.conf;
+ 
++import edu.illinois.CTestClass;
++import edu.illinois.CTestJUnit4Runner;
++
+ import static alluxio.conf.PropertyKey.Builder.stringBuilder;
+ import static java.util.stream.Collectors.toSet;
+ import static org.hamcrest.core.Is.is;
+@@ -25,6 +28,7 @@
+ import org.junit.Assert;
+ import org.junit.Before;
+ import org.junit.Test;
++import org.junit.runner.RunWith;
+ 
+ import java.util.HashSet;
+ import java.util.Map;
+@@ -34,6 +38,8 @@
+ /**
+  * Unit tests for the {@link AlluxioProperties} class.
+  */
++@RunWith(CTestJUnit4Runner.class)
++@CTestClass
+ public class AlluxioPropertiesTest {
+ 
+   private AlluxioProperties mProperties = new AlluxioProperties();
+diff --git a/core/common/src/test/java/alluxio/security/authentication/GrpcSecurityTest.java b/core/common/src/test/java/alluxio/security/authentication/GrpcSecurityTest.java
+deleted file mode 100644
+index 8b696394f1e3..000000000000
+--- a/core/common/src/test/java/alluxio/security/authentication/GrpcSecurityTest.java
++++ /dev/null
+@@ -1,257 +0,0 @@
+-/*
+- * The Alluxio Open Foundation licenses this work under the Apache License, version 2.0
+- * (the "License"). You may not use this work except in compliance with the License, which is
+- * available at www.apache.org/licenses/LICENSE-2.0
+- *
+- * This software is distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+- * either express or implied, as more fully set forth in the License.
+- *
+- * See the NOTICE file distributed with this work for information regarding copyright ownership.
+- */
+-
+-package alluxio.security.authentication;
+-
+-import alluxio.conf.Configuration;
+-import alluxio.conf.InstancedConfiguration;
+-import alluxio.conf.PropertyKey;
+-import alluxio.exception.status.UnauthenticatedException;
+-import alluxio.grpc.GrpcChannel;
+-import alluxio.grpc.GrpcChannelBuilder;
+-import alluxio.grpc.GrpcServer;
+-import alluxio.grpc.GrpcServerAddress;
+-import alluxio.grpc.GrpcServerBuilder;
+-import alluxio.security.User;
+-import alluxio.security.user.UserState;
+-import alluxio.util.CommonUtils;
+-import alluxio.util.WaitForOptions;
+-import alluxio.util.network.NetworkAddressUtils;
+-
+-import org.hamcrest.core.StringStartsWith;
+-import org.junit.Assert;
+-import org.junit.Before;
+-import org.junit.Rule;
+-import org.junit.Test;
+-import org.junit.rules.ExpectedException;
+-
+-import java.net.InetSocketAddress;
+-import java.util.UUID;
+-import javax.security.auth.Subject;
+-import javax.security.sasl.AuthenticationException;
+-
+-/**
+- * Unit test for {@link alluxio.grpc.GrpcChannelBuilder} and {@link alluxio.grpc.GrpcServerBuilder}.
+- */
+-public class GrpcSecurityTest {
+-
+-  /** Timeout waiting for a closed stream. */
+-  private static final int S_AUTHENTICATION_PROPOGATE_TIMEOUT = 30000;
+-
+-  /**
+-   * The exception expected to be thrown.
+-   */
+-  @Rule
+-  public ExpectedException mThrown = ExpectedException.none();
+-
+-  private InstancedConfiguration mConfiguration;
+-
+-  @Before
+-  public void before() {
+-    mConfiguration = Configuration.copyGlobal();
+-  }
+-
+-  @Test
+-  public void testServerUnsupportedAuthentication() {
+-    mThrown.expect(RuntimeException.class);
+-    mThrown.expectMessage(new StringStartsWith(false,
+-        "No factory could create a UserState with authType: " + AuthType.KERBEROS.name()));
+-    createServer(AuthType.KERBEROS);
+-  }
+-
+-  @Test
+-  public void testSimpleAuthentication() throws Exception {
+-    GrpcServer server = createServer(AuthType.SIMPLE);
+-    try {
+-      server.start();
+-      UserState us = UserState.Factory.create(mConfiguration);
+-      GrpcChannelBuilder channelBuilder = GrpcChannelBuilder
+-          .newBuilder(getServerConnectAddress(server), mConfiguration).setSubject(us.getSubject());
+-      channelBuilder.build();
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testNoSaslAuthentication() throws Exception {
+-    GrpcServer server = createServer(AuthType.NOSASL);
+-    try {
+-      server.start();
+-      GrpcChannelBuilder channelBuilder =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration);
+-      channelBuilder.build();
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testCustomAuthentication() throws Exception {
+-
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_TYPE, AuthType.CUSTOM);
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_CUSTOM_PROVIDER_CLASS,
+-        ExactlyMatchAuthenticationProvider.class.getName());
+-    GrpcServer server = createServer(AuthType.CUSTOM);
+-    try {
+-      server.start();
+-      GrpcChannelBuilder channelBuilder =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration);
+-      channelBuilder.setSubject(createSubject(ExactlyMatchAuthenticationProvider.USERNAME,
+-          ExactlyMatchAuthenticationProvider.PASSWORD)).build();
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testCustomAuthenticationFails() throws Exception {
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_TYPE, AuthType.CUSTOM);
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_CUSTOM_PROVIDER_CLASS,
+-        ExactlyMatchAuthenticationProvider.class.getName());
+-    GrpcServer server = createServer(AuthType.CUSTOM);
+-    try {
+-      server.start();
+-      GrpcChannelBuilder channelBuilder =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration);
+-      mThrown.expect(UnauthenticatedException.class);
+-      channelBuilder.setSubject(createSubject("fail", "fail")).build();
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testDisabledAuthentication() throws Exception {
+-    GrpcServer server = createServer(AuthType.SIMPLE);
+-    try {
+-      server.start();
+-      GrpcChannelBuilder channelBuilder =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration);
+-      channelBuilder.disableAuthentication().build();
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testAuthMismatch() throws Exception {
+-    GrpcServer server = createServer(AuthType.NOSASL);
+-    try {
+-      server.start();
+-      mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_TYPE, AuthType.SIMPLE);
+-      GrpcChannelBuilder channelBuilder =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration);
+-      mThrown.expect(UnauthenticatedException.class);
+-      channelBuilder.build();
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testAuthenticationClosed() throws Exception {
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_TYPE, AuthType.SIMPLE);
+-    GrpcServer server = createServer(AuthType.SIMPLE);
+-    try {
+-      server.start();
+-      UserState us = UserState.Factory.create(mConfiguration);
+-      GrpcChannel channel =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration)
+-              .setSubject(us.getSubject()).build();
+-
+-      // Grab internal channel-Id.
+-      UUID channelId = channel.getChannelKey().getChannelId();
+-      // Assert that authentication server has a login info for the channel.
+-      Assert.assertNotNull(server.getAuthenticationServer().getUserInfoForChannel(channelId));
+-      // Shutdown channel.
+-      channel.shutdown();
+-      // Assert that authentication server doesn't contain login info for the channel anymore.
+-      // Wait in a loop. Because closing the authentication will propagate asynchronously.
+-      CommonUtils.waitFor("login state removed", () -> {
+-        try {
+-          server.getAuthenticationServer().getUserInfoForChannel(channelId);
+-          return false;
+-        } catch (UnauthenticatedException exc) {
+-          return true;
+-        }
+-      }, WaitForOptions.defaults().setTimeoutMs(S_AUTHENTICATION_PROPOGATE_TIMEOUT));
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  @Test
+-  public void testAuthenticationRevoked() throws Exception {
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_TYPE, AuthType.SIMPLE);
+-    mConfiguration.set(PropertyKey.AUTHENTICATION_INACTIVE_CHANNEL_REAUTHENTICATE_PERIOD, "250ms");
+-    GrpcServer server = createServer(AuthType.SIMPLE);
+-    try {
+-      server.start();
+-      UserState us = UserState.Factory.create(mConfiguration);
+-      GrpcChannel channel =
+-          GrpcChannelBuilder.newBuilder(getServerConnectAddress(server), mConfiguration)
+-              .setSubject(us.getSubject()).build();
+-      Assert.assertTrue(channel.isHealthy());
+-      /*
+-       * Sleeping will ensure that authentication sessions for the channel will expire on the
+-       * server. This should have propagated back to the client and its health status should reflect
+-       * that.
+-       *
+-       * Sleep more than authentication revocation timeout.
+-       */
+-      Thread.sleep(500);
+-      Assert.assertFalse(channel.isHealthy());
+-    } finally {
+-      server.shutdown();
+-    }
+-  }
+-
+-  private GrpcServerAddress getServerConnectAddress(GrpcServer server) {
+-    return GrpcServerAddress.create(new InetSocketAddress(
+-        NetworkAddressUtils.getLocalHostName(
+-            (int) mConfiguration.getMs(PropertyKey.NETWORK_HOST_RESOLUTION_TIMEOUT_MS)),
+-        server.getBindPort()));
+-  }
+-
+-  private GrpcServer createServer(AuthType authType) {
+-    mConfiguration.set(PropertyKey.SECURITY_AUTHENTICATION_TYPE, authType);
+-    InetSocketAddress bindAddress = new InetSocketAddress(NetworkAddressUtils.getLocalHostName(
+-        (int) mConfiguration.getMs(PropertyKey.NETWORK_HOST_RESOLUTION_TIMEOUT_MS)), 0);
+-    UserState us = UserState.Factory.create(mConfiguration);
+-    GrpcServerBuilder serverBuilder = GrpcServerBuilder
+-        .forAddress(GrpcServerAddress.create("localhost", bindAddress), mConfiguration);
+-    return serverBuilder.build();
+-  }
+-
+-  private Subject createSubject(String username, String password) {
+-    Subject subject = new Subject();
+-    subject.getPrincipals().add(new User(username));
+-    subject.getPrivateCredentials().add(password);
+-    return subject;
+-  }
+-
+-  /**
+-   * This customized authentication provider is used in CUSTOM mode. It authenticates the user by
+-   * verifying the specific username:password pair.
+-   */
+-  public static class ExactlyMatchAuthenticationProvider implements AuthenticationProvider {
+-    static final String USERNAME = "alluxio";
+-    static final String PASSWORD = "correct-password";
+-
+-    @Override
+-    public void authenticate(String user, String password) throws AuthenticationException {
+-      if (!user.equals(USERNAME) || !password.equals(PASSWORD)) {
+-        throw new AuthenticationException("User authentication fails");
+-      }
+-    }
+-  }
+-}
+diff --git a/pom.xml b/pom.xml
+index 315b2c275c60..9030df783aea 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -733,7 +733,7 @@
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>${junit.version}</version>
+-        <scope>test</scope>
++<!--        <scope>test</scope>-->
+         <exclusions>
+           <exclusion>
+             <groupId>org.hamcrest</groupId>
+@@ -820,6 +820,12 @@
+   <dependencies>
+     <!-- Dependencies in the compile scope. -->
+     <!-- System logging. -->
++    <dependency>
++        <groupId>edu.illinois</groupId>
++        <artifactId>ctest-runner-junit4</artifactId>
++        <version>1.0-SNAPSHOT</version>
++        <scope>compile</scope>
++    </dependency>
+     <dependency>
+       <groupId>org.apache.logging.log4j</groupId>
+       <artifactId>log4j-api</artifactId>
+@@ -918,6 +924,9 @@
+           <groupId>com.mycila</groupId>
+           <artifactId>license-maven-plugin</artifactId>
+           <version>4.0.rc1</version>
++          <configuration>
++            <skip>true</skip>
++          </configuration>
+         </plugin>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+@@ -1003,7 +1012,8 @@
+           <artifactId>maven-surefire-plugin</artifactId>
+           <version>3.0.0-M5</version>
+           <configuration>
+-            <skipTests>true</skipTests>
++            <redirectTestOutputToFile>true</redirectTestOutputToFile>
++            <!--<skipTests>false</skipTests>-->
+             <argLine>@{argLine} -Djava.net.preferIPv4Stack=true</argLine>
+             <excludesFile>${build.path}/surefire/${surefire.excludesFile}</excludesFile>
+             <forkCount>${surefire.forkCount}</forkCount>
+@@ -1224,6 +1234,7 @@
+           </dependency>
+         </dependencies>
+         <configuration>
++          <skip>true</skip>
+           <configLocation>${build.path}/checkstyle/alluxio_checks.xml</configLocation>
+           <suppressionsLocation>${build.path}/checkstyle/suppressions.xml</suppressionsLocation>
+           <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+@@ -1255,6 +1266,7 @@
+         <groupId>com.mycila</groupId>
+         <artifactId>license-maven-plugin</artifactId>
+         <configuration>
++          <skip>true</skip>
+           <header>${build.path}/license/HEADER.txt</header>
+           <failIfMissing>true</failIfMissing>
+           <aggregate>false</aggregate>

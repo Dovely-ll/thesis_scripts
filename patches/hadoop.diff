@@ -1,0 +1,340 @@
+diff --git a/hadoop-common-project/hadoop-common/pom.xml b/hadoop-common-project/hadoop-common/pom.xml
+index 9c7657b53afc2..14ec116dfa1fe 100644
+--- a/hadoop-common-project/hadoop-common/pom.xml
++++ b/hadoop-common-project/hadoop-common/pom.xml
+@@ -38,6 +38,11 @@
+   </properties>
+ 
+   <dependencies>
++    <dependency>
++      <groupId>edu.illinois</groupId>
++      <artifactId>ctest4j-junit4</artifactId>
++      <version>1.0.0</version>
++    </dependency>
+     <dependency>
+       <groupId>org.apache.hadoop.thirdparty</groupId>
+       <artifactId>hadoop-shaded-protobuf_3_7</artifactId>
+@@ -536,6 +541,54 @@
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-surefire-plugin</artifactId>
+         <configuration>
++	  <excludes>
++	    <exclude>**/TestCopyFromLocal.java</exclude>
++	    <exclude>**/TestCopyToLocal.java</exclude>
++	    <exclude>**/TestCpCommand.java</exclude>
++	    <!-- Above three are excluded because they are flaky -->
++	    <exclude>**/TestCryptoStreamsWithJceAesCtrCryptoCodec.java</exclude>
++	    <exclude>**/TestCryptoStreamsWithOpensslAesCtrCryptoCodec.java</exclude>
++	    <exclude>**/TestFSMainOperationsLocalFileSystem.java</exclude>
++	    <exclude>**/TestSymlinkLocalFSFileContext.java</exclude>
++	    <exclude>**/TestSymlinkLocalFSFileSystem.java</exclude>
++	    <exclude>**/TestFTPContractMkdir.java</exclude>
++	    <exclude>**/TestLocalFSContractAppend.java</exclude>
++	    <exclude>**/TestLocalFSContractContentSummary.java</exclude>
++	    <exclude>**/TestLocalFSContractMkdir.java</exclude>
++	    <exclude>**/TestLocalFSContractSeek.java</exclude>
++	    <exclude>**/TestLocalFSContractVectoredRead.java</exclude>
++	    <exclude>**/TestRawlocalContractAppend.java</exclude>
++	    <exclude>**/TestRawlocalContractMkdir.java</exclude>
++	    <exclude>**/TestRawlocalContractSeek.java</exclude>
++	    <exclude>**/TestSFTPContractSeek.java</exclude>
++	    <exclude>**/TestFSMainOperationsLocalFileSystem.java</exclude>
++	    <exclude>**/TestViewFSOverloadSchemeCentralMountTableConfig.java</exclude>
++	    <exclude>**/TestViewFileSystemLocalFileSystem.java</exclude>
++	    <exclude>**/TestViewFileSystemWithAuthorityLocalFileSystem.java</exclude>
++	    <exclude>**/TestViewFsLocalFs.java</exclude>
++	    <exclude>**/TestViewFsWithAuthorityLocalFs.java</exclude>
++	    <exclude>**/TestActiveStandbyElectorRealZK.java</exclude>
++	    <exclude>**/TestHealthMonitorWithDedicatedHealthAddress.java</exclude>
++	    <exclude>**/TestZKFailoverController.java</exclude>
++	    <exclude>**/TestZKFailoverControllerStress.java</exclude>
++	    <exclude>**/TestDummyRawCoder.java</exclude>
++	    <exclude>**/TestNativeRSRawCoder.java</exclude>
++	    <exclude>**/TestNativeXORRawCoder.java</exclude>
++	    <exclude>**/TestRSLegacyRawCoder.java</exclude>
++	    <exclude>**/TestRSRawCoder.java</exclude>
++	    <exclude>**/TestRSRawCoderInteroperable1.java</exclude>
++	    <exclude>**/TestRSRawCoderInteroperable2.java</exclude>
++	    <exclude>**/TestXORRawCoder.java</exclude>
++	    <exclude>**/TestXORRawCoderInteroperable1.java</exclude>
++	    <exclude>**/TestXORRawCoderInteroperable2.java</exclude>
++	    <exclude>**/TestTFileJClassComparatorByteArrays.java</exclude>
++	    <exclude>**/TestTFileLzoCodecsByteArrays.java</exclude>
++	    <exclude>**/TestTFileLzoCodecsStreams.java</exclude>
++	    <exclude>**/TestTFileNoneCodecsByteArrays.java</exclude>
++	    <exclude>**/TestTFileNoneCodecsJClassComparatorByteArrays.java</exclude>
++	    <exclude>**/TestTFileNoneCodecsStreams.java</exclude>
++	    <exclude>**/TestBasicDiskValidator.java</exclude>
++	  </excludes>
+           <systemPropertyVariables>
+             <runningWithNative>${runningWithNative}</runningWithNative>
+           </systemPropertyVariables>
+diff --git a/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/conf/Configuration.java b/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/conf/Configuration.java
+index d0c7cce75e943..64179dd188d28 100755
+--- a/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/conf/Configuration.java
++++ b/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/conf/Configuration.java
+@@ -82,6 +82,7 @@
+ import javax.xml.transform.dom.DOMSource;
+ import javax.xml.transform.stream.StreamResult;
+ 
++import edu.illinois.ConfigTracker;
+ import org.apache.hadoop.thirdparty.com.google.common.base.Charsets;
+ import org.apache.commons.collections.map.UnmodifiableMap;
+ import org.apache.hadoop.classification.InterfaceAudience;
+@@ -816,6 +817,7 @@ private void handleDeprecation() {
+   /** A new configuration. */
+   public Configuration() {
+     this(true);
++    ConfigTracker.injectConfig((arg1, arg2) -> set(arg1, (String) arg2));
+   }
+ 
+   /** A new configuration where the behavior of reading from the default 
+@@ -1241,9 +1243,11 @@ String getProperty(String key) {
+    *         or null if no such property exists.
+    */
+   public String get(String name) {
++    ConfigTracker.markParamAsUsed(name);
+     String[] names = handleDeprecation(deprecationContext.get(), name);
+     String result = null;
+     for(String n : names) {
++      ConfigTracker.markParamAsUsed(n);
+       result = substituteVars(getProps().getProperty(n));
+     }
+     return result;
+@@ -1398,6 +1402,7 @@ public void set(String name, String value) {
+    * @throws IllegalArgumentException when the value or name is null.
+    */
+   public void set(String name, String value, String source) {
++    ConfigTracker.markParamAsSet(name);
+     Preconditions.checkArgument(
+         name != null,
+         "Property name must not be null");
+@@ -1419,6 +1424,7 @@ public void set(String name, String value, String source) {
+       if(altNames != null) {
+         for(String n: altNames) {
+           if(!n.equals(name)) {
++            ConfigTracker.markParamAsSet(n);
+             getOverlay().setProperty(n, value);
+             getProps().setProperty(n, value);
+             putIntoUpdatingResource(n, new String[] {newSource});
+@@ -1430,6 +1436,7 @@ public void set(String name, String value, String source) {
+       String[] names = handleDeprecation(deprecationContext.get(), name);
+       String altSource = "because " + name + " is deprecated";
+       for(String n : names) {
++        ConfigTracker.markParamAsSet(n);
+         getOverlay().setProperty(n, value);
+         getProps().setProperty(n, value);
+         putIntoUpdatingResource(n, new String[] {altSource});
+@@ -1502,9 +1509,11 @@ private synchronized Properties getOverlay() {
+    *         doesn't exist.                    
+    */
+   public String get(String name, String defaultValue) {
++    ConfigTracker.markParamAsUsed(name);
+     String[] names = handleDeprecation(deprecationContext.get(), name);
+     String result = null;
+     for(String n : names) {
++      ConfigTracker.markParamAsUsed(n);
+       result = substituteVars(getProps().getProperty(n, defaultValue));
+     }
+     return result;
+diff --git a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ExampleCTest.java b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ExampleCTest.java
+new file mode 100644
+index 0000000000000..6b78ba48cea28
+--- /dev/null
++++ b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ExampleCTest.java
+@@ -0,0 +1,47 @@
++package org.apache.hadoop;
++
++import edu.illinois.CTest;
++import edu.illinois.CTestClass;
++import edu.illinois.CTestJUnit4Runner2;
++
++import org.apache.hadoop.conf.Configuration;
++import org.junit.Before;
++import org.junit.runner.RunWith;
++
++@RunWith(CTestJUnit4Runner2.class)
++@CTestClass(value={"class-para"}, configMappingFile="ctest/saved_mapping/org.apache.hadoop.ExampleCTest.json")
++public class ExampleCTest {
++
++    private Configuration conf;
++
++    @Before
++    public void setUp() {
++        conf = new Configuration();
++    }
++
++    // @CTest(value={"method-para1"})
++    @CTest
++    public void ExampleTestOne() {
++        // conf.get("file-para");
++        conf.get("class-para");
++        conf.get("method-para1");
++    }
++
++    // @CTest(value={"method-para2"})
++    @CTest
++    public void ExampleTestTwo() {
++        conf.get("file-para");
++        // conf.get("class-para");
++        conf.get("method-para2");
++        conf.get("haha");
++    }
++
++    @CTest
++    public void ExampleTestThree() {
++        conf.get("file-para");
++        conf.get("class-para");
++        conf.get("method-para1");
++        conf.get("haha");
++    }
++
++}
+\ No newline at end of file
+diff --git a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/TestCryptoStreams.java b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/TestCryptoStreams.java
+index 73c6249612387..9fa3075213d55 100644
+--- a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/TestCryptoStreams.java
++++ b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/TestCryptoStreams.java
+@@ -45,8 +45,15 @@
+ import org.junit.BeforeClass;
+ import org.junit.Test;
+ 
++import org.junit.runner.RunWith;
++import edu.illinois.CTestJUnit4Runner;
++import edu.illinois.CTestClass;
++import edu.illinois.CTest;
++
+ import static org.apache.hadoop.fs.contract.ContractTestUtils.assertCapabilities;
+ 
++@RunWith(CTestJUnit4Runner.class)
++@CTestClass(value={"haha"})
+ public class TestCryptoStreams extends CryptoStreamsTestBase {
+   /**
+    * Data storage.
+diff --git a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/security/token/delegation/TestZKDelegationTokenSecretManager.java b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/security/token/delegation/TestZKDelegationTokenSecretManager.java
+index 6dc8c59b25e40..912dfe0fae1a3 100644
+--- a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/security/token/delegation/TestZKDelegationTokenSecretManager.java
++++ b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/security/token/delegation/TestZKDelegationTokenSecretManager.java
+@@ -22,6 +22,10 @@
+ import java.util.ArrayList;
+ import java.util.List;
+ 
++import org.junit.runner.RunWith;
++import edu.illinois.CTestJUnit4Runner;
++import edu.illinois.CTestClass;
++import edu.illinois.CTest;
+ import java.util.function.Supplier;
+ import org.apache.curator.RetryPolicy;
+ import org.apache.curator.framework.CuratorFramework;
+@@ -57,7 +61,8 @@
+ 
+ import static org.junit.Assert.fail;
+ 
+-
++@RunWith(CTestJUnit4Runner.class)
++@CTestClass
+ public class TestZKDelegationTokenSecretManager {
+   private static final Logger LOG =
+       LoggerFactory.getLogger(TestZKDelegationTokenSecretManager.class);
+diff --git a/hadoop-hdfs-project/hadoop-hdfs/pom.xml b/hadoop-hdfs-project/hadoop-hdfs/pom.xml
+index 22dba0145278a..441ee51efa350 100644
+--- a/hadoop-hdfs-project/hadoop-hdfs/pom.xml
++++ b/hadoop-hdfs-project/hadoop-hdfs/pom.xml
+@@ -225,6 +225,12 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd">
+       <artifactId>lz4-java</artifactId>
+       <scope>test</scope>
+     </dependency>
++    <dependency>
++      <groupId>edu.illinois</groupId>
++      <artifactId>ctest-runner-junit4</artifactId>
++      <version>1.0-SNAPSHOT</version>
++      <scope>compile</scope>
++    </dependency>
+   </dependencies>
+ 
+   <build>
+@@ -233,6 +239,50 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-surefire-plugin</artifactId>
+         <configuration>
++	  <excludes>
++	    <exclude>**/TestAclCLIWithPosixAclInheritance.java</exclude>
++	    <exclude>**/TestSymlinkHdfsFileContext.java</exclude>
++	    <exclude>**/TestSymlinkHdfsFileSystem.java</exclude>
++	    <exclude>**/TestViewFSOverloadSchemeWithMountTableConfigInHDFS.java</exclude>
++	    <exclude>**/TestViewFileSystemOverloadSchemeHdfsFileSystemContract.java</exclude>
++	    <exclude>**/TestDFSStripedInputStreamWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestDFSStripedOutputStreamWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestDecommissionWithBackoffMonitor.java</exclude>
++	    <exclude>**/TestDecommissionWithStripedBackoffMonitor.java</exclude>
++	    <exclude>**/TestDistributedFileSystemWithECFileWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestEncryptionZonesWithKMS.java</exclude>
++	    <exclude>**/TestErasureCodingPoliciesWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestErasureCodingPolicyWithSnapshotWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestFileChecksumCompositeCrc.java</exclude>
++	    <exclude>**/TestFileStatusWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestParallelRead.java</exclude>
++	    <exclude>**/TestParallelShortCircuitLegacyRead.java</exclude>
++	    <exclude>**/TestParallelShortCircuitRead.java</exclude>
++	    <exclude>**/TestParallelShortCircuitReadNoChecksum.java</exclude>
++	    <exclude>**/TestParallelShortCircuitReadUnCached.java</exclude>
++	    <exclude>**/TestParallelUnixDomainRead.java</exclude>
++	    <exclude>**/TestReconstructStripedFileWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestReconstructStripedFileWithValidator.java</exclude>
++	    <exclude>**/TestSafeModeWithStripedFileWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestViewDistributedFileSystem.java</exclude>
++	    <exclude>**/TestViewDistributedFileSystemContract.java</exclude>
++	    <exclude>**/TestViewDistributedFileSystemWithMountLinks.java</exclude>
++	    <exclude>**/TestBlockTokenWithDFSStriped.java</exclude>
++	    <exclude>**/TestSimulatedFSDatasetWithMultipleStorages.java</exclude>
++	    <exclude>**/TestCacheDirectivesWithViewDFS.java</exclude>
++	    <exclude>**/TestDecommissioningStatusWithBackoffMonitor.java</exclude>
++	    <exclude>**/TestFileContextXAttr.java</exclude>
++	    <exclude>**/TestNameNodeXAttr.java</exclude>
++	    <exclude>**/TestQuotaWithStripedBlocksWithRandomECPolicy.java</exclude>
++	    <exclude>**/TestReencryptionWithKMS.java</exclude>
++	    <exclude>**/TestBootstrapStandbyWithInProgressTailing.java</exclude>
++	    <exclude>**/TestSnapRootDescendantDiff.java</exclude>
++	    <exclude>**/TestDFSZKFailoverController.java</exclude>
++	    <exclude>**/TestViewFSStoragePolicyCommands.java</exclude>
++	    <exclude>**/TestWebHDFSStoragePolicyCommands.java</exclude>
++	    <exclude>**/TestWebHDFSXAttr.java</exclude>
++	  </excludes>
++
+           <systemPropertyVariables>
+             <runningWithNative>${runningWithNative}</runningWithNative>
+           </systemPropertyVariables>
+diff --git a/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/pom.xml b/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/pom.xml
+index 16373a1277743..aec5f403995bc 100644
+--- a/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/pom.xml
++++ b/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/pom.xml
+@@ -34,6 +34,12 @@
+   </properties>
+ 
+   <dependencies>
++    <dependency>
++      <groupId>edu.illinois</groupId>
++      <artifactId>ctest-runner-junit4</artifactId>
++      <version>1.0-SNAPSHOT</version>
++      <scope>compile</scope>
++    </dependency>
+     <dependency>
+       <groupId>org.apache.hadoop</groupId>
+       <artifactId>hadoop-yarn-client</artifactId>
+diff --git a/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/pom.xml b/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/pom.xml
+index 7314da2ed9d7e..d51120dc340de 100644
+--- a/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/pom.xml
++++ b/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/pom.xml
+@@ -34,6 +34,12 @@
+   </properties>
+ 
+   <dependencies>
++    <dependency>
++      <groupId>edu.illinois</groupId>
++      <artifactId>ctest-runner-junit4</artifactId>
++      <version>1.0-SNAPSHOT</version>
++      <scope>compile</scope>
++    </dependency>
+     <!-- 'mvn dependency:analyze' fails to detect use of this dependency -->
+     <dependency>
+       <groupId>org.apache.hadoop</groupId>

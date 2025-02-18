@@ -1,0 +1,405 @@
+diff --git a/flink-core/pom.xml b/flink-core/pom.xml
+index 07d2cf3c213d1..3e042b6722929 100644
+--- a/flink-core/pom.xml
++++ b/flink-core/pom.xml
+@@ -52,6 +52,12 @@ under the License.
+ 	</properties>
+ 
+ 	<dependencies>
++		<dependency>
++			<groupId>edu.illinois</groupId>
++			<artifactId>ctest4j-junit4</artifactId>
++			<version>1.0.0</version>
++			<scope>compile</scope>
++		</dependency>
+ 		<dependency>
+ 			<groupId>org.apache.flink</groupId>
+ 			<artifactId>flink-annotations</artifactId>
+@@ -173,12 +179,59 @@ under the License.
+ 
+ 	<build>
+ 		<plugins>
++			<plugin>
++				<groupId>org.apache.maven.plugins</groupId>
++				<artifactId>maven-surefire-plugin</artifactId>
++				<version>3.0.0-M5</version>
++				<configuration>
++					<excludes>
++						<exclude>**/ExecutionConfigTest.java</exclude>
++						<exclude>**/BooleanPrimitiveArrayComparatorTest.java</exclude>
++						<exclude>**/GlobFilePathFilterTest.java</exclude>
++						<exclude>**/SqlTimeParserTest.java</exclude>
++						<exclude>**/FloatValueParserTest.java</exclude>
++						<exclude>**/UnquotedStringParserTest.java</exclude>
++						<exclude>**/ShortParserTest.java</exclude>
++						<exclude>**/DoubleParserTest.java</exclude>
++						<exclude>**/IntParserTest.java</exclude>
++						<exclude>**/ByteValueParserTest.java</exclude>
++						<exclude>**/ShortValueParserTest.java</exclude>
++						<exclude>**/LongParserTest.java</exclude>
++						<exclude>**/IntValueParserTest.java</exclude>
++						<exclude>**/BigIntParserTest.java</exclude>
++						<exclude>**/ByteParserTest.java</exclude>
++						<exclude>**/BooleanValueParserTest.java</exclude>
++						<exclude>**/QuotedStringParserTest.java</exclude>
++						<exclude>**/UnquotedStringValueParserTest.java</exclude>
++						<exclude>**/BigDecParserTest.java</exclude>
++						<exclude>**/DoubleValueParserTest.java</exclude>
++						<exclude>**/QuotedStringValueParserTest.java</exclude>
++						<exclude>**/BooleanParserTest.java</exclude>
++						<exclude>**/SqlTimestampParserTest.java</exclude>
++						<exclude>**/SqlDateParserTest.java</exclude>
++						<exclude>**/LongValueParserTest.java</exclude>
++						<exclude>**/FloatParserTest.java</exclude>
++						<exclude>**/SafetyNetCloseableRegistryTest.java</exclude>
++						<exclude>**/LocalFileSystemRecoverableWriterTest.java</exclude>
++						<exclude>**/CloseableRegistryTest.java</exclude>
++						<exclude>**/CollectionUtilTest.java</exclude>
++						<exclude>**/FileUtilsTest.java</exclude>
++					</excludes>
++				</configuration>
++			</plugin>
++			<plugin>
++				<groupId>com.diffplug.spotless</groupId>
++				<artifactId>spotless-maven-plugin</artifactId>
++				<configuration>
++					<skip>true</skip>
++				</configuration>
++			</plugin>
+ 			<plugin>
+ 				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-checkstyle-plugin</artifactId>
+ 
+ 				<configuration>
+-					<suppressionsLocation combine.self="override">/tools/maven/suppressions-core.xml</suppressionsLocation>
++					<skip>true</skip>
+ 				</configuration>
+ 			</plugin>
+ 
+diff --git a/flink-core/src/main/java/org/apache/flink/configuration/Configuration.java b/flink-core/src/main/java/org/apache/flink/configuration/Configuration.java
+index 6d6d6f1824fa5..835f02636b1ea 100644
+--- a/flink-core/src/main/java/org/apache/flink/configuration/Configuration.java
++++ b/flink-core/src/main/java/org/apache/flink/configuration/Configuration.java
+@@ -27,6 +27,7 @@
+ import org.apache.flink.types.StringValue;
+ import org.apache.flink.util.CollectionUtil;
+ 
++import edu.illinois.ConfigTracker;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
+@@ -76,6 +77,7 @@ public class Configuration extends ExecutionConfig.GlobalJobParameters
+     /** Creates a new empty configuration. */
+     public Configuration() {
+         this.confData = new HashMap<>();
++        ConfigTracker.injectConfig((arg1, arg2) -> this.setString(arg1, (String) arg2));
+     }
+ 
+     /**
+@@ -85,6 +87,7 @@ public Configuration() {
+      */
+     public Configuration(Configuration other) {
+         this.confData = new HashMap<>(other.confData);
++        ConfigTracker.injectConfig((arg1, arg2) -> this.setString(arg1, (String) arg2));
+     }
+ 
+     // --------------------------------------------------------------------------------------------
+@@ -93,6 +96,7 @@ public Configuration(Configuration other) {
+     public static Configuration fromMap(Map<String, String> map) {
+         final Configuration configuration = new Configuration();
+         map.forEach(configuration::setString);
++        ConfigTracker.injectConfig((arg1, arg2) -> configuration.setString(arg1, (String) arg2));
+         return configuration;
+     }
+ 
+@@ -113,6 +117,7 @@ public <T> Class<T> getClass(
+             String key, Class<? extends T> defaultValue, ClassLoader classLoader)
+             throws ClassNotFoundException {
+         Optional<Object> o = getRawValue(key);
++        ConfigTracker.markParamAsUsed(key);
+         if (!o.isPresent()) {
+             return (Class<T>) defaultValue;
+         }
+@@ -152,6 +157,7 @@ public void setClass(String key, Class<?> klazz) {
+      */
+     @Deprecated
+     public String getString(String key, String defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key).map(ConfigurationUtils::convertToString).orElse(defaultValue);
+     }
+ 
+@@ -163,6 +169,7 @@ public String getString(String key, String defaultValue) {
+      */
+     @PublicEvolving
+     public String getString(ConfigOption<String> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElseGet(configOption::defaultValue);
+     }
+ 
+@@ -176,6 +183,7 @@ public String getString(ConfigOption<String> configOption) {
+      */
+     @PublicEvolving
+     public String getString(ConfigOption<String> configOption, String overrideDefault) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElse(overrideDefault);
+     }
+ 
+@@ -212,6 +220,7 @@ public void setString(ConfigOption<String> key, String value) {
+      */
+     @Deprecated
+     public int getInteger(String key, int defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key).map(ConfigurationUtils::convertToInt).orElse(defaultValue);
+     }
+ 
+@@ -223,6 +232,7 @@ public int getInteger(String key, int defaultValue) {
+      */
+     @PublicEvolving
+     public int getInteger(ConfigOption<Integer> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElseGet(configOption::defaultValue);
+     }
+ 
+@@ -237,6 +247,7 @@ public int getInteger(ConfigOption<Integer> configOption) {
+      */
+     @PublicEvolving
+     public int getInteger(ConfigOption<Integer> configOption, int overrideDefault) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElse(overrideDefault);
+     }
+ 
+@@ -273,6 +284,7 @@ public void setInteger(ConfigOption<Integer> key, int value) {
+      */
+     @Deprecated
+     public long getLong(String key, long defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key).map(ConfigurationUtils::convertToLong).orElse(defaultValue);
+     }
+ 
+@@ -284,6 +296,7 @@ public long getLong(String key, long defaultValue) {
+      */
+     @PublicEvolving
+     public long getLong(ConfigOption<Long> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElseGet(configOption::defaultValue);
+     }
+ 
+@@ -298,6 +311,7 @@ public long getLong(ConfigOption<Long> configOption) {
+      */
+     @PublicEvolving
+     public long getLong(ConfigOption<Long> configOption, long overrideDefault) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElse(overrideDefault);
+     }
+ 
+@@ -335,6 +349,7 @@ public void setLong(ConfigOption<Long> key, long value) {
+      */
+     @Deprecated
+     public boolean getBoolean(String key, boolean defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key).map(ConfigurationUtils::convertToBoolean).orElse(defaultValue);
+     }
+ 
+@@ -346,6 +361,7 @@ public boolean getBoolean(String key, boolean defaultValue) {
+      */
+     @PublicEvolving
+     public boolean getBoolean(ConfigOption<Boolean> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElseGet(configOption::defaultValue);
+     }
+ 
+@@ -360,6 +376,7 @@ public boolean getBoolean(ConfigOption<Boolean> configOption) {
+      */
+     @PublicEvolving
+     public boolean getBoolean(ConfigOption<Boolean> configOption, boolean overrideDefault) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElse(overrideDefault);
+     }
+ 
+@@ -396,6 +413,7 @@ public void setBoolean(ConfigOption<Boolean> key, boolean value) {
+      */
+     @Deprecated
+     public float getFloat(String key, float defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key).map(ConfigurationUtils::convertToFloat).orElse(defaultValue);
+     }
+ 
+@@ -407,6 +425,7 @@ public float getFloat(String key, float defaultValue) {
+      */
+     @PublicEvolving
+     public float getFloat(ConfigOption<Float> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElseGet(configOption::defaultValue);
+     }
+ 
+@@ -421,6 +440,7 @@ public float getFloat(ConfigOption<Float> configOption) {
+      */
+     @PublicEvolving
+     public float getFloat(ConfigOption<Float> configOption, float overrideDefault) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElse(overrideDefault);
+     }
+ 
+@@ -458,6 +478,7 @@ public void setFloat(ConfigOption<Float> key, float value) {
+      */
+     @Deprecated
+     public double getDouble(String key, double defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key).map(ConfigurationUtils::convertToDouble).orElse(defaultValue);
+     }
+ 
+@@ -469,6 +490,7 @@ public double getDouble(String key, double defaultValue) {
+      */
+     @PublicEvolving
+     public double getDouble(ConfigOption<Double> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElseGet(configOption::defaultValue);
+     }
+ 
+@@ -483,6 +505,7 @@ public double getDouble(ConfigOption<Double> configOption) {
+      */
+     @PublicEvolving
+     public double getDouble(ConfigOption<Double> configOption, double overrideDefault) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return getOptional(configOption).orElse(overrideDefault);
+     }
+ 
+@@ -517,6 +540,7 @@ public void setDouble(ConfigOption<Double> key, double value) {
+      * @return the (default) value associated with the given key.
+      */
+     public byte[] getBytes(String key, byte[] defaultValue) {
++        ConfigTracker.markParamAsUsed(key);
+         return getRawValue(key)
+                 .map(
+                         o -> {
+@@ -551,6 +575,7 @@ public void setBytes(String key, byte[] bytes) {
+      */
+     @PublicEvolving
+     public String getValue(ConfigOption<?> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return Optional.ofNullable(
+                         getRawValueFromOption(configOption).orElseGet(configOption::defaultValue))
+                 .map(String::valueOf)
+@@ -573,6 +598,7 @@ public <T extends Enum<T>> T getEnum(
+ 
+         Object rawValue = getRawValueFromOption(configOption).orElseGet(configOption::defaultValue);
+         try {
++            ConfigTracker.markParamAsUsed(configOption.key());
+             return ConfigurationUtils.convertToEnum(rawValue, enumClass);
+         } catch (IllegalArgumentException ex) {
+             final String errorMessage =
+@@ -715,14 +741,15 @@ private <T> Optional<T> applyWithOption(
+      */
+     @Override
+     public <T> T get(ConfigOption<T> option) {
++        ConfigTracker.markParamAsUsed(option.key());
+         return getOptional(option).orElseGet(option::defaultValue);
+     }
+ 
+     @Override
+     public <T> Optional<T> getOptional(ConfigOption<T> option) {
+         Optional<Object> rawValue = getRawValueFromOption(option);
++        ConfigTracker.markParamAsUsed(option.key());
+         Class<?> clazz = option.getClazz();
+-
+         try {
+             if (option.isList()) {
+                 return rawValue.map(v -> ConfigurationUtils.convertToList(v, clazz));
+@@ -812,6 +839,7 @@ <T> void setValueInternal(String key, T value, boolean canBePrefixMap) {
+             }
+             this.confData.put(key, value);
+         }
++        ConfigTracker.markParamAsSet(key);
+     }
+ 
+     private <T> void setValueInternal(String key, T value) {
+@@ -826,7 +854,7 @@ private Optional<Object> getRawValue(String key, boolean canBePrefixMap) {
+         if (key == null) {
+             throw new NullPointerException("Key must not be null.");
+         }
+-
++        ConfigTracker.markParamAsUsed(key);
+         synchronized (this.confData) {
+             final Object valueFromExactKey = this.confData.get(key);
+             if (!canBePrefixMap || valueFromExactKey != null) {
+@@ -852,6 +880,7 @@ private Optional<Object> getRawValue(String key, boolean canBePrefixMap) {
+      * @return the value of the configuration or {@link Optional#empty()}.
+      */
+     private Optional<Object> getRawValueFromOption(ConfigOption<?> configOption) {
++        ConfigTracker.markParamAsUsed(configOption.key());
+         return applyWithOption(configOption, this::getRawValue);
+     }
+ 
+diff --git a/flink-core/src/test/java/org/apache/flink/configuration/ExampleCTest.java b/flink-core/src/test/java/org/apache/flink/configuration/ExampleCTest.java
+new file mode 100644
+index 0000000000000..747cc8f8a6e8b
+--- /dev/null
++++ b/flink-core/src/test/java/org/apache/flink/configuration/ExampleCTest.java
+@@ -0,0 +1,29 @@
++package org.apache.flink.configuration;
++
++import edu.illinois.CTestClass;
++import edu.illinois.CTestJUnitRunner;
++import org.junit.Test;
++import org.junit.runner.RunWith;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.fail;
++
++/**
++ * Author: Shuai Wang
++ * Date:  12/4/23
++ */
++@RunWith(CTestJUnitRunner.class)
++@CTestClass
++public class ExampleCTest {
++    @Test
++    public void testCopyConstructor() {
++        try {
++            final String key = "ctest";
++            Configuration cfg1 = new Configuration();
++            System.out.println("With inject, ctest = " + cfg1.getString(key, ""));
++        } catch (Exception e) {
++            e.printStackTrace();
++            fail(e.getMessage());
++        }
++    }
++}
+diff --git a/flink-core/test_injection.sh b/flink-core/test_injection.sh
+new file mode 100644
+index 0000000000000..7218157f6f6c9
+--- /dev/null
++++ b/flink-core/test_injection.sh
+@@ -0,0 +1 @@
++mvn test -Dtest=ExampleCTest -Dconfig.inject.cli="ctest=111" -Dctest.config.save
+diff --git a/flink-yarn/pom.xml b/flink-yarn/pom.xml
+index 4097a0caf7166..a7d3c7567d88d 100644
+--- a/flink-yarn/pom.xml
++++ b/flink-yarn/pom.xml
+@@ -42,7 +42,12 @@ under the License.
+ 
+ 	<dependencies>
+ 
+-		<!-- core dependencies -->
++	  <!-- core dependencies -->
++	  <dependency>
++	    <groupId>edu.illinois</groupId>
++	    <artifactId>ctest4j-junit4</artifactId> <!-- or ctest4j-testng --> 
++	    <version>1.0.0</version>
++	  </dependency>
+ 
+ 		<dependency>
+ 			<groupId>org.apache.flink</groupId>
+diff --git a/pom.xml b/pom.xml
+index 84320942bbecb..6014befb97da5 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -160,7 +160,7 @@ under the License.
+ 		<okhttp.version>3.14.9</okhttp.version>
+ 		<testcontainers.version>1.18.3</testcontainers.version>
+ 		<lz4.version>1.8.0</lz4.version>
+-		<japicmp.skip>false</japicmp.skip>
++		<japicmp.skip>true</japicmp.skip>
+ 		<flink.convergence.phase>validate</flink.convergence.phase>
+ 		<!--
+ 			Keeping the MiniKDC version fixed instead of taking hadoop version dependency

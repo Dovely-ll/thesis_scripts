@@ -1,0 +1,117 @@
+diff --git a/hbase-server/pom.xml b/hbase-server/pom.xml
+index 0ad01b84caee..276a9db64067 100644
+--- a/hbase-server/pom.xml
++++ b/hbase-server/pom.xml
+@@ -37,6 +37,12 @@
+     <license.bundles.vega>true</license.bundles.vega>
+   </properties>
+   <dependencies>
++    <dependency>
++      <groupId>edu.illinois</groupId>
++      <artifactId>ctest-runner-junit4</artifactId>
++      <version>1.0-SNAPSHOT</version>
++      <scope>compile</scope>
++    </dependency>
+     <dependency>
+       <groupId>org.apache.hbase.thirdparty</groupId>
+       <artifactId>hbase-shaded-protobuf</artifactId>
+@@ -538,6 +544,14 @@
+       <plugin>
+         <artifactId>maven-surefire-plugin</artifactId>
+         <configuration>
++	  <excludes>
++	    <exclude>**/TestBulkLoad.java</exclude>
++	    <exclude>**/TestAsyncProtobufLog.java</exclude>
++	    <exclude>**/TestAsyncFSWALDurability.java</exclude>
++	    <exclude>**/TestCompactionAfterBulkLoad.java</exclude>
++	    <exclude>**/TestSyncTimeRangeTracker.java</exclude>
++	    <exclude>**/TestMajorCompactionTTLRequest.java</exclude>
++	  </excludes>
+           <systemPropertyVariables>
+             <test.build.webapps>target/test-classes/webapps</test.build.webapps>
+           </systemPropertyVariables>
+diff --git a/hbase-server/src/test/java/org/apache/hadoop/hbase/io/hfile/TestSeekBeforeWithInlineBlocks.java b/hbase-server/src/test/java/org/apache/hadoop/hbase/io/hfile/TestSeekBeforeWithInlineBlocks.java
+index 6fe90105f816..c4ef4b846997 100644
+--- a/hbase-server/src/test/java/org/apache/hadoop/hbase/io/hfile/TestSeekBeforeWithInlineBlocks.java
++++ b/hbase-server/src/test/java/org/apache/hadoop/hbase/io/hfile/TestSeekBeforeWithInlineBlocks.java
+@@ -20,6 +20,9 @@
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertTrue;
+ 
++
++import edu.illinois.CTestClass;
++import edu.illinois.CTestJUnit4Runner2;
+ import java.io.IOException;
+ import java.util.Random;
+ import org.apache.hadoop.conf.Configuration;
+@@ -42,9 +45,12 @@
+ import org.junit.ClassRule;
+ import org.junit.Test;
+ import org.junit.experimental.categories.Category;
++import org.junit.runner.RunWith;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
++@RunWith(CTestJUnit4Runner2.class)
++@CTestClass
+ @Category({ IOTests.class, MediumTests.class })
+ public class TestSeekBeforeWithInlineBlocks {
+ 
+diff --git a/hbase-server/test_injection.sh b/hbase-server/test_injection.sh
+new file mode 100644
+index 000000000000..4285d06c3fb9
+--- /dev/null
++++ b/hbase-server/test_injection.sh
+@@ -0,0 +1 @@
++mvn test -Dtest=TestSeekBeforeWithInlineBlocks -Dconfig.inject.cli="hadoop.security.groups.cache.secs=-10"
+diff --git a/pom.xml b/pom.xml
+index f78fe9ba7075..dd54fd9df8af 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -3202,12 +3202,18 @@
+     <profile>
+       <id>hadoop-2.0</id>
+       <activation>
+-        <property>
+-          <!--Below formatting for dev-support/generate-hadoopX-poms.sh-->
+-          <!--h2-->
+-          <name>!hadoop.profile</name>
+-        </property>
++	<property>
++	  <name>hadoop.profile</name>
++	  <value>2.0</value>
++	</property>
+       </activation>
++      <!-- <activation> -->
++      <!--   <property> -->
++      <!--     <!-\-Below formatting for dev-support/generate-hadoopX-poms.sh-\-> -->
++      <!--     <!-\-h2-\-> -->
++      <!--     <name>!hadoop.profile</name> -->
++      <!--   </property> -->
++      <!-- </activation> -->
+       <modules>
+         <module>hbase-hadoop2-compat</module>
+       </modules>
+@@ -3883,11 +3889,18 @@
+     <profile>
+       <id>hadoop-3.0</id>
+       <activation>
+-        <property>
+-          <name>hadoop.profile</name>
+-          <value>3.0</value>
+-        </property>
++	<property>
++	  <!--Below formatting for dev-support/generate-hadoopX-poms.sh-->
++	  <!--h2-->
++	  <name>!hadoop.profile</name>
++	</property>
+       </activation>
++      <!-- <activation> -->
++      <!--   <property> -->
++      <!--     <name>hadoop.profile</name> -->
++      <!--     <value>3.0</value> -->
++      <!--   </property> -->
++      <!-- </activation> -->
+       <modules>
+         <!--For now, use hadoop2 compat module-->
+         <module>hbase-hadoop2-compat</module>

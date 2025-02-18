@@ -1,0 +1,68 @@
+diff --git a/core/camel-base/src/main/java/org/apache/camel/component/properties/AbstractLocationPropertiesSource.java b/core/camel-base/src/main/java/org/apache/camel/component/properties/AbstractLocationPropertiesSource.java
+index a11044d76dc92..2f3c2c49a7e65 100644
+--- a/core/camel-base/src/main/java/org/apache/camel/component/properties/AbstractLocationPropertiesSource.java
++++ b/core/camel-base/src/main/java/org/apache/camel/component/properties/AbstractLocationPropertiesSource.java
+@@ -20,6 +20,7 @@
+ import java.util.Properties;
+ import java.util.function.Predicate;
+ 
++import edu.illinois.ConfigTracker;
+ import org.apache.camel.spi.LoadablePropertiesSource;
+ import org.apache.camel.support.ResourceHelper;
+ import org.apache.camel.support.service.ServiceSupport;
+@@ -85,6 +86,7 @@ public void reloadProperties(String location) {
+ 
+     @Override
+     public String getProperty(String name) {
++        ConfigTracker.markParamAsUsed(this.hashCode(), this::setProperty, name);
+         return properties.getProperty(name);
+     }
+ 
+@@ -95,6 +97,7 @@ public String getProperty(String name) {
+      * @param value the value
+      */
+     public void setProperty(String key, String value) {
++        ConfigTracker.markParamAsSet(key);
+         properties.setProperty(key, value);
+     }
+ 
+diff --git a/core/camel-core/src/test/java/org/apache/camel/component/properties/PropertiesComponentNestedFalseTest.java b/core/camel-core/src/test/java/org/apache/camel/component/properties/PropertiesComponentNestedFalseTest.java
+index 4e5ca7b194a93..dab726c200a7f 100644
+--- a/core/camel-core/src/test/java/org/apache/camel/component/properties/PropertiesComponentNestedFalseTest.java
++++ b/core/camel-core/src/test/java/org/apache/camel/component/properties/PropertiesComponentNestedFalseTest.java
+@@ -21,6 +21,7 @@
+ import org.apache.camel.builder.RouteBuilder;
+ import org.junit.jupiter.api.Test;
+ 
++
+ public class PropertiesComponentNestedFalseTest extends ContextTestSupport {
+ 
+     @Test
+diff --git a/core/camel-core/test_injection.sh b/core/camel-core/test_injection.sh
+new file mode 100644
+index 0000000000000..d55cc146e0450
+--- /dev/null
++++ b/core/camel-core/test_injection.sh
+@@ -0,0 +1,2 @@
++(cd ../camel-base/ && mvn clean install -DskipTests)
++mvn test -Dtest=PropertiesComponentNestedFalseTest#testNestedFalse -Dconfig.inject.cli="cool.other.name=Cheese2"
+diff --git a/core/pom.xml b/core/pom.xml
+index 0c82aa3058793..39e919c5e442f 100644
+--- a/core/pom.xml
++++ b/core/pom.xml
+@@ -66,6 +66,15 @@
+         <camel.surefire.parallel>true</camel.surefire.parallel>
+     </properties>
+ 
++    <dependencies>
++        <dependency>
++            <groupId>edu.illinois</groupId>
++            <artifactId>ctest-runner-junit5</artifactId>
++            <version>1.0-SNAPSHOT</version>
++            <scope>compile</scope>
++        </dependency>
++    </dependencies>
++
+     <build>
+         <plugins>
+             <plugin>
