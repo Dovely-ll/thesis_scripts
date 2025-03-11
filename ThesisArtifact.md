@@ -16,24 +16,55 @@ repository: https://github.com/[username]/[repo]
 
 ---
 
-## 2. Environment Configuration  
-### 2.1 Dependency Installation  
+## 2. Setup  
+### 2.1 Start a Docker container  
 ```bash
-# Create conda environment
+# pull and start a docker container
 docker pull xxx/ta_image:xxx
-docker run -it ta_image
-
-# Core dependencies
-pip install -r requirements.txt
+docker run -it --name ta_test ta_image:xxx /bin/bash
 ```
 
-### 2.2 Software Requirements  
+### 2.2 Set up Ctest4J
+```bash
+# clone the Ctest4J repo (need to setup ssh first)
+cd ctestrunner
+git clone git@github.com:xlab-uiuc/ctest4j.git
+
+# switch to the branch for thesis evaluation
+git checkout auto_annotate
+```
 | Component       | Version  | Verification Command       |  
 |-----------------|----------|----------------------------|  
 | PyTorch         | 2.1.0    | `python -c "import torch; print(torch.__version__)"` |  
 | CUDA Toolkit    | 12.1     | `nvcc --version`           |  
 
 ---
+
+### 2.3 Prepare target projects
+```bash
+mkdir app && cd app
+git clone {target_project_repo_url}
+
+# checkout the instrumented version
+cd {target_project_repo}
+git checkout ctest-eval
+
+# prepare snapshot dependencies (for Zeppelin Only)
+cd zeppelin/zeppelin-common && mvn clean install -DskipTests
+cd ../zeppelin- && mvn clean install -DskipTests && cd ../../../
+```
+## 3. Validation
+### 3.1 Run Ctest
+```bash
+# use annotation library to automatically run Ctests in tracking and checking modes, mapping files between tests and parameters are generated
+python3 auto_annotate {project_name} {} {} {} {}
+```
+
+### 3.2 Run evaluation scripts
+```bash
+python3 xxx
+```
+
 
 ## 3. Data Management  
 ### 3.1 Source Data  
