@@ -15,29 +15,30 @@ Contains studied projects with ported and unsuitable ones.
 
 ### 1.2 Projects Studied
 ```json
-# project identification
-projects_supported = {
-"hbase-server": "",
-"alluxio-core-common": "",
-"hive-common": "",
-"camel-core": "",
-"yarn-common": "",
-"mapreduce-client-core": "",
-"flink-core": "",
-"kylin-core-common": "",
-"zeppelin-interpreter": ""
+{
+"//comment": "project_supported",
+"hbase-server": "../app/hbase/hbase-server",
+"alluxio-core-common": "../app/alluxio/core/common",
+"hive-common": "../app/hive/common",
+"camel-core": "../app/camel/core",
+"yarn-common": "../app/hadoop/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common",
+"mapreduce-client-core": "../app/hadoop/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core",
+"flink-core": "../app/flink/flink-core",
+"kylin-core-common": "../app/kylin/core-common",
+"zeppelin-interpreter": "../app/zeppelin/zeppelin-interpreter"
 }
 
-projects_unsupported = {
-"druid-processing": "",
-"kafka": "",
-"rocketmq-common": "",
-"spark-core": "",
-"tomcat": "",
-"redisson": "",
-"nifi-commons": "",
-"netty-common": "",
-"spring-framework": ""
+{
+"//comment": "projects_unsupported",
+"druid-processing": "../app/druid",
+"kafka": "../app/kafka",
+"rocketmq-common": "../app/rocketmq/common",
+"spark-core": "../app/spark/core",
+"tomcat": "../app/tomcat",
+"redisson": "../app/redisson",
+"nifi-commons": "../app/nifi/nifi-commons",
+"netty-common": "../app/netty/common",
+"spring-framework": "../app/spring-framework"
 }
 ```
 
@@ -54,10 +55,11 @@ docker run -it --name ta_test ta_image:xxx /bin/bash
 ### 2.2 Set up Ctest4J
 ```bash
 # clone the Ctest4J repo (need to setup ssh first)
-cd ctestrunner
+cd /home/ctestrunner
 git clone git@github.com:xlab-uiuc/ctest4j.git
 
 # switch to the branch for thesis evaluation
+cd ctest4j
 git checkout auto_annotate
 ```
 | Component       | Version  | Verification Command       |  
@@ -65,7 +67,6 @@ git checkout auto_annotate
 | PyTorch         | 2.1.0    | `python -c "import torch; print(torch.__version__)"` |  
 | CUDA Toolkit    | 12.1     | `nvcc --version`           |  
 
----
 
 ### 2.3 Prepare target projects
 ```bash
@@ -73,18 +74,19 @@ mkdir app && cd app
 git clone {target_project_repo_url}
 
 # checkout the instrumented version
+# (for flink, checkout commit aa83fa3d)
 cd {target_project_repo}
 git checkout ctest-eval
 
-# prepare snapshot dependencies (for Zeppelin Only)
-cd zeppelin/zeppelin-common && mvn clean install -DskipTests
-cd ../zeppelin- && mvn clean install -DskipTests && cd ../../../
+# prepare snapshot dependencies (for Zeppelin Only, only need the parent POM and zeppelin-common module)
+cd zeppelin && mvn clean install -DskipTests && cd ../../scripts
 ```
 ## 3. Validation
 ### 3.1 Run Ctest
 ```bash
 # use annotation library to automatically run Ctests in tracking and checking modes, mapping files between tests and parameters are generated
-python3 auto_annotate {project_name} {test_module} {project_dir} {project_test_dir} {ctest_mapping_dir} # ({project_test_dir} usually can be ".")
+# example: python3 auto_annotate.py hive-common junit4 ../app/hive/common . ctest/saved_mapping ({project_test_dir} usually can be ".")
+python3 auto_annotate.py {project_name} {test_module} {project_dir} {project_test_dir} {ctest_mapping_dir}
 ```
 
 ### 3.2 Run evaluation scripts
