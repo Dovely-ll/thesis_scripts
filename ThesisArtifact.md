@@ -5,13 +5,40 @@
 
 ---
 
-## 1. Metadata  
-```yaml
-# Project Identification
-doi: 10.XXXX/XXXXXX  
-jel_classification: [JEL Code]  
-keywords: [Keyword1], [Keyword2], [Keyword3]  
-repository: https://github.com/[username]/[repo]  
+## 1. Metadata
+### 1.1 Source Code and Repository
+Ctest4J: [Annotation Library](https://github.com/xlab-uiuc/ctest4j/tree/auto_annotate)
+A Ctest4J module for automatic processing of target projects and running of Ctests.
+
+Ctest-repos: [Target Projects](https://github.com/ctest-repos)
+Contains studied projects with ported and unsuitable ones.
+
+### 1.2 Projects Studied
+```json
+# project identification
+projects_supported = {
+"hbase-server": "",
+"alluxio-core-common": "",
+"hive-common": "",
+"camel-core": "",
+"yarn-common": "",
+"mapreduce-client-core": "",
+"flink-core": "",
+"kylin-core-common": "",
+"zeppelin-interpreter": ""
+}
+
+projects_unsupported = {
+"druid-processing": "",
+"kafka": "",
+"rocketmq-common": "",
+"spark-core": "",
+"tomcat": "",
+"redisson": "",
+"nifi-commons": "",
+"netty-common": "",
+"spring-framework": ""
+}
 ```
 
 ---
@@ -57,7 +84,7 @@ cd ../zeppelin- && mvn clean install -DskipTests && cd ../../../
 ### 3.1 Run Ctest
 ```bash
 # use annotation library to automatically run Ctests in tracking and checking modes, mapping files between tests and parameters are generated
-python3 auto_annotate {project_name} {} {} {} {}
+python3 auto_annotate {project_name} {test_module} {project_dir} {project_test_dir} {ctest_mapping_dir} # ({project_test_dir} usually can be ".")
 ```
 
 ### 3.2 Run evaluation scripts
