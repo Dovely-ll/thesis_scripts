@@ -48,8 +48,8 @@ Contains studied projects with ported and unsuitable ones.
 ### 2.1 Start a Docker container  
 ```bash
 # pull and start a docker container
-docker pull xxx/ta_image:xxx
-docker run -it --name ta_test ta_image:xxx /bin/bash
+docker pull dovely1998/ta_image:alpha
+docker run -it --name ta_test dovely1998/ta_image:alpha /bin/bash
 ```
 
 ### 2.2 Set up Ctest4J
