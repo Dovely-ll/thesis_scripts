@@ -52,7 +52,7 @@ docker pull dovely1998/ta_image:alpha
 docker run -it --name ta_test dovely1998/ta_image:alpha /bin/bash
 ```
 
-### 2.2 Set up Ctest4J and evaluation scripts
+### 2.2 Set up Ctest4J and analysis scripts
 ```bash
 # clone the Ctest4J repo (need to setup ssh first)
 cd /home/ctestrunner
@@ -65,7 +65,7 @@ git checkout auto_annotate
 # install Ctest4J
 mvn clean install -DskipTests
 
-# set up evaluation scripts
+# set up analysis scripts
 mkdir app && cd app
 git clone git@github.com:Dovely-ll/thesis_scripts.git
 ```
@@ -88,7 +88,7 @@ cd zeppelin && mvn clean install -DskipTests && cd ../../scripts
 ---
 
 ## 3. Validation
-### 3.1 Run Ctest
+### 3.1 Run Ctests
 ```bash
 # use annotation library to automatically run Ctests in tracking and checking modes, mapping files between tests and parameters are generated
 # example: python3 auto_annotate.py hive-common junit4 ../app/hive/common . ctest/saved_mapping ({project_test_dir} usually can be ".")
@@ -108,10 +108,22 @@ Running a configuration test is the same as running a normal test, except that t
 | ctest.suite.tracking | Use only with CTestSuiteRunner. With this set to true, @Test would perform normally, track the usage of configuration parameters during the test execution, and save to `ctest.mapping.dir`; otherwise all @Test would also perform like @CTest.                                                               | True / False                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ctest.config.save.dir | The directory to save the tracked configuration parameter. The default value is `./ctest/saved_mapping`
 
-### 3.2 Run evaluation scripts
-```bash
-python3 xxx
-```
+### 3.2 Run analysis scripts
+Step into the thesis folder:
+`cd ../app/thesis_scripts`
+
+Analyze parameter number:
+`./config_param.h {project_path}`
+
+Analyze project's configuration API:
+`python3 method_signatures.py {[keyword1, keyword2...]} {project_path}`
+
+Initiate experiment 1 and 3:
+`python3 utility.py {option}`
+| Argument        | Value    | Description                |  
+|-----------------|----------|----------------------------|  
+| Option          | 0        | Run experiment 1 to collection basic stats of the target project. |  
+|                 | 1        | Run experiment 3 to evaluate the effectiveness and overhead of Ctest4J.  |  
 
 ---
 
