@@ -16,7 +16,7 @@ Contains studied projects with ported and unsuitable ones.
 ### 1.2 Projects Studied
 ```json
 {
-"//comment": "project_supported",
+"//comment": "project_supported_path",
 "hbase-server": "../app/hbase/hbase-server",
 "alluxio-core-common": "../app/alluxio/core/common",
 "hive-common": "../app/hive/common",
@@ -29,7 +29,7 @@ Contains studied projects with ported and unsuitable ones.
 }
 
 {
-"//comment": "projects_unsupported",
+"//comment": "projects_unsupported_path",
 "druid-processing": "../app/druid",
 "kafka": "../app/kafka",
 "rocketmq-common": "../app/rocketmq/common",
@@ -52,7 +52,7 @@ docker pull dovely1998/ta_image:alpha
 docker run -it --name ta_test dovely1998/ta_image:alpha /bin/bash
 ```
 
-### 2.2 Set up Ctest4J
+### 2.2 Set up Ctest4J and evaluation scripts
 ```bash
 # clone the Ctest4J repo (need to setup ssh first)
 cd /home/ctestrunner
@@ -61,16 +61,19 @@ git clone git@github.com:xlab-uiuc/ctest4j.git
 # switch to the branch for thesis evaluation
 cd ctest4j
 git checkout auto_annotate
-```
-| Component       | Version  | Verification Command       |  
-|-----------------|----------|----------------------------|  
-| PyTorch         | 2.1.0    | `python -c "import torch; print(torch.__version__)"` |  
-| CUDA Toolkit    | 12.1     | `nvcc --version`           |  
 
+# install Ctest4J
+mvn clean install -DskipTests
+
+# set up evaluation scripts
+mkdir app && cd app
+git clone git@github.com:Dovely-ll/thesis_scripts.git
+```
 
 ### 2.3 Prepare target projects
+Projects can be found in the [ctest-repos](https://github.com/ctest-repos).
 ```bash
-mkdir app && cd app
+# checkout the target project
 git clone {target_project_repo_url}
 
 # checkout the instrumented version
@@ -81,6 +84,9 @@ git checkout ctest-eval
 # prepare snapshot dependencies (for Zeppelin Only, only need the parent POM and zeppelin-common module)
 cd zeppelin && mvn clean install -DskipTests && cd ../../scripts
 ```
+
+---
+
 ## 3. Validation
 ### 3.1 Run Ctest
 ```bash
@@ -89,116 +95,22 @@ cd zeppelin && mvn clean install -DskipTests && cd ../../scripts
 python3 auto_annotate.py {project_name} {test_module} {project_dir} {project_test_dir} {ctest_mapping_dir}
 ```
 
+Running a configuration test is the same as running a normal test, except that the runner needs to be specified as `ConfigTestRunner.class`. The runner can take a few arguments to control the behavior of the test, which are listed below.
+
+### Arguments
+| Arguments            | Description                                                                                                                                                                                                                                                                                                    | Supported Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| mode                 | The mode of running configuration test                                                                                                                                                                                                                                                                         | (1) default: this is the default mode of ctest runner, where the runner first inject the configuration value to the test and checks whether all required configuration paraemters are used after the test execution. (2) checking: this mode only checks whether all required configuration parameters are used, but does not inject configuration value to the test and use default configuration value to run every test. (3) injecting: this mode only injects configuration value to the test but does not check required configuration usage. (4) base: this mode switches back to use a default non-ctest runner to run the test as a normal test, no injecting and checking. |
+| config.inject.dir    | A directory that contains configuration files that under injection for each configuration test class. Each file should named as the same as the configuration test class. Currently JSON and XML files are supported.                                                                                          | Directory path                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| config.inject.cli    | An argument that allows user to set configuration key value pairs directly.                                                                                                                                                                                                                                    | Configuration key value pairs seperated by comma. For example "param1=value1,param2=value2,...,paramN=valueN"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ctest.mapping.dir   | This is a directory that contains all configuration mapping files for each test. Each file name should be the same as the configuration method name. The runner will automatically search for the file under this direcotry if speicified and checks usage accrodingly. The default value is `./ctest/mapping` | Directory path                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ctest.config.save     | For tests with @Test, whether to save the tracked configuration parameter into a JSON file. This is useful when one does not know what configuraiton parameters are used in the test.                                                                                                                          | True / False                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ctest.suite.tracking | Use only with CTestSuiteRunner. With this set to true, @Test would perform normally, track the usage of configuration parameters during the test execution, and save to `ctest.mapping.dir`; otherwise all @Test would also perform like @CTest.                                                               | True / False                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ctest.config.save.dir | The directory to save the tracked configuration parameter. The default value is `./ctest/saved_mapping`
+
 ### 3.2 Run evaluation scripts
 ```bash
 python3 xxx
-```
-
-
-## 3. Data Management  
-### 3.1 Source Data  
-```markdown
-- ​**Primary Dataset**: [Dataset Name]  
-  - Source: [DOI/URL]  
-  - Access: [Public/Restricted]  
-  - File: `data/raw/[filename].csv`
-
-- ​**Supplementary Data**:  
-  ```bash
-  # Download script
-  wget https://example.org/dataset.zip -P data/external/
-  ```
-```
-
-### 3.2 Processed Data  
-```python
-# data_processing.py
-def clean_dataset(input_path: str, output_path: str):
-    """Main data cleaning function"""
-    ...
-```
-
----
-
-## 4. Code Architecture  
-```text
-project-root/
-├── src/
-│   ├── models/
-│   │   └── model.py          # CoreModel class definition
-│   ├── analysis/
-│   │   └── experiment.py    # run_experiment() entry point
-├── notebooks/
-│   └── exploratory/
-│       └── data_analysis.ipynb
-```
-
----
-
-## 5. Execution Workflow  
-### 5.1 Full Reproduction  
-```bash
-# Complete pipeline execution
-python -m src.analysis.experiment \
-  --config configs/main.yaml \
-  --log-dir runs/experiment_1
-```
-
-### 5.2 Component Execution  
-```python
-# Modular execution example
-from src.models.model import CoreModel
-
-model = CoreModel(hidden_size=256)
-model.train(dataset="processed/train.csv")
-```
-
----
-
-## 6. Validation & Testing  
-```bash
-# Run test suite
-pytest tests/ --cov=src --cov-report=html
-
-# Expected output verification
-[Output] Validation accuracy: 0.85 ± 0.02 (mean ± std)
-```
-
----
-
-## 7. Documentation  
-### 7.1 Key Class Relationships  
-```mermaid
-classDiagram
-    CoreModel <|-- ImprovedModel
-    DataLoader --> CoreModel
-    CoreModel : +train()
-    CoreModel : +evaluate()
-```
-
-### 7.2 Parameter Matrix  
-| Parameter       | Training Value | Validation Value |  
-|-----------------|----------------|------------------|  
-| Learning Rate   | 0.001          | 0.0005           |  
-| Batch Size      | 128            | 256              |  
-
----
-
-## 8. Compliance Checklist  
-- [ ] Data citation matches README specifications[1](@ref)  
-- [ ] All analysis files are in open formats (.csv, .txt)[1](@ref)  
-- [ ] Variable labels exist in dataset metadata[1](@ref)  
-- [ ] Codebook matches dataset structure  
-
----
-
-## 9. Troubleshooting  
-> ​**Common Issue**: Dimension mismatch in tensor operations  
-> ​**Solution**: Verify input preprocessing matches model expectations  
-
-```diff
-- input_shape = (256, 256)
-+ input_shape = (224, 224)
 ```
 
 ---
