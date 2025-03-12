@@ -7,10 +7,10 @@
 
 ## 1. Metadata
 ### 1.1 Source Code and Repository
-Ctest4J: [Annotation Library](https://github.com/xlab-uiuc/ctest4j/tree/auto_annotate)
+Ctest4J: [Annotation Library](https://github.com/xlab-uiuc/ctest4j/tree/auto_annotate).
 A Ctest4J module for automatic processing of target projects and running of Ctests.
 
-Ctest-repos: [Target Projects](https://github.com/ctest-repos)
+Ctest-repos: [Target Projects](https://github.com/ctest-repos).
 Contains studied projects with ported and unsuitable ones.
 
 ### 1.2 Projects Studied
